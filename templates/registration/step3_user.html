@@ -6,6 +6,7 @@
 				<!-- column -->
 				<div class="column">
 					<h2><span>Регистрация, шаг 3</span></h2>
+                    <div class="form-register">
                     <fieldset>
                         {% if form.message.errors %}
                             <ul>
@@ -19,11 +20,14 @@
                         <input type='hidden' name='step' value='4' />
                         <input type='hidden' name='role' value='user' />
                         {% csrf_token %}
-                        {{ form.as_p }}
-                        <input type='submit' name='save' value='Зарегистрироваться' />
+                        {% include "snippets/forms.html" %}
+                        <div class="register-wrap">
+                            <input type='submit' class='button' name='save' value='Зарегистрироваться' />
+                        </div>
 
                     </form>
                     </fieldset>
+                    </div>
 				</div>
 				<!-- column -->
 				<div class="column column2">

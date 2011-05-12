@@ -2,18 +2,40 @@
 from datetime import datetime
 
 from django import forms
+from django.forms.models import save_instance
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User, get_hexdigest
 from account.models import CustomUser, Singer, Group, Membership
 
 import re
+import datetime
 alnum_re = re.compile(r'^\w+$') # regexp. from jamesodo in #django
 
 # I put this on all required fields, because it's easier to pick up
 # on them with CSS or JavaScript if they have a class of "required"
 # in the HTML. Your mileage may vary. If/when Django ticket #3515
 # lands in trunk, this will no longer be necessary.
-attrs_dict = { 'class': 'required' }
+attrs_dict = { 'class': 'required, field' }
+now = datetime.datetime.now()
+
+BIRTHDAY_YEARS = ()
+
+for n in range(1920, now.year):
+    BIRTHDAY_YEARS += ((n,n),)
+
+MONTHS = ()
+
+for n in ('Январь',"Февраль","Март","Апрель","Май","Июль","Июнь","Август","Сентябрь","Октябрь","Ноябрь","Декабрь",):
+    MONTHS += ((n,n),)
+
+DAYS = ()
+for n in range(1,31):
+    DAYS += ((n,n),)
+
+DATECREATED_YEARS = ()
+
+for n in range(1980, now.year):
+    DATECREATED_YEARS += ((n,n),)
 
 
 class RegistrationForm(forms.ModelForm):
@@ -29,24 +51,45 @@ class RegistrationForm(forms.ModelForm):
     argument and passes it through to
     ``RegistrationProfile.objects.create_inactive_user()``.
 
+    """
+
+
 
     username = forms.CharField(max_length=30,
                                widget=forms.TextInput(attrs=attrs_dict),
-                               label=_(u'username'))
+                               label=_(u'Творческий псевдоним'))
     email = forms.EmailField(widget=forms.TextInput(attrs=dict(attrs_dict,
                                                                maxlength=75)),
-                             label=_(u'email address'))
+                             label=_(u'Емайл'))
+    first_name = forms.CharField(widget=forms.TextInput(attrs=dict(attrs_dict,
+                                                               maxlength=75)),
+                             label=_(u'Имя'))
+    last_name = forms.CharField(widget=forms.TextInput(attrs=dict(attrs_dict,
+                                                               maxlength=75)),
+                             label=_(u'Фамилия'))
+
+    birthday_year = forms.ChoiceField(
+        widget=forms.Select(attrs={'class' : 'sel-small1'}),
+        choices=BIRTHDAY_YEARS,
+        label=_(u'Дата рождения'))
+    birthday_month = forms.ChoiceField(
+        widget=forms.Select( attrs={'class': 'sel-small1'}, ),
+        choices=MONTHS ,
+        label=_(u'.'))
+    birthday_day = forms.ChoiceField(
+        widget=forms.Select( attrs={'class': 'sel-small1'}, ),
+        choices=DAYS ,
+        label=_(u'.'))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs=attrs_dict, render_value=False),
-                                label=_(u'password'))
+                                label=_(u'Пароль'))
 
     password2 = forms.CharField(widget=forms.PasswordInput(attrs=attrs_dict, render_value=False),
-                                label=_(u'password (again)'))
-    """
+                                label=_(u'Подтвеждение'))
 
-    
     class Meta:
         model = CustomUser
-        exclude = ('is_staff', 'is_superuser', 'status', 'mood', 'is_active', 'last_login', 'date_joined', 'groups', 'user_permissions')
+        fields = ('username', 'first_name', 'last_name', 'sex', 'birthday_year', 'birthday_month', 'birthday_day', 'country',  'region', 'city',  'email',   'password1',  'password2', )
+        # exclude = ('biography', 'is_staff', 'password', 'is_superuser', 'status', 'mood', 'is_active', 'last_login', 'date_joined', 'groups', 'user_permissions')
 
     def clean_username(self):
         """
@@ -71,7 +114,9 @@ class RegistrationForm(forms.ModelForm):
         ``non_field_errors()`` because it doesn't apply to a single
         field.
 
+        ToDo
         """
+        #self.cleaned_data['birthday'] =  "%s.%s.%s"% (self.cleaned_data['birthday_year'],self.cleaned_data['birthday_month'],self.cleaned_data['birthday_day'])
         if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
             if self.cleaned_data['password1'] != self.cleaned_data['password2']:
                 raise forms.ValidationError(_(u'You must type the same password each time'))
@@ -82,61 +127,45 @@ class RegistrationForm(forms.ModelForm):
         import random
         algo = 'sha1'
         salt = get_hexdigest(algo, str(random.random()), str(random.random()))[:5]
-        hsh = get_hexdigest(algo, salt, self.cleaned_data['password'])
+        hsh = get_hexdigest(algo, salt, self.cleaned_data['password1'])
         obj.password = '%s$%s$%s' % (algo, salt, hsh)
-        return obj.save()
-
-
-class SingerRegistrationForm(forms.ModelForm):
-
-    def __init__(self, *args, **kw):
-        super(SingerRegistrationForm, self).__init__(*args, **kw)
-        """
-        self.fields.keyOrder = [
-                'username',
-                'first_name',
-                'last_name',
-                'email',
-                'password',
-        ]
-        """
+        self.cleaned_data['password'] = obj.password
         
+        if self.instance.pk is None:
+            fail_message = 'created'
+        else:
+            fail_message = 'changed'
+
+        return save_instance(self, self.instance, self._meta.fields,
+                             fail_message, commit=True, construct=False)
+
+class SingerRegistrationForm(RegistrationForm):
+
+    date_created_year = forms.ChoiceField(
+        widget=forms.Select(attrs={'class' : 'sel-small1'}),
+        choices=DATECREATED_YEARS,
+        label=_(u'Дата начала деятельности'))
+    date_created_month = forms.ChoiceField(
+        widget=forms.Select( attrs={'class': 'sel-small1'}, ),
+        choices=MONTHS ,
+        label=_(u'.'))
+    date_created_day = forms.ChoiceField(
+        widget=forms.Select( attrs={'class': 'sel-small1'}, ),
+        choices=DAYS ,
+        label=_(u'.'))
+
+    reg_group = forms.ChoiceField(widget=forms.Select(), choices=((0, 'Исполнитель'), (1, 'Группа')), label = 'Регистрируюсь как ?')
+
     class Meta:
         model = Singer
-        exclude = ('is_staff', 'is_superuser', 'status', 'mood', 'is_active', 'last_login', 'date_joined', 'groups', 'user_permissions', 'featuring')
+        fields = ('reg_group', 'username', 'date_created_year', 'date_created_month', 'date_created_day', 'styles', 'first_name', 'last_name', 'sex', 'birthday_year', 'birthday_month', 'birthday_day', 'country',  'region', 'city',  'email',   'password1',  'password2', 'directions')
 
-
-    def clean_username(self):
-        if not alnum_re.search(self.cleaned_data['username']):
-            raise forms.ValidationError(_(u'Usernames can only contain letters, numbers and underscores'))
-        try:
-            user = User.objects.get(username__iexact=self.cleaned_data['username'])
-        except User.DoesNotExist:
-            return self.cleaned_data['username']
-        raise forms.ValidationError(_(u'This username is already taken. Please choose another.'))
-
-    def clean(self):
-        """
-        FIXME
-        Verifiy that the values entered into the two password fields
-        match. Note that an error here will end up in
-        ``non_field_errors()`` because it doesn't apply to a single
-        field.
-
-        """
-        if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
-            if self.cleaned_data['password1'] != self.cleaned_data['password2']:
-                raise forms.ValidationError(_(u'You must type the same password each time'))
-        return self.cleaned_data
 
     def save(self, user):
-        obj = super(SingerRegistrationForm, self).save(commit=False)
-        import random
-        algo = 'sha1'
-        salt = get_hexdigest(algo, str(random.random()), str(random.random()))[:5]
-        hsh = get_hexdigest(algo, salt, self.cleaned_data['password'])
-        obj.password = '%s$%s$%s' % (algo, salt, hsh)
-        return obj.save()
+        # self.directions = [ self.direction, ]
+        r = super(SingerRegistrationForm, self).save(user = user)
+        # r.save_m2m()
+        return r
 
 class GroupRegistrationForm(forms.ModelForm):
 
@@ -157,7 +186,7 @@ class GroupRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = Group
-        exclude = ('users', 'leaders', 'last_login', 'date_joined', 'status', 'mood', 'featuring')
+        exclude = ('singers', 'leaders', 'last_login', 'date_joined', 'status', 'mood', 'featuring', 'directions')
 
 
     def clean_username(self):
@@ -184,12 +213,12 @@ class GroupRegistrationForm(forms.ModelForm):
                 """
         return self.cleaned_data
 
-    def save(self, user):
+    def save(self, singer):
         obj = super(GroupRegistrationForm, self).save(commit=False)
-        obj.date_created = datetime.now()
-        obj.date_joined = datetime.now()
+        obj.date_created = datetime.datetime.now()
+        obj.date_joined = datetime.datetime.now()
         r = obj.save()
-        m1 = Membership(user=user, group=obj, date_joined = datetime.now(), invite_reason = "__")
+        m1 = Membership(singer=singer, group=obj, date_joined = datetime.datetime.now(), invite_reason = "")
         m1.save()
         return r
     

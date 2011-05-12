@@ -1,10 +1,15 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+{% for field in form.visible_fields %}
+    {# Include the hidden fields in the form #}
+    {% if forloop.first %}
+        {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+        {% endfor %}
+    {% endif %}
 
-</body>
-</html>
+    <div class="row">
+        {{ field.errors }}
+        {{ field.label_tag  }}
+        {{ field }}
+    </div>
+{% endfor %}
+<br />

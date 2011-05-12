@@ -5,15 +5,17 @@
 <div class="twocolumns news-wrap wrap">
 				<!-- column -->
 				<div class="column">
-					<h2><span>Регистрация, шаг 2</span></h2>
-					<div class='register'>
-                        <ul>
-                            <li> <a href='/registration/?role=user&step=3'> Как пользователь</a> </li>
-                            {% for direction in direction %}
-                                <li><a href='/registration/?role={{ direction.id }}&step=3'> Как {{ direction.name }}</a></li>
-                            {% endfor %}
-                        </ul>
-					</div>
+                    <div class="box-register">
+                            <h2><span>Регистрация. Шаг 2 из 3</span></h2>
+                            <h4>Вы регистрируетесь....</h4>
+                            <ul class="user-type">
+                                <li class='it1'> <a href='/registration/?role=user&step=3'> Как пользователь</a> </li>
+                                {% for direction in directions %}
+                                    <li class='it{{ direction.id }}'><a href='/registration/?role={{ direction.id }}&step=3'> Как {{ direction.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                    </div>
+
 				</div>
 				<!-- column -->
 				<div class="column column2">

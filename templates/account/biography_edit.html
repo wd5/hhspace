@@ -1,10 +1,29 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %} {{ user }} {% endblock %}
 
-</body>
-</html>
+{%  block content %}
+<!-- twocolumns -->
+<div class="twocolumns news-wrap wrap">
+    <!-- column -->
+    <div class="column">
+                        <h2><span>{{ user }}</span></h2>
+                        {% include "snippets/account_menu.html" %}
+                        <!-- tab box -->
+                        <div class="tab-box" id="tab2" style='position: relative;'>
+                            <form action='/account/biography/edit/' method='post'>
+                                {% csrf_token %}
+                                {% include "snippets/forms.html" %}
+                                <input type='submit' />
+                            </form>
+                            <br />
+                        </div>
+</div>
+    <!-- column -->
+    <div class="column column2">
+        <h2><span>Реклама</span></h2>
+        <div class="box-reklama">
+            <a href="#"><img src="/static/images/img-banner3.jpg" alt="image description" /></a>
+        </div>
+    </div>
+</div>
+{% endblock %}

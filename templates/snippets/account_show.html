@@ -1,10 +1,14 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="widget box-kabinet">
+				<div class="avatar">
+					{% avatar singer %}
+				</div>
+				<div class="kabinet-content">
+					<p>Рад видеть тебя, {{ user.username }}</p>
+					<ul>
+						<li class="it1"><a class="alt" href="#">Личные сообщения</a><a href="#">0</a><em>&nbsp;|&nbsp;</em><a href="#">7</a></li>
+						<li class="it2"><a class="alt" href="#">Закладки</a><a href="#">3</a></li>
+						<li class="it3"><a class="alt" href="/account/edit/">Настройки</a></li>
+						<li class="it4"><a href="#">Выход</a></li>
+					</ul>
+				</div>
+			</div>

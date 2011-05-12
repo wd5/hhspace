@@ -42,8 +42,14 @@ class CityAdmin(admin.ModelAdmin):
 class CustomUserAdmin(UserAdmin):
     list_display = ('username', )
 
+class SingerAdmin(admin.ModelAdmin):
+    list_display = ('username', )
+
 class GroupAdmin(admin.ModelAdmin):
     list_display = ('name', )
+
+class MembershipAdmin(admin.ModelAdmin):
+    list_display = ('group', 'singer',  )
 
 admin.site.register(Direction, DirectionAdmin)
 admin.site.register(Style, StyleAdmin)
@@ -52,4 +58,6 @@ admin.site.register(Region, RegionAdmin)
 admin.site.register(City, CityAdmin)
 admin.site.unregister(User)
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(Singer, SingerAdmin)
 admin.site.register(Group, GroupAdmin)
+admin.site.register(Membership, MembershipAdmin)

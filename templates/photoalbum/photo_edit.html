@@ -1,10 +1,36 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %} Редактирование альбома {% endblock %}
 
-</body>
-</html>
+{%  block content %}
+<div class="twocolumns news-wrap wrap">
+    <!-- column -->
+    <div class="column">
+                        <h2><span>{{ user }}</span></h2>
+                        {% include "snippets/account_menu.html" %}
+                        <!-- tab box -->
+                        <div class="tab-box" id="tab2" style='position: relative;'>
+                        {% if form.message.errors %}
+                            <ul>
+                            {% for error in form.message.errors %}
+                                <li><strong>{{ error }}</strong></li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+
+                    <form enctype="multipart/form-data" method="post" action="/photoalbum/photo/add/album/{{ album.id }}/">
+                        {% csrf_token %}
+                        {% include "snippets/forms.html" %}
+                        <input type='submit' name='save' value='Сохранить' />
+
+                    </form>
+                    </div>
+				</div>
+				<!-- column -->
+				<div class="column column2">
+					<h2><span>Реклама</span></h2>
+					<div class="box-reklama">
+						<a href="#"><img alt="image description" src="images/img-banner4.gif"></a>
+					</div>
+				</div>
+</div>
+{% endblock %}

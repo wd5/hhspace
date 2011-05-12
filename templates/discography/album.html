@@ -1,10 +1,58 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %} {{ user }} {% endblock %}
 
-</body>
-</html>
+{%  block content %}
+<!-- twocolumns -->
+<div class="twocolumns news-wrap wrap">
+    <!-- column -->
+    <div class="column">
+                        <h2><span>{{ user }}</span></h2>
+                        {% include "snippets/account_menu.html" %}
+                        <!-- tab box -->
+                        <div class="tab-box" id="tab2" style='position: relative;'>
+
+                            <div class='edit-box'><a href='/discography/album/edit/{{ album.pk }}/'>Edit</a></div>
+                            {% if album.name %}
+                            <div class='edit-box'> <br /><a href='/discography/track/add/album/{{ album.pk }}/'>Add track</a></div>
+                            {% endif %}
+
+                            <div class="albums-info">
+                                <!-- pict -->
+                                <div class="pict">
+                                    <a href="#"><img src="{{ album.image.url }}" alt="{{ album.name }}" style='width: 160px; height: 160px;' /></a>
+                                </div>
+                                <!-- text -->
+                                <div class="text">
+                                    <h4>{{ album.name }}</h4>
+                                    <p>{{ album.description }}</p>
+                                </div>
+                            </div>
+
+                            <h3>Плейлист</h3>
+                             <!-- playlist -->
+                             <div class="playlist">
+                                <ul>
+                                    {% for track in tracks %}
+                                    <li>
+                                        <strong> {{ forloop.counter }} {{ track.name }} </strong>
+                                        <p>{{ track.perform_by }}</p>
+                                        <p>Музыка: {{ track.music_by }}</p>
+                                        <p>{{ track.city }}</p>
+                                        <p>Права: {{ track.right_to }}</p>
+                                        <p>{{ track.year }} год</p>
+                                        <p>{{ track.duration }}</p>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                             </div>
+                        </div>
+</div>
+    <!-- column -->
+    <div class="column column2">
+        <h2><span>Реклама</span></h2>
+        <div class="box-reklama">
+            <a href="#"><img src="/static/images/img-banner3.jpg" alt="image description" /></a>
+        </div>
+    </div>
+</div>
+{% endblock %}

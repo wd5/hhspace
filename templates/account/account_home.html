@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% block title %} h-hspace mainpage {% endblock %}
+{% load avatar_tags %}
 
 {%  block content %}
 <!-- twocolumns -->
-<div class="twocolumns wrap">
+<div class="twocolumns news-wrap wrap">
     <!-- column -->
     <div class="column">
                         <h2><span>каста</span></h2>
@@ -13,7 +14,8 @@
                             <div class="about">
                                 <div class="pict-hold">
                                     <div class="frame">
-                                        <a href="#"><img src="/static/images/img-4.gif" alt="image description" /></a>
+                                        {% avatar singer %}
+                                        <a href="{% url avatar_change %}">Сменить аватар</a>
                                     </div>
                                     <div class="hold">
                                         <a href="#" class="mail">mail</a>
@@ -26,17 +28,19 @@
                                 </div>
                                 <div class="about-text">
                                     <dl>
-                                        <dt>Название группы:</dt><dd><span><strong>Каста</strong></span></dd>
-                                        <dt>Напраление</dt><dd><span>mc</span></dd>
-                                        <dt>Состав группы:</dt><dd><span>Влади</span>, <span>Хамиль</span>, <span>Шым</span>, <span>Змей</span></dd>
-                                        <dt>Дата начала деятельности:</dt><dd>21.02.2000</dd>
-                                        <dt>Стили:</dt><dd><span>андерграунд</span>, <span>r’n’b</span></dd>
-                                        <dt>Кол-во совместных работ (featurings):</dt><dd><span>884875757575757</span></dd>
-                                        <dt>Ссылка на сайт:</dt><dd><a href="#">www.kasta.ru</a></dd>
-                                        <dt>Страна, Регион:</dt><dd><span>Россия</span>, <span>Южный</span></dd>
-                                        <dt>Город:</dt><dd><span>Ростов-на-Дону</span></dd>
-                                        <dt>На сайте:</dt><dd>1 год и 3 месяца</dd>
-                                        <dt>Последний визит:</dt><dd>20.02.2009</dd>
+                                        <dt>Псевдоним:</dt><dd><span><strong>{{ singer.username }}</strong></span></dd>
+                                        <dt>Напраление:</dt><dd><span>{% for direction in singer.directions.all %} {{ direction }} {% endfor %}</span><span>&nbsp;</span></dd>
+                                        {% if singer.membership_set.all %}
+                                        <dt>Состоит в группе:</dt><dd><span>{% for member in singer.membership_set.all %}{{ member.group }} {% endfor %}</span><span>&nbsp;</span></dd>
+                                        {% endif %}
+                                        <dt>Дата начала деятельности:</dt><dd>{{ singer.date_created|date:"F j, Y"  }}<span>&nbsp;</span></dd>
+                                        <dt>Стили:</dt><dd>{% for style in singer.styles.all %}<span>{{ style }}</span>{% endfor %}<span>&nbsp;</span></dd>
+                                        <dt>Кол-во совместных работ (featurings):</dt><dd><span>{{ singer.featuring }}</span><span>&nbsp;</span></dd>
+                                        <dt>Ссылка на сайт:</dt><dd><a href="http://{{ singer.url }}/" title="{{ singer }}">{{ singer.url }}</a><span>&nbsp;</span></dd>
+                                        <dt>Страна, Регион:</dt><dd><span>{{ singer.country }}</span>, <span>{{ singer.region }}</span><span>&nbsp;</span></dd>
+                                        <dt>Город:</dt><dd><span>{{ singer.city }}</span><span>&nbsp;</span></dd>
+                                        <dt>На сайте:</dt><dd>{{ singer.date_joined|date:"F j, Y" }}<span>&nbsp;</span></dd>
+                                        <dt>Последний визит:</dt><dd>{{ singer.last_visit|date:"F j, Y" }}<span>&nbsp;</span></dd>
                                         <dt>Рейтинг:</dt>
                                         <dd>
                                             <ul class="star">
@@ -46,7 +50,7 @@
                                                 <li class="act-half">star</li>
                                                 <li>star</li>
                                             </ul>
-                                            (проголосовавших: 1343435)
+                                            (проголосовавших: 0)
                                         </dd>
                                     </dl>
                                 </div>
@@ -127,12 +131,12 @@
                                 </div>
                             </div>
                         </div>
-
+</div>
     <!-- column -->
     <div class="column column2">
         <h2><span>Реклама</span></h2>
         <div class="box-reklama">
-            <a href="#"><img src="/static//static/images/img-banner3.jpg" alt="image description" /></a>
+            <a href="#"><img src="/static/images/img-banner3.jpg" alt="image description" /></a>
         </div>
     </div>
 </div>

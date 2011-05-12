@@ -13,6 +13,8 @@ urlpatterns = patterns('',
     }),
     (r'^registration/', include('hhspace.registration.urls')),
     url('^account/', include('hhspace.account.urls')),
+    url('^discography/', include('hhspace.discography.urls')),
+    url('^photoalbum/', include('hhspace.photoalbum.urls')),
     # Example:
     # (r'^hhspace/', include('hhspace.foo.urls')),
 
@@ -21,12 +23,13 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
+    (r'^avatar/', include('hhspace.avatar.urls')),
 
     (r'^static/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': settings.STATIC_ROOT}
     ),
     (r'^media/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': settings.STATIC_ROOT}
+        {'document_root': settings.MEDIA_ROOT}
     ),
 
 )

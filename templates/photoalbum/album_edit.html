@@ -1,12 +1,14 @@
 {% extends "base.html" %}
-{% block title %} Регистрация {% endblock %}
+{% block title %} Редактирование альбома {% endblock %}
 
 {%  block content %}
 <div class="twocolumns news-wrap wrap">
-				<!-- column -->
-				<div class="column">
-					<h2><span>Фотоальбом</span></h2>
-                    <fieldset>
+    <!-- column -->
+    <div class="column">
+                        <h2><span>{{ user }}</span></h2>
+                        {% include "snippets/account_menu.html" %}
+                        <!-- tab box -->
+                        <div class="tab-box" id="tab2" style='position: relative;'>
                         {% if form.message.errors %}
                             <ul>
                             {% for error in form.message.errors %}
@@ -15,13 +17,12 @@
                             </ul>
                         {% endif %}
 
-                    <form action='/photoalbum/edit/' method='post'>
+                    <form enctype="multipart/form-data" method="post" action="/photoalbum/album/edit/">
                         {% csrf_token %}
                         {% include "snippets/forms.html" %}
                         <input type='submit' name='save' value='Сохранить' />
 
                     </form>
-                    </fieldset>
                     </div>
 				</div>
 				<!-- column -->
@@ -31,5 +32,5 @@
 						<a href="#"><img alt="image description" src="images/img-banner4.gif"></a>
 					</div>
 				</div>
-			</div>
+</div>
 {% endblock %}

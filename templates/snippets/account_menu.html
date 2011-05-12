@@ -1,10 +1,12 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="tabset">
+						<ul id="tab-nav">
+							<li><a class="tab {%  block home %}{% endblock %}" href="/account/{{ user.id }}">Главная</a></li>
+							<li><a class="tab {%  block biography %}{% endblock %}" href="/account/biography/">Биография</a></li>
+							<li><a class="tab {%  block disco %}{% endblock %}" href="/discography/">Дискография</a></li>
+							<li><a class="tab {%  block photo %}{% endblock %}" href="/photoalbum/">Фото</a></li>
+							<li><a class="tab {%  block video %}{% endblock %}" href="#tab5">Видео</a></li>
+							<li><a class="tab {%  block audio %}{% endblock %}" href="#tab6">Аудио</a></li>
+							<li><a class="tab {%  block events %}{% endblock %}" href="#tab7">События</a></li>
+							<li><a class="tab {%  block contacts %}{% endblock %}" href="#tab8">Контакты</a></li>
+						</ul>
+</div>

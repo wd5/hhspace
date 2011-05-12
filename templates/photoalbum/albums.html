@@ -10,12 +10,12 @@
                         {% include "snippets/account_menu.html" %}
                         <!-- tab box -->
                         <div class="tab-box" id="tab2" style='position: relative;'>
-                            <div class='edit-box'><a href='/photoalbum/edit/'>Добавить</a></div>
+                            <div class='edit-box'><a href='/photoalbum/album/edit/'>Добавить</a></div>
                             <div class="photo-albums">
                                 <ul>
                                 {% for album in albums %}
                                     <li>
-                                        <a href="/photoalbum/{{ album.id }}/"><img src="{{ album.photos.all.0.image.url }}" alt="{{ album.photos.all.0.name }}" style='width: 160px; height: 160px;' /></a>
+                                        <a href="/photoalbum/album/{{ album.id }}/"><img src="{{ album.photo_set.all.0.image.url }}" alt="{{ album.photo_set.all.0.name }}" style='width: 160px; height: 160px;' /></a>
                                                                     <dl>
                                                                         <dt>Альбом:</dt><dd><strong>{{ album.name }}</strong></dd>
                                                                         <dt>{{ album.city }}{{ album.year }}</dt><dd>&nbsp;</dd>

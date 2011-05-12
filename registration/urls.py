@@ -11,11 +11,13 @@ URLConf to include this URLConf for any URL beginning with
 from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
 
-from registration.views import register
-
 urlpatterns = patterns('',
-                       url('^$', register),
+                       (r'^$', 'registration.views.register'),
+                       (r'^group/$', 'registration.views.register_group'),
                        ('^complete/$', direct_to_template, {
                             'template' : 'registration/complete.html'
+                        }),
+                       ('^group/complete/$', direct_to_template, {
+                            'template' : 'registration/group_complite.html'
                         }),
 )

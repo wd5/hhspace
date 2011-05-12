@@ -1,5 +1,6 @@
 # Django settings for hhspace project.
 
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -16,7 +17,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'hhspace',                      # Or path to database file if using sqlite3.
         'USER': 'root',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
+        'PASSWORD': 'gfhjkm',                  # Not used with sqlite3.
         'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -47,17 +48,17 @@ USE_L10N = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = ''
+# MEDIA_ROOT = ''
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_URL = '/media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+ADMIN_MEDIA_PREFIX = '/admin-media/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'pji53=^!_u4zg$f!fxox#y4d_w#%s&du(#$nlhk%af33gfb$w#'
@@ -74,6 +75,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'hhspace.account.auth_backend.CustomUserModelBackend',
+    'django.debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.auth.backends.ModelBackend'
@@ -83,9 +85,11 @@ CUSTOM_USER_MODEL = 'hhspace.account.CustomUser'
 
 ROOT_URLCONF = 'hhspace.urls'
 
-TEMPLATE_DIRS = ('/home/vladka/hhspace/templates',)
+TEMPLATE_DIRS = ('/home/vladka/hhspace/templates', '/usr/local/lib/python2.7/dist-packages/django-debug-toolbar/debug_toolbar/templates/',)
 STATIC_ROOT = "/home/vladka/hhspace/static/"
 MEDIA_ROOT = "/home/vladka/hhspace/media/"
+
+INTERNAL_IPS = ('127.0.0.1', '192.168.1.5', '10.0.2.15', )
 
 
 INSTALLED_APPS = (
@@ -98,5 +102,22 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'south',
+    'debug_toolbar',
     'hhspace.account',
+    'hhspace.discography',
+    'hhspace.photoalbum',
+    'hhspace.avatar',
+)
+
+DEBUG_TOOLBAR_PANELS = (
+    'debug_toolbar.panels.version.VersionDebugPanel',
+    'debug_toolbar.panels.timer.TimerDebugPanel',
+    'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
+    'debug_toolbar.panels.headers.HeaderDebugPanel',
+    'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+    'debug_toolbar.panels.template.TemplateDebugPanel',
+    'debug_toolbar.panels.sql.SQLDebugPanel',
+    'debug_toolbar.panels.signals.SignalDebugPanel',
+    'debug_toolbar.panels.logger.LoggingPanel',
 )
