@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %} {{ user }} {% endblock %}
+
+{%  block content %}
+<!-- twocolumns -->
+<div class="twocolumns news-wrap wrap">
+    <!-- column -->
+    <div class="column">
+                        <h2><span>{{ user }} - Дискография</span></h2>
+                        {% include "snippets/account_menu.html" %}
+                        <!-- tab box -->
+                        <div class="tab-box" id="tab2" style='position: relative;'>
+                            <div class='edit-box'><a href='/photoalbum/edit/'>Добавить</a></div>
+                            <div class="photo-albums">
+                                <ul>
+                                {% for album in albums %}
+                                    <li>
+                                        <a href="/photoalbum/{{ album.id }}/"><img src="{{ album.photos.all.0.image.url }}" alt="{{ album.photos.all.0.name }}" style='width: 160px; height: 160px;' /></a>
+                                                                    <dl>
+                                                                        <dt>Альбом:</dt><dd><strong>{{ album.name }}</strong></dd>
+                                                                        <dt>{{ album.city }}{{ album.year }}</dt><dd>&nbsp;</dd>
+                                                                        <dt>Создан:</dt><dd>{{ album.date_created }}</dd>
+                                                                        <dt>Обновлен:</dt><dd>{{ album.date_updated }}</dd>
+                                                                        <dt>Кол-во фото:</dt><dd>{{ album.photos }}</dd>
+                                                                    </dl>
+                                    </li>
+                               {% endfor %}
+                               </ul>
+                            </div>
+                        </div>
+</div>
+    <!-- column -->
+    <div class="column column2">
+        <h2><span>Реклама</span></h2>
+        <div class="box-reklama">
+            <a href="#"><img src="/static/images/img-banner3.jpg" alt="image description" /></a>
+        </div>
+    </div>
+</div>
+{% endblock %}

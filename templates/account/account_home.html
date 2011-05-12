@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block title %} h-hspace mainpage {% endblock %}
+
+{%  block content %}
+<!-- twocolumns -->
+<div class="twocolumns wrap">
+    <!-- column -->
+    <div class="column">
+                        <h2><span>каста</span></h2>
+                        {% include "snippets/account_menu.html" %}
+                        <!-- tab box -->
+                        <div class="tab-box" id="tab1">
+                            <div class="about">
+                                <div class="pict-hold">
+                                    <div class="frame">
+                                        <a href="#"><img src="/static/images/img-4.gif" alt="image description" /></a>
+                                    </div>
+                                    <div class="hold">
+                                        <a href="#" class="mail">mail</a>
+                                        <a href="#" class="favourites">favourites</a>
+                                        <dl>
+                                            <dt>Статус:</dt><dd>on-line</dd>
+                                            <dt>Настроение:</dt><dd>отпад</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                                <div class="about-text">
+                                    <dl>
+                                        <dt>Название группы:</dt><dd><span><strong>Каста</strong></span></dd>
+                                        <dt>Напраление</dt><dd><span>mc</span></dd>
+                                        <dt>Состав группы:</dt><dd><span>Влади</span>, <span>Хамиль</span>, <span>Шым</span>, <span>Змей</span></dd>
+                                        <dt>Дата начала деятельности:</dt><dd>21.02.2000</dd>
+                                        <dt>Стили:</dt><dd><span>андерграунд</span>, <span>r’n’b</span></dd>
+                                        <dt>Кол-во совместных работ (featurings):</dt><dd><span>884875757575757</span></dd>
+                                        <dt>Ссылка на сайт:</dt><dd><a href="#">www.kasta.ru</a></dd>
+                                        <dt>Страна, Регион:</dt><dd><span>Россия</span>, <span>Южный</span></dd>
+                                        <dt>Город:</dt><dd><span>Ростов-на-Дону</span></dd>
+                                        <dt>На сайте:</dt><dd>1 год и 3 месяца</dd>
+                                        <dt>Последний визит:</dt><dd>20.02.2009</dd>
+                                        <dt>Рейтинг:</dt>
+                                        <dd>
+                                            <ul class="star">
+                                                <li class="act">star</li>
+                                                <li class="act">star</li>
+                                                <li class="act">star</li>
+                                                <li class="act-half">star</li>
+                                                <li>star</li>
+                                            </ul>
+                                            (проголосовавших: 1343435)
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <h3>ДОПОЛНИТЕЛЬНОЕ НАПРАВЛЕНИЕ</h3>
+                            <div class="additional">
+                                <dl>
+                                    <dt>Название или псевдоним:</dt><dd>Влади</dd>
+                                    <dt>Напраление</dt><dd><span>Напраление:</span></dd>
+                                    <dt>Стили:</dt><dd><span>андерграунд</span>, <span>r’n’b</span></dd>
+                                    <dt>Дата начала деятельности:</dt><dd>21.02.2000</dd>
+                                </dl>
+                            </div>
+                            <h3>ПОСЛЕДНЕЕ ФОТО</h3>
+                            <!-- last photo -->
+                            <div class="last-photo">
+                                <ul>
+                                    <li>
+                                        <div class="frame">
+                                            <a href="#"><img src="/static/images/img-5.jpg" width="221" height="145" alt="image description" /></a>
+                                        </div>
+                                        <a href="#">Про Макса</a>
+                                    </li>
+                                    <li>
+                                        <div class="frame">
+                                            <a href="#"><img src="/static/images/img-6.jpg" width="221" height="145" alt="image description" /></a>
+                                        </div>
+                                        <a href="#">Про Грина</a>
+                                    </li>
+                                </ul>
+                                <a href="#" class="more-link">Еще фото</a>
+                            </div>
+                            <h3>ПОСЛЕДНЕЕ ВИДЕО</h3>
+                            <!-- last photo -->
+                            <div class="last-photo">
+                                <ul>
+                                    <li>
+                                        <div class="frame">
+                                            <a href="#"><img src="/static/images/img-7.jpg" width="221"  alt="image description" /></a>
+                                        </div>
+                                        <a href="#">Про Макса</a>
+                                    </li>
+                                    <li>
+                                        <div class="frame">
+                                            <a href="#"><img src="/static/images/img-7.jpg" width="221"  alt="image description" /></a>
+                                        </div>
+                                        <a href="#">Про Грина</a>
+                                    </li>
+                                </ul>
+                                <a href="#" class="more-link">Еще видео</a>
+                            </div>
+                            <h3>ПОХОЖИЕ ИСПОЛНИТЕЛИ</h3>
+                            <!-- galley -->
+                            <div class="gallery-video">
+                                <a class="prev" href="#">previous</a>
+                                <a class="next active" href="#">next</a>
+                                <div class="wrap">
+                                    <ul>
+                                        <li>
+                                            <div class="video">
+                                                <a href="#"><img src="/static/images/img-video4.gif" width="136" height="96" alt="video description" /></a>
+                                            </div>
+                                            <p><a href="#">Смоки Мо</a></p>
+                                        </li>
+                                        <li>
+                                            <div class="video">
+                                                <a href="#"><img src="/static/images/img-video4.gif" width="136" height="96" alt="video description" /></a>
+                                            </div>
+                                            <p><a href="#">Отрицательное Влияние</a></p>
+                                        </li>
+                                        <li>
+                                            <div class="video">
+                                                <a href="#"><img src="/static/images/img-video4.gif" width="136" height="96" alt="video description" /></a>
+                                            </div>
+                                            <p><a href="#">Skrip</a></p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+    <!-- column -->
+    <div class="column column2">
+        <h2><span>Реклама</span></h2>
+        <div class="box-reklama">
+            <a href="#"><img src="/static//static/images/img-banner3.jpg" alt="image description" /></a>
+        </div>
+    </div>
+</div>
+{% endblock %}
