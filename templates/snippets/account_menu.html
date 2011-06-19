@@ -1,12 +1,15 @@
 <div class="tabset">
 						<ul id="tab-nav">
-							<li><a class="tab {%  block home %}{% endblock %}" href="/account/{{ user.id }}">Главная</a></li>
-							<li><a class="tab {%  block biography %}{% endblock %}" href="/account/biography/">Биография</a></li>
-							<li><a class="tab {%  block disco %}{% endblock %}" href="/discography/">Дискография</a></li>
-							<li><a class="tab {%  block photo %}{% endblock %}" href="/photoalbum/">Фото</a></li>
-							<li><a class="tab {%  block video %}{% endblock %}" href="#tab5">Видео</a></li>
-							<li><a class="tab {%  block audio %}{% endblock %}" href="#tab6">Аудио</a></li>
-							<li><a class="tab {%  block events %}{% endblock %}" href="#tab7">События</a></li>
-							<li><a class="tab {%  block contacts %}{% endblock %}" href="#tab8">Контакты</a></li>
+							<li><a class="tab {{ home_tab }}" href="{{ profile.get_absolute_url }}">Главная</a></li>
+							<li><a class="tab {{ biography_tab }}" href="{{ profile.get_absolute_url }}/biography/">Биография</a></li>
+                            {% if profile.issinger %}
+                                <li><a class="tab {{ disco_tab }}" href="{{ profile.get_absolute_url }}/discography/">Дискография</a></li>
+                                <li><a class="tab {{ photo_tab }}" href="{{ profile.get_absolute_url }}/photoalbum/">Фото</a></li>
+                                <li><a class="tab {{ video_tab }}" href="{{ profile.get_absolute_url }}/video/">Видео</a></li>
+                                <li><a class="tab {{ audio_tab }}" href="{{ profile.get_absolute_url }}/audio/">Аудио</a></li>
+                            {% endif %}
+                            <li><a class="tab {{ event_tab }}" href="#tab7">События</a></li>
+                            <li><a class="tab {{ contact_tab }}" href="#tab8">Контакты</a></li>
+
 						</ul>
 </div>

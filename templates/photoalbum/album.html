@@ -1,92 +1,166 @@
 {% extends "base.html" %}
 {% block title %} {{ user }} {% endblock %}
 
-<link rel="stylesheet" type="text/css" href="/static/css/bx_styles.css" />
-<script type="text/javascript" src="/static/js/jquery.bxSlider.min.js"></script>
-<script type="text/javascript" src="/static/js/jquery.easing.1.3.js"></script>
 
-{%  block content %}
-<!-- twocolumns -->
-<div class="twocolumns news-wrap wrap">
-    <!-- column -->
-    <div class="column">
-                        <h2><span>{{ user }}</span></h2>
-                        {% include "snippets/account_menu.html" %}
-                        <!-- tab box -->
-                        <div class="tab-box" id="tab2" style='position: relative;'>
+{% block content %}
 
-                            <div class='edit-box'><a href='/discography/album/edit/{{ album.pk }}/'>Edit</a></div>
-                            {% if album.name %}
-                            <div class='edit-box'> <br /><a href='/photoalbum/photo/add/album/{{ album.pk }}/'>Add photo</a></div>
-                            {% endif %}
+    <link rel='stylesheet' type='text/css' href='/static/css/jquery.jcarousel.css'/>
+    <script type='text/javascript' src='/static/js/jquery.jcarousel.pack.js'></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#mycarousel').jcarousel();
 
-                            <div class="main-photo">
-						        <div class="name-photo">
-							        <a href="/photoalbum/album/{{ album.pk }}/">К альбомам</a>
-							        <strong>{{ album.name }} - {{ photos.0.name }}</strong>
-						        </div>
+            $('.showimg').click(
+                    function() {
+                        // see if sam   e thumb is being clicked
+                        if ($(this).attr("class") == 'active') {
+                            return;
+                        }
+                        id = $(this).attr('id');
 
-                                <div class="pict-hold"><img src="{{ photo.image.url }}" alt="{{ photo.name }}"></div>
-						            <div class="info-photo">
-							            <a href="#comment">Комментировать</a>
-							            <p>Загружено: {{ photo.name }} <br>Описание: {{ photo.description }}</p>
-						            </div>
-					            </div>
-                                <img src='{{ photo.image.url }}' />
-                                {{ photo.name }}
+                        // calclulate large image's URL based on the thumbnail URL (flickr specific)
+                        var url = $(this).attr("src");
 
-                            <h3>ЕЩЕ ФОТО</h3>
-					<!-- galley -->
-					<div class="gallery-video">
-						<a class="prev" href="#">previous</a>
-						<a class="next active" href="#">next</a>
-						<div class="wrap">
-							<ul>
-                                 {% for photo in photos %}
-								<li>
-									<div class="video">
-										<a href="#"><img src="{{ photo.image.url }}" alt="{{ photo.name }}"></a>
-									</div>
-									<p><a href="#">{{ photo.name }}</a></p>
-								</li>
-                                {% endfor %}
-							</ul>
-						</div>
-					</div>
-					<div class="comments-wrap">
-						<!-- box comment -->
-						<div class="box-comment wrap">
-							<div class="avatar">
-								<a href="#"><img alt="avatar description" src="images/img-avatar.jpg"></a>
-							</div>
-							<div class="box-comment-hold wrap">
-								<div class="heading wrap">
-									<strong><a href="#">Junior</a></strong>
-									<span>21.03.09</span>
-								</div>
-								<div class="text-comment">
-									<p>Отличная фотка</p>
-								</div>
-								<div class="wrap">
-									<ul>
-										<li><a href="#">Ответить</a></li>
-										<li><a href="#">Цитата</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
+                        // get handle to element that wraps the image and make it semi-transparent
+                        var wrap_id = "#image_wrap";
+                        var wrap = $(wrap_id).fadeTo("medium", 0.5);
 
-                        <br />
-                        <br />
+                        // the large image from www.flickr.com
+                        var img = new Image();
+
+                        // call this function after it's loaded
+                        img.onload = function() {
+
+                            // make wrapper fully visible
+                            wrap.fadeTo("fast", 1);
+
+                            // change the image
+                            wrap.find("img").attr("src", url);
+
+                        };
+
+                        img.src = url;
+
+                        // activate item
+                        var item = 'item' + id;
+                        $(item).removeClass("active");
+
+                        return false;
+
+
+                        // when page loads simulate a "click" on the first image
+                    });
+
+        });
+    </script>
+
+    <!-- twocolumns -->
+    <div class="twocolumns news-wrap wrap">
+        <!-- column -->
+        <div class="column">
+            <h2><span>{{ user }}</span></h2>
+            {% include "snippets/account_menu.html" %}
+            <!-- tab box -->
+            <div class="tab-box" id="tab2" style='position: relative;'>
+
+                {% autoescape off %}
+                    {{ editurl }}
+                {% endautoescape %}
+            
+                <div class="main-photo">
+                    <div class="name-photo">
+                        <strong>{{ album.name }} - {{ photos.0.name }}</strong>
+                    </div>
+
+                    <div class="pict-hold bx-wrapper" id='image_wrap'><img src="{{ photos.0.image.url }}"
+                                                                           alt="{{ photos.0.name }}" style='width: 400px'></div>
+                    <div class="info-photo">
+                        <a href="#comment">Комментировать</a>
+
+                        <p>Загружено: {{ photos.0.create_date }} <br>Описание: {{ photos.0.description }}</p>
+                    </div>
+                </div>
+
+                <h3>ЕЩЕ ФОТО</h3>
+                <!-- galley -->
+                <div class="gallery-video jcarousel-container">
+                    <span id="prevBtn" class='jcarousel-prev'><a class="prev"
+                                                                 href="javascript:void(0)">previous</a></span>
+                    <span id="nextBtn" class='jcarousel-next'><a class="next" href="javascript:void(0)">next</a></span>
+                    <div class="wrap video-range jcarousel-clip jcarousel-clip-horizontal">
+                        <ul id='mycarousel'>
+                            {% for photo in photos %}
+                                <li>
+                                    <div class="video">
+                                        <a href="#"><img src="{{ photo.image.url }}" id="item{{ photo.pk }}"
+                                                         class='showimg' alt="{{ photo.name }}"
+                                                         style='width: 135px; height: 135px;'></a>
+                                    </div>
+                                    <p><a href="#">{{ photo.name }}</a></p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="comments-wrap">
+                    <!-- box comment -->
+                    {% for comment in comments %}
+                        <div class="box-comment wrap">
+                            <div class="avatar">
+                                <a href="{{ comment.user.get_absolute_url }}"><img alt="{{ comment.user }}"
+                                                                                   src="{{ comment.user.get_avatar_thumb  }}"></a>
+                            </div>
+                            <div class="box-comment-hold wrap">
+                                <div class="heading wrap">
+                                    <strong><a href="{{ comment.user.get_absolute_url }}">{{ comment.user.username }}</a></strong>
+                                    <span>{{ comment.date_created|date:"F j, Y" }}</span>
+                                </div>
+                                <div class="text-comment">
+                                    <p>{{ comment.text }}</p>
+                                </div>
+                                <div class="wrap">
+                                    <ul>
+                                        <li><a href="#">Ответить</a></li>
+                                        <li><a href="#">Цитата</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-</div>
-    <!-- column -->
-    <div class="column column2">
-        <h2><span>Реклама</span></h2>
-        <div class="box-reklama">
-            <a href="#"><img src="/static/images/img-banner3.jpg" alt="image description" /></a>
+                    {% endfor %}
+
+
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    {% if user.pk %}
+                    <div class='leavecomment'  id='comment'>
+
+                        <form action="{{ commenturl }}" method='post'>
+
+                            <fieldset class='form-register form-register2'>
+                                {% csrf_token %}
+                                {% include "snippets/forms.html" %}
+                                <div class="register-wrap">
+                                    <input class="button" type="submit" value="Добавить" id="submit"/>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <br/>
+                <br/>
+            </div>
+        </div>
+        <!-- column -->
+        <div class="column column2">
+            <h2><span>Реклама</span></h2>
+
+            <div class="box-reklama">
+                <a href="#"><img src="/static/images/img-banner3.jpg" alt="image description"/></a>
+            </div>
         </div>
     </div>
-</div>
 {% endblock %}

@@ -3,7 +3,7 @@ from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, redirect
 from django.core.context_processors import csrf
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login, authenticate
 from account.models import Singer
 
 from hhspace.account.models import Direction
@@ -30,7 +30,7 @@ def register(request):
                 if form.is_valid():
                     form.save(request.user)
 
-                    user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
+                    user = authenticate(username=form.cleaned_data['email'], password=form.cleaned_data['password1'])
                     if user and user.is_active:
                         login(request, user)
 

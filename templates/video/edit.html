@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %} Редактирование видео записи {% endblock %}
+
+{% block content %}
+    <div class="twocolumns news-wrap wrap">
+        <!-- column -->
+        <div class="column">
+            <h2><span>Добавление видео</span></h2>
+            {% include "snippets/account_menu.html" %}
+            <!-- tab box -->
+            <div class="tab-box" id="tab2" style='position: relative;'>
+
+                <form id="upload_form" action="{{ formurl }}" method="post" enctype="multipart/form-data"
+                      accept-charset="utf-8" name="upload_form">
+
+                    <div class="form-register form-alfa" style='width: 290px; margin: auto;'>
+                        {% if form.file.errors %}<p>{{ form.file.errors }}</p>{% endif %}
+                        <fieldset>
+                            
+                            <div id="progress_container">
+                                    <div id="progress_filename"></div>
+                                    <div id="progress_bar">
+                                        <div id="progress_indicator"></div>
+                                    </div>
+                            </div>
+                            {% include 'snippets/forms.html' %}
+
+                            <div class="register-wrap">
+                                    <input class="button" type="submit" value="Добавить" id="submit"/>
+									<input type="checkbox" id="m" class="cb">
+									<label class="l-cb" for="m">Поставить последним</label>
+							</div>
+
+                            <p>Вы можете загрузить до 50 файлов, размер каждого до 1 Гб</p>
+                        </fieldset>
+                    </div>
+                    {% csrf_token %}
+                    {% if form.file.errors %}<p>{{ form.notes.errors }}</p>{% endif %}
+                </form>
+
+
+            </div>
+        </div>
+        <!-- column -->
+        <div class="column column2">
+            <h2><span>Реклама</span></h2>
+
+            <div class="box-reklama">
+                <a href="#"><img alt="image description" src="/static/images/img-banner4.gif"></a>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/jquery.uploadProgress.js" type="text/javascript"></script>
+
+
+    <script type="text/javascript" charset="utf-8">
+        //<![CDATA[
+        $(document).ready(function() {
+            $(function() {
+                $('#upload_form').uploadProgress({
+                            jqueryPath: "/static/js/jquery.min.js",
+                            progressBar: '#progress_indicator',
+                            progressUrl: '{% url video_upload_progress %}',
+                            start: function() {
+                                // $("#upload_form").hide();
+                                filename = $("#id_video").val().split(/[\/\\]/).pop();
+                                $("#progress_filename").html('Uploading ' + filename + "...");
+                                $("#progress_container").show();
+                            },
+                            uploadProgressPath: "/static/js/jquery.uploadProgress.js",
+                            uploading: function(upload) {
+                                if (upload.percents == 100) {
+                                    window.clearTimeout(this.timer);
+                                    $("#progress_filename").html('Processing ' + filename + "...");
+                                } else {
+                                    $("#progress_filename").html('Uploading ' + filename + ': ' + upload.percents + '%');
+                                }
+                            },
+                            interval: 1000
+                        });
+            });
+        });
+        //]]>
+    </script>
+{% endblock %}

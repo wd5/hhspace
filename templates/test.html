@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+        <head>
+                <title>ajaxFileUpload</title>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                <script src="http://hhspace.loc/static/js/jquery.min.js"></script>
+                <script src="http://hhspace.loc/static/js/jquery.uploadProgress.js"></script>                                                                                                                 
+                <script type="text/javascript">
+                        $(function() {
+                                $('form').uploadProgress({
+                                        /* scripts locations for safari */
+                                        jqueryPath: "../lib/jquery.js",
+                                        uploadProgressPath: "../jquery.uploadProgress.js",
+                                        start:function(){},
+                                        uploading: function(upload) {$('#percents').html(upload.percents+'%');},
+                                        interval: 2000
+                            });
+                        });
+                </script>
+                <style type="text/css">
+                        .bar {
+                          width: 300px;
+                        }
+
+                        #progress {
+                          background: #eee;
+                          border: 1px solid #222;
+                          margin-top: 20px;
+                        }
+                        #progressbar {
+                          width: 0px;
+                          height: 24px;
+                          background: #333;
+                        }
+                </style>
+        </head>
+
+        <body>
+          <form id="upload" enctype="multipart/form-data" action="/audio/upload" method="post">
+        <input name="file" type="file"/>
+        <input type="submit" value="Upload"/>
+      </form>
+
+            <div id="uploading">
+              <div id="progress" class="bar">
+                <div id="progressbar">&nbsp;</div>
+              </div>
+            </div>
+                <div id="percents"></div>
+        </body>
+</html>
+<div class="row">
+                                {{ form.audio.errors }}
+                                <label>Загрузить файл</label>
+                                <input type="file" name="audio" id="id_audio" size='20'/>
+
+                                <div id="progress_container">
+                                    <div id="progress_filename"></div>
+                                    <div id="progress_bar">
+                                        <div id="progress_indicator"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                {{ form.artist.errors }}
+                                <label>Исполнитель</label>
+                                <input id="id_artist" type="text" name="artist" maxlength="150" class='field'/>
+                            </div>
+                            <div class="row">
+                                {{ form.name.errors }}
+                                <label>Название</label>
+                                <input id="id_name" type="text" name="name" maxlength="150" class='field'/>
+                            </div>
+                            <div class="row">
+                                {{ form.music_author.errors }}
+                                <label>Автор музыки</label>
+                                <input id="id_music_author" type="text" name="music_author" maxlength="150"
+                                       class='field'/>
+                            </div>
+                            <div class="row">
+                                <div class="row-block">
+                                    {{ form.year.errors }}
+                                    <label>Год</label>
+                                    <select name="year" id="id_year" class='sel-data'>
+                                        <option value="2000" selected="selected">2000</option>
+                                        <option value="2001">2001</option>
+                                        <option value="2002">2002</option>
+                                        <option value="2003">2003</option>
+                                        <option value="2004">2004</option>
+                                        <option value="2005">2005</option>
+                                        <option value="2006">2006</option>
+                                        <option value="2007">2007</option>
+                                        <option value="2008">2008</option>
+                                        <option value="2009">2009</option>
+                                        <option value="2010">2010</option>
+                                        <option value="2011">2011</option>
+                                    </select>
+                                </div>
+                                <div class="row-block2">
+                                    {{ form.right_to.errors }}
+                                    <label>Права</label>
+                                    <input id="id_right_to" type="text" name="right_to" maxlength="150" class='field'
+                                           style='width: 168px'/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                {{ form.description.errors }}
+                                <label>Описание</label>
+                                <textarea id="id_description" rows="4" cols="4" name="description"></textarea>
+                            </div>
+
+<br />
+<br />
+<div id='progressbar' style='width: 5px; background: #e5d3c5; height: 10px;'> </div>
+
+
+                            <script>
+function test() {
+
+alert('text');
+jQuery.ajax({
+        type: "GET",
+        url: "http://hhspace.loc/",
+        done: function(upload) {
+            alert('done');
+        },
+        then: function(upload) {
+            alert('then');
+        },
+        complete: function() {
+            alert('complete');
+        },
+        success: function() {
+            alert('success');
+        }
+    });
+}
+
+// options.timer = window.setInterval(function() { test() }, 4000);
+</script>
+<a href='#' onclick='test()'> click </a>

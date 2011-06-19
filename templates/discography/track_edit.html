@@ -17,11 +17,14 @@
                             </ul>
                         {% endif %}
 
-                    <form method="post" action="/discography/track/add/album/{{ album.id }}/">
+                    <form enctype="multipart/form-data" method="post" action="{{ formurl }}">
+                    <fieldset class='form-register form-register2'>
                         {% csrf_token %}
                         {% include "snippets/forms.html" %}
-                        <input type='submit' name='save' value='Добавить' />
-
+                        <div class="register-wrap">
+                            <input class="button" type="submit" value="Добавить" id="submit"/>
+                        </div>
+                    </fieldset>
                     </form>
                     </div>
 				</div>

@@ -17,7 +17,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'hhspace',                      # Or path to database file if using sqlite3.
         'USER': 'root',                      # Not used with sqlite3.
-        'PASSWORD': 'gfhjkm',                  # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -58,7 +58,7 @@ MEDIA_URL = '/media/'
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/admin-media/'
+ADMIN_MEDIA_PREFIX = '/media/admin/'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'pji53=^!_u4zg$f!fxox#y4d_w#%s&du(#$nlhk%af33gfb$w#'
@@ -67,21 +67,27 @@ SECRET_KEY = 'pji53=^!_u4zg$f!fxox#y4d_w#%s&du(#$nlhk%af33gfb$w#'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
+    'django.template.loaders.app_directories.load_template_source',
 #     'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
+#    'hhspace.account.auth_backend.CustomUserModelBackend',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'hhspace.account.auth_backend.CustomUserModelBackend',
-    'django.debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django.contrib.auth.backends.ModelBackend',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.contrib.auth.backends.ModelBackend'
 )
 
-CUSTOM_USER_MODEL = 'hhspace.account.CustomUser'
+AUTHENTICATION_BACKENDS = (
+    'hhspace.account.auth_backend.CustomUserModelBackend',
+)
+
+CUSTOM_USER_MODEL = 'account.CustomUser'
+
 
 ROOT_URLCONF = 'hhspace.urls'
 
@@ -89,7 +95,7 @@ TEMPLATE_DIRS = ('/home/vladka/hhspace/templates', '/usr/local/lib/python2.7/dis
 STATIC_ROOT = "/home/vladka/hhspace/static/"
 MEDIA_ROOT = "/home/vladka/hhspace/media/"
 
-INTERNAL_IPS = ('127.0.0.1', '192.168.1.5', '10.0.2.15', )
+INTERNAL_IPS = ('127.0.0.1', '192.168.1.5', '10.0.0.2', )
 
 
 INSTALLED_APPS = (
@@ -104,10 +110,15 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'south',
     'debug_toolbar',
+    'hhspace.photoalbum',
     'hhspace.account',
     'hhspace.discography',
-    'hhspace.photoalbum',
     'hhspace.avatar',
+    'hhspace.audio',
+    'hhspace.video',
+    'hhspace.group',
+    'hhspace.utils',
+    'hhspace.content',
 )
 
 DEBUG_TOOLBAR_PANELS = (
@@ -121,3 +132,12 @@ DEBUG_TOOLBAR_PANELS = (
     'debug_toolbar.panels.signals.SignalDebugPanel',
     'debug_toolbar.panels.logger.LoggingPanel',
 )
+
+import logging
+
+LOG_FILENAME = '/home/vladka/hhspace/log/app.log'
+logging.basicConfig(filename=LOG_FILENAME,level=logging.DEBUG)
+
+AUTO_GENERATE_AVATAR_SIZES = (90, 110, )
+
+patch = {'FFMPEG': '/usr/local/bin/ffmpeg', 'QT-FASTSTART': '/usr/bin/qt-faststart'}

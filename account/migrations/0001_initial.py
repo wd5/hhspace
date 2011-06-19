@@ -7,168 +7,28 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+       return ''
         
-        # Adding model 'Direction'
-        db.create_table('account_direction', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-        ))
-        db.send_create_signal('account', ['Direction'])
-
-        # Adding model 'Style'
-        db.create_table('account_style', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-        ))
-        db.send_create_signal('account', ['Style'])
-
-        # Adding model 'Country'
-        db.create_table('account_country', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-        ))
-        db.send_create_signal('account', ['Country'])
-
-        # Adding model 'Region'
-        db.create_table('account_region', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('county', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['account.Country'])),
-        ))
-        db.send_create_signal('account', ['Region'])
-
-        # Adding model 'City'
-        db.create_table('account_city', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('region', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['account.Region'])),
-        ))
-        db.send_create_signal('account', ['City'])
-
-        # Adding model 'Category'
-        db.create_table('account_category', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-        ))
-        db.send_create_signal('account', ['Category'])
-
-        # Adding model 'CustomUser'
-        db.create_table('account_customuser', (
-            ('user_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, primary_key=True)),
-            ('country', self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['account.Country'])),
-            ('region', self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['account.Region'])),
-            ('city', self.gf('django.db.models.fields.related.ForeignKey')(default=1, to=orm['account.City'])),
-            ('sex', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('status', self.gf('django.db.models.fields.CharField')(default='', max_length=50, blank=True)),
-            ('mood', self.gf('django.db.models.fields.CharField')(default='', max_length=50, blank=True)),
-            ('url', self.gf('django.db.models.fields.URLField')(default='', max_length=100, blank=True)),
-            ('biography', self.gf('django.db.models.fields.TextField')(default='', blank=True)),
-        ))
-        db.send_create_signal('account', ['CustomUser'])
-
-        # Adding model 'Singer'
-        db.create_table('account_singer', (
-            ('customuser_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['account.CustomUser'], unique=True, primary_key=True)),
-            ('featuring', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('index', self.gf('django.db.models.fields.CharField')(max_length=20, blank=True)),
-        ))
-        db.send_create_signal('account', ['Singer'])
-
-        # Adding M2M table for field directions on 'Singer'
-        db.create_table('account_singer_directions', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('singer', models.ForeignKey(orm['account.singer'], null=False)),
-            ('direction', models.ForeignKey(orm['account.direction'], null=False))
-        ))
-        db.create_unique('account_singer_directions', ['singer_id', 'direction_id'])
-
-        # Adding M2M table for field styles on 'Singer'
-        db.create_table('account_singer_styles', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('singer', models.ForeignKey(orm['account.singer'], null=False)),
-            ('style', models.ForeignKey(orm['account.style'], null=False))
-        ))
-        db.create_unique('account_singer_styles', ['singer_id', 'style_id'])
-
-        # Adding model 'Group'
-        db.create_table('account_group', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('date_joined', self.gf('django.db.models.fields.DateTimeField')()),
-            ('last_login', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=150)),
-            ('country', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['account.Country'])),
-            ('region', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['account.Region'])),
-            ('city', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['account.City'])),
-            ('leaders', self.gf('django.db.models.fields.CommaSeparatedIntegerField')(max_length=255, blank=True)),
-            ('date_created', self.gf('django.db.models.fields.DateField')(blank=True)),
-            ('featuring', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('status', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
-            ('mood', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
-        ))
-        db.send_create_signal('account', ['Group'])
-
-        # Adding M2M table for field styles on 'Group'
-        db.create_table('account_group_styles', (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('group', models.ForeignKey(orm['account.group'], null=False)),
-            ('style', models.ForeignKey(orm['account.style'], null=False))
-        ))
-        db.create_unique('account_group_styles', ['group_id', 'style_id'])
-
-        # Adding model 'Membership'
-        db.create_table('account_membership', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('singer', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['account.Singer'])),
-            ('group', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['account.Group'])),
-            ('date_joined', self.gf('django.db.models.fields.DateField')(blank=True)),
-            ('invite_reason', self.gf('django.db.models.fields.CharField')(max_length=160, blank=True)),
-        ))
-        db.send_create_signal('account', ['Membership'])
-
 
     def backwards(self, orm):
+       return ''
         
-        # Deleting model 'Direction'
-        db.delete_table('account_direction')
-
-        # Deleting model 'Style'
-        db.delete_table('account_style')
-
-        # Deleting model 'Country'
-        db.delete_table('account_country')
-
-        # Deleting model 'Region'
-        db.delete_table('account_region')
-
-        # Deleting model 'City'
-        db.delete_table('account_city')
-
-        # Deleting model 'Category'
-        db.delete_table('account_category')
-
-        # Deleting model 'CustomUser'
-        db.delete_table('account_customuser')
-
-        # Deleting model 'Singer'
-        db.delete_table('account_singer')
-
-        # Removing M2M table for field directions on 'Singer'
-        db.delete_table('account_singer_directions')
-
-        # Removing M2M table for field styles on 'Singer'
-        db.delete_table('account_singer_styles')
-
-        # Deleting model 'Group'
-        db.delete_table('account_group')
-
-        # Removing M2M table for field styles on 'Group'
-        db.delete_table('account_group_styles')
-
-        # Deleting model 'Membership'
-        db.delete_table('account_membership')
-
-
     models = {
+        'account.audio': {
+            'Meta': {'ordering': "['-timestamp', 'order']", 'object_name': 'Audio'},
+            'artist': ('django.db.models.fields.CharField', [], {'max_length': '150'}),
+            'audio': ('django.db.models.fields.files.FileField', [], {'default': "''", 'max_length': '100'}),
+            'description': ('django.db.models.fields.TextField', [], {'default': "''"}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'music_author': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '150', 'blank': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '150', 'blank': 'True'}),
+            'order': ('django.db.models.fields.PositiveIntegerField', [], {'default': '1'}),
+            'right_to': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '150', 'blank': 'True'}),
+            'singer': ('django.db.models.fields.related.ForeignKey', [], {'default': '1', 'to': "orm['account.Singer']"}),
+            'timestamp': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'auto_now_add': 'True', 'blank': 'True'}),
+            'words_author': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '150', 'blank': 'True'}),
+            'year': ('django.db.models.fields.PositiveIntegerField', [], {'default': '2000'})
+        },
         'account.category': {
             'Meta': {'object_name': 'Category'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -188,6 +48,7 @@ class Migration(SchemaMigration):
         'account.customuser': {
             'Meta': {'object_name': 'CustomUser', '_ormbases': ['auth.User']},
             'biography': ('django.db.models.fields.TextField', [], {'default': "''", 'blank': 'True'}),
+            'birthday': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'city': ('django.db.models.fields.related.ForeignKey', [], {'default': '1', 'to': "orm['account.City']"}),
             'country': ('django.db.models.fields.related.ForeignKey', [], {'default': '1', 'to': "orm['account.Country']"}),
             'mood': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '50', 'blank': 'True'}),
@@ -202,30 +63,32 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        'account.group': {
-            'Meta': {'object_name': 'Group'},
-            'city': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['account.City']"}),
-            'country': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['account.Country']"}),
-            'date_created': ('django.db.models.fields.DateField', [], {'blank': 'True'}),
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {}),
-            'featuring': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+        'account.photo': {
+            'Meta': {'ordering': "['-id']", 'object_name': 'Photo'},
+            'album': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['account.PhotoAlbum']"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'leaders': ('django.db.models.fields.CommaSeparatedIntegerField', [], {'max_length': '255', 'blank': 'True'}),
-            'mood': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '150'}),
-            'region': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['account.Region']"}),
-            'singers': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['account.Singer']", 'through': "orm['account.Membership']", 'symmetrical': 'False'}),
-            'status': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
-            'styles': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['account.Style']", 'symmetrical': 'False'})
+            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '150'}),
+            'visited': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'})
         },
-        'account.membership': {
-            'Meta': {'object_name': 'Membership'},
-            'date_joined': ('django.db.models.fields.DateField', [], {'blank': 'True'}),
-            'group': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['account.Group']"}),
+        'account.photoalbum': {
+            'Meta': {'ordering': "['-date_updated']", 'object_name': 'PhotoAlbum'},
+            'city': ('django.db.models.fields.CharField', [], {'max_length': '150'}),
+            'date_created': ('django.db.models.fields.DateField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'date_updated': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'invite_reason': ('django.db.models.fields.CharField', [], {'max_length': '160', 'blank': 'True'}),
-            'singer': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['account.Singer']"})
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '150'}),
+            'singer': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['account.Singer']"}),
+            'year': ('django.db.models.fields.PositiveIntegerField', [], {'default': '2011'})
+        },
+        'account.photocomment': {
+            'Meta': {'ordering': "['-id']", 'object_name': 'PhotoComment'},
+            'date_created': ('django.db.models.fields.DateTimeField', [], {'default': "'2011-06-03'", 'auto_now': 'True', 'auto_now_add': 'True', 'blank': 'True'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'photo': ('django.db.models.fields.related.ForeignKey', [], {'default': '1', 'to': "orm['account.Photo']"}),
+            'text': ('django.db.models.fields.TextField', [], {'default': "''"}),
+            'title': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '150'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'default': '1', 'related_name': "'singer_photocomment_set'", 'to': "orm['account.CustomUser']"})
         },
         'account.region': {
             'Meta': {'ordering': "['name']", 'object_name': 'Region'},
@@ -241,10 +104,52 @@ class Migration(SchemaMigration):
             'index': ('django.db.models.fields.CharField', [], {'max_length': '20', 'blank': 'True'}),
             'styles': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['account.Style']", 'symmetrical': 'False'})
         },
+        'account.singeralbum': {
+            'Meta': {'ordering': "['date_update']", 'object_name': 'SingerAlbum'},
+            'city': ('django.db.models.fields.CharField', [], {'max_length': '150'}),
+            'date_creation': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'date_update': ('django.db.models.fields.DateField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'description': ('django.db.models.fields.TextField', [], {'default': "''"}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '150'}),
+            'singer': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['account.Singer']"})
+        },
         'account.style': {
             'Meta': {'ordering': "['name']", 'object_name': 'Style'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
+        },
+        'account.tracksingerablum': {
+            'Meta': {'object_name': 'TrackSingerAblum'},
+            'album': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['account.SingerAlbum']"}),
+            'city': ('django.db.models.fields.CharField', [], {'max_length': '150'}),
+            'description': ('django.db.models.fields.TextField', [], {'default': "''"}),
+            'duration': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'music_by': ('django.db.models.fields.CharField', [], {'max_length': '150'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '150'}),
+            'perform_by': ('django.db.models.fields.CharField', [], {'max_length': '150'}),
+            'right_to': ('django.db.models.fields.CharField', [], {'max_length': '150'}),
+            'year': ('django.db.models.fields.PositiveIntegerField', [], {})
+        },
+        'account.video': {
+            'Meta': {'ordering': "['-timestamp', 'order']", 'object_name': 'Video'},
+            'album': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '150', 'blank': 'True'}),
+            'artist': ('django.db.models.fields.CharField', [], {'max_length': '150'}),
+            'city': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '150', 'blank': 'True'}),
+            'converted': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'description': ('django.db.models.fields.TextField', [], {'default': "''"}),
+            'director': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '150', 'blank': 'True'}),
+            'flvvideo': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'blank': 'True'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '150', 'blank': 'True'}),
+            'order': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
+            'photo': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '250', 'blank': 'True'}),
+            'singer': ('django.db.models.fields.related.ForeignKey', [], {'default': '1', 'to': "orm['account.Singer']"}),
+            'timestamp': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'auto_now_add': 'True', 'blank': 'True'}),
+            'video': ('django.db.models.fields.files.FileField', [], {'default': "''", 'max_length': '100'}),
+            'year': ('django.db.models.fields.PositiveIntegerField', [], {'default': '2000'})
         },
         'auth.group': {
             'Meta': {'object_name': 'Group'},
@@ -283,5 +188,3 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         }
     }
-
-    complete_apps = ['account']

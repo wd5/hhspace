@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %} Исполнители {% endblock %}
+
+{%  block content %}
+<!-- twocolumns -->
+<div class="twocolumns news-wrap wrap">
+    <!-- column -->
+    <div class="column">
+					<h2><span>Хип-хоп нация</span></h2>
+					<div class="box-view">
+						<div class="choice">
+							<select>
+								<option>Страна</option>
+							</select>
+							<select>
+								<option>Город</option>
+							</select>
+							<select>
+								<option>Статус</option>
+							</select>
+							<select>
+								<option>Рейтинг</option>
+							</select>
+						</div>
+						<table>
+							<tbody>
+                            <tr>
+								<th>Имя / Название группы</th>
+								<th>Стиль</th>
+								<th>Кол-во фьючерингов</th>
+								<th>Цена за фьючеринг</th>
+								<th>Цена за выступление</th>
+							</tr>
+                            {% for singer in singers %}
+							<tr class="{% cycle 'has-bg' 'has-bg2' %}">
+								<td><a href="{{ singer.get_absolute_url }}">{{ singer }}</a></td>
+								<td>{{ singer.styles.all|join:"," }}</td>
+								<td>{{ singer.featings|default:0 }}</td>
+								<td>25000</td>
+								<td>75000</td>
+							</tr>
+                            {% endfor %}
+						</tbody></table>
+					</div>
+					<!-- paging -->
+					<div class="paging paging-alt">
+						<ul>
+							<li><a class="first" href="#">first</a></li>
+							<li><a class="prev" href="#">previous</a></li>
+							<li><a href="#">1</a></li>
+							<li class="active">2</li>
+							<li><a href="#">3</a></li>
+							<li>...</li>
+							<li><a href="#">7</a></li>
+							<li><a href="#">8</a></li>
+							<li><a href="#">9</a></li>
+							<li><a class="next" href="#">next</a></li>
+							<li class="active"><a class="last" href="#">last</a></li>
+						</ul>
+					</div>
+				</div>
+    <!-- column -->
+    <div class="column column2">
+        <h2><span>Реклама</span></h2>
+        <div class="box-reklama">
+            <a href="#"><img src="/static/images/img-banner3.jpg" alt="image description" /></a>
+        </div>
+    </div>
+</div>
+{% endblock %}

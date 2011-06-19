@@ -1,36 +1,41 @@
 {% extends "base.html" %}
 {% block title %} Редактирование альбома {% endblock %}
 
-{%  block content %}
-<div class="twocolumns news-wrap wrap">
-    <!-- column -->
-    <div class="column">
-                        <h2><span>{{ user }}</span></h2>
-                        {% include "snippets/account_menu.html" %}
-                        <!-- tab box -->
-                        <div class="tab-box" id="tab2" style='position: relative;'>
-                        {% if form.message.errors %}
-                            <ul>
-                            {% for error in form.message.errors %}
-                                <li><strong>{{ error }}</strong></li>
-                            {% endfor %}
-                            </ul>
-                        {% endif %}
-
-                    <form enctype="multipart/form-data" method="post" action="/discography/album/edit/">
+{% block content %}
+    <div class="twocolumns news-wrap wrap">
+        <!-- column -->
+        <div class="column">
+            <h2><span>{{ user }}</span></h2>
+            {% include "snippets/account_menu.html" %}
+            <!-- tab box -->
+            <div class="tab-box" id="tab2" style='position: relative;'>
+                {% if form.message.errors %}
+                    <ul>
+                        {% for error in form.message.errors %}
+                            <li><strong>{{ error }}</strong></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            
+                    <form enctype="multipart/form-data" method="post" action="{{ formurl }}">
+                    <fieldset class='form-register form-register2'>
                         {% csrf_token %}
                         {% include "snippets/forms.html" %}
-                        <input type='submit' name='save' value='Сохранить' />
+                        <div class="register-wrap">
+                            <input class="button" type="submit" value="Добавить" id="submit"/>
+                        </div>
+                    </fieldset>
 
-                    </form>
-                    </div>
-				</div>
-				<!-- column -->
-				<div class="column column2">
-					<h2><span>Реклама</span></h2>
-					<div class="box-reklama">
-						<a href="#"><img alt="image description" src="images/img-banner4.gif"></a>
-					</div>
-				</div>
-</div>
+                </form>
+            </div>
+        </div>
+        <!-- column -->
+        <div class="column column2">
+            <h2><span>Реклама</span></h2>
+
+            <div class="box-reklama">
+                <a href="#"><img alt="image description" src="images/img-banner4.gif"></a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

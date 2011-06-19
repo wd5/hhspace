@@ -6,17 +6,17 @@
 			<div class="twocolumns wrap">
 				<!-- column -->
 				<div class="column">
-					<h2><span><a href="#">Последние новости</a></span></h2>
+					<h2><span><a href="{% url news_list %}">Последние новости</a></span></h2>
 					<div class="pict">
-						<p class="date">01.03.2009</p>
+						<p class="date">{{ news.date|date:"d.m.Y" }}</p>
 						<a href="#"><img src="/static/images/img-1.jpg" alt="image description" /></a>
 					</div>
 					<div class="text">
-						<h3>ВИНТ И Мэф готовят альбом <span>уже снят первый клип</span></h3>
-						<p>После распада группы ЮГ достаточно быстро было объявлено о появлении новой творческой единицы в виде дуэта Мака и К.И.Т.а. А о деятельности оставшихся </p>
+						<h3>{{ news.title }} <span>{{ news.subtitle }}</span></h3>
+						<p>{{ news.text }} </p>
 						<div class="wrap">
 							<a href="#" class="link-comments">Комментариев (14)</a>
-							<a href="#" class="more">Далее</a>
+							<a href="{{ news.get_absolute_url }}" class="more">Далее</a>
 						</div>
 					</div>
 				</div>
@@ -29,117 +29,56 @@
 				</div>
 			</div>
 			<!-- box member -->
+            {% for direction in directions %}
 			<div class="box-member">
 				<div class="frame">
 					<div class="hold">
-						<h2><a href="#">Исполнители</a></h2>
+
+
+						<h2><a href="/account/direction/{{ direction.pk }}/">{{ direction }}</a></h2>
+
 						<div class="wrap">
+                            {% if direction.get_video %}
 							<div class="video">
 								<div class="place">
-									<a href="#"><img src="/static/images/img-video2.jpg" alt="video description" /></a>
+									<a href="{{ direction.get_video.get_absolute_url }}"><img src="{{ direction.get_video.photo }}" alt="direction.get_video" /></a>
 								</div>
-								<p><a href="#">Видео - Dj 108</a></p>
+								<p><a href="{{ direction.get_video.get_absolute_url }}">Видео - </a></p>
 							</div>
+                            {% endif %}
 							<div class="video photo">
+                                {% if direction.get_photo %}
 								<div class="place">
-									<a href="#"><img src="/static/images/img-photo.jpg" alt="photo description" /></a>
+									<a href="{{ direction.get_photo.get_absolute_url }}"><img src="{{ direction.get_photo.image.url }}" alt="{{ direction.get_photo.name }}" style="width: 167px; height: 127px;" /></a>
 								</div>
-								<p><a href="#">Фото - Dj Dlee</a></p>
+								<p><a href="{{ direction.get_photo.get_absolute_url }}">Фото - {{ direction.get_photo.name }}</a></p>
+                                {% endif %}
 							</div>
 							<div class="box-info">
 								<div class="box-info-hold">
 									<div class="place">
-										<a href="#"><img src="/static/images/img-2.jpg" alt="image description" /></a>
+                                        {% if direction.get_singer.pk %}
+										    <a href="{{ direction.get_singer.get_absolute_url }}"><img src="{{ direction.get_singer.get_avatar_mainthumb }}" alt="{% autoescape off %}{{ direction.get_singer.biography|truncatewords:"30" }}{% endautoescape %}" /></a>
+                                        {% endif %}
 									</div>
 									<div class="text">
 										<ul>
-											<li><span>Название: </span>Ю.Г.</li>
-											<li><span>Стиль: </span>Рэп</li>
-											<li><span>Сайт: </span><a href="#">www.ug.ru</a></li>
-											<li><span>Кратко: </span>Московская хип-хоп команда Ю.Г. (Южные Головорезы) была основана в 1999 году. В состав группы входят четыре участника. Вскоре группа записывает дебютный альбом под названием “Дешево и Сердито”.</li>
+											<li><span>Название: </span>{{ direction.get_singer.username }}</li>
+											<li><span>Стиль: </span>{{ direction.get_singer.styles.all|join:", " }}</li>
+											<li><span>Сайт: </span><a href="{{ direction.get_singer.url }}" target="_blank">{{ direction.get_singer.url }}</a></li>
+											<li><span>Кратко: </span>{% autoescape off %} {{ direction.get_singer.biography|truncatewords:"130" }} {%  endautoescape %}</li>
 										</ul>
 									</div>
 								</div>
-								<p>Новый блог - <a href="#">Ю.Г.</a></p>
+								<p>Новый блог - <a href="{{ direction.get_singer.get_absolute_url }}">{{ direction.get_singer.username }}</a></p>
 							</div>
 						</div>
+
 					</div>
 				</div>
 			</div>
-			<div class="box-member">
-				<div class="frame">
-					<div class="hold">
-						<h2><a href="#">Райтеры</a></h2>
-						<div class="wrap">
-							<div class="video">
-								<div class="place">
-									<a href="#"><img src="/static/images/img-video2.jpg" alt="video description" /></a>
-								</div>
-								<p><a href="#">Видео - Dj 108</a></p>
-							</div>
-							<div class="video photo">
-								<div class="place">
-									<a href="#"><img src="/static/images/img-photo.jpg" alt="photo description" /></a>
-								</div>
-								<p><a href="#">Фото - Dj Dlee</a></p>
-							</div>
-							<div class="box-info">
-								<div class="box-info-hold">
-									<div class="place">
-										<a href="#"><img src="/static/images/img-2.jpg" alt="image description" /></a>
-									</div>
-									<div class="text">
-										<ul>
-											<li><span>Название: </span>Ю.Г.</li>
-											<li><span>Стиль: </span>Рэп</li>
-											<li><span>Сайт: </span><a href="#">www.ug.ru</a></li>
-											<li><span>Кратко: </span>Московская хип-хоп команда Ю.Г. (Южные Головорезы) была основана в 1999 году. В состав группы входят четыре участника. Вскоре группа записывает дебютный альбом под названием “Дешево и Сердито”.</li>
-										</ul>
-									</div>
-								</div>
-								<p>Новый блог - <a href="#">Ю.Г.</a></p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="box-member">
-				<div class="frame">
-					<div class="hold">
-						<h2><a href="#">Танцоры</a></h2>
-						<div class="wrap">
-							<div class="video">
-								<div class="place">
-									<a href="#"><img src="/static/images/img-video2.jpg" alt="video description" /></a>
-								</div>
-								<p><a href="#">Видео - Dj 108</a></p>
-							</div>
-							<div class="video photo">
-								<div class="place">
-									<a href="#"><img src="/static/images/img-photo.jpg" alt="photo description" /></a>
-								</div>
-								<p><a href="#">Фото - Dj Dlee</a></p>
-							</div>
-							<div class="box-info">
-								<div class="box-info-hold">
-									<div class="place">
-										<a href="#"><img src="/static/images/img-2.jpg" alt="image description" /></a>
-									</div>
-									<div class="text">
-										<ul>
-											<li><span>Название: </span>Ю.Г.</li>
-											<li><span>Стиль: </span>Рэп</li>
-											<li><span>Сайт: </span><a href="#">www.ug.ru</a></li>
-											<li><span>Кратко: </span>Московская хип-хоп команда Ю.Г. (Южные Головорезы) была основана в 1999 году. В состав группы входят четыре участника. Вскоре группа записывает дебютный альбом под названием “Дешево и Сердито”.</li>
-										</ul>
-									</div>
-								</div>
-								<p>Новый блог - <a href="#">Ю.Г.</a></p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+            {% endfor %}                
+
 			<!-- twocolumns -->
 			<div class="twocolumns twocolumns2 wrap">
 				<!-- column -->

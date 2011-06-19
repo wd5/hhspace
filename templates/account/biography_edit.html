@@ -2,18 +2,32 @@
 {% block title %} {{ user }} {% endblock %}
 
 {%  block content %}
+<link rel="stylesheet" type="text/css" href="/static/css/markitup/skins/markitup/style.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/markitup/sets/default/style.css" />
+
+<script type="text/javascript" src="/static/js/jquery.markitup.js"></script>
+<script type="text/javascript" src="/static/css/markitup/sets/default/set.js"></script>
+
+<script language="javascript">
+$(document).ready(function()	{
+   $('#id_biography').markItUp(mySettings);
+});
+</script>
 <!-- twocolumns -->
 <div class="twocolumns news-wrap wrap">
     <!-- column -->
     <div class="column">
-                        <h2><span>{{ user }}</span></h2>
+                        <h2><span>{{ profile }}</span></h2>
                         {% include "snippets/account_menu.html" %}
                         <!-- tab box -->
                         <div class="tab-box" id="tab2" style='position: relative;'>
-                            <form action='/account/biography/edit/' method='post'>
+                            <form action='{{ formurl }}' method='post'>
                                 {% csrf_token %}
                                 {% include "snippets/forms.html" %}
-                                <input type='submit' />
+                                
+                                <div class="register-wrap" style="width: 498px; padding-top: 0px;">
+                                    <input class="button" type="submit" value="Сохранить" id="submit"/>
+                                </div>
                             </form>
                             <br />
                         </div>

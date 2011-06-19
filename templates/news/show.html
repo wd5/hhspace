@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %} {{ news }} {% endblock %}
+
+{%  block content %}
+<!-- twocolumns -->
+<div class="twocolumns news-wrap wrap">
+    <!-- column -->
+<div class="column">
+					<h2><span><a href="#">{{ news }}</a></span></h2>
+					<div class="pict">
+						<p class="date">{{ news.date_created|date:"d.m.Y" }}</p>
+						<a href="#"></a>
+					</div>
+					<div class="text">
+						<h3>{{ news.title }} <span>{{ news.subtitle }}</span></h3>
+                        {% autoescape off %}
+						<p>{{ news.text }}</p>
+                        {% endautoescape %}
+					</div>
+
+				</div>
+    <!-- column -->
+    <div class="column column2">
+        <h2><span>Реклама</span></h2>
+        <div class="box-reklama">
+            <a href="#"><img src="/static/images/img-banner3.jpg" alt="image description" /></a>
+        </div>
+    </div>
+</div>
+{% endblock %}

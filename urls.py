@@ -8,22 +8,22 @@ import settings
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    ('^$', direct_to_template, {
-        'template' : 'index.html'
-    }),
+    url('^$', 'hhspace.account.views.main', name='mainpage'),
+    url('^singer/ajax_list/$', 'hhspace.account.views.ajax_singer_list', name='ajax_singer_list'),
+    
     (r'^registration/', include('hhspace.registration.urls')),
     url('^account/', include('hhspace.account.urls')),
-    url('^discography/', include('hhspace.discography.urls')),
-    url('^photoalbum/', include('hhspace.photoalbum.urls')),
-    # Example:
-    # (r'^hhspace/', include('hhspace.foo.urls')),
+    url('^group/', include('hhspace.group.urls')),
+    url('^news/', include('hhspace.content.urls')),
+    url('^account/(?P<id>\d+)/group/', include('hhspace.group.urls')),
+    url('^video/progress/$', 'hhspace.video.views.video_upload_progress', name="video_upload_progress"),
+    url('^audio/progress/$', 'hhspace.audio.views.audio_upload_progress', name="audio_upload_progress"),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
     (r'^avatar/', include('hhspace.avatar.urls')),
+    (r'^test/', direct_to_template, {
+        'template' : 'test.html',
+    }),
 
     (r'^static/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': settings.STATIC_ROOT}

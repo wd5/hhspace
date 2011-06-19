@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+{% block title %} {{ profile }} {% endblock %}
+
+
+{% block content %}
+
+    <link rel='stylesheet' type='text/css' href='/static/css/jquery.jcarousel.css'/>
+    <script type='text/javascript' src='/static/js/jquery.jcarousel.pack.js'></script>
+    <script type="text/javascript" src="/static/js/jquery.jplayer.inspector.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#mycarousel').jcarousel();
+
+            $('.showimg').click(
+                    function() {
+                        // see if sam   e thumb is being clicked
+                        if ($(this).attr("class") == 'active') {
+                            return;
+                        }
+                        id = $(this).attr('id');
+
+                        // calclulate large image's URL based on the thumbnail URL (flickr specific)
+                        var url = $(this).attr("src");
+
+                        // get handle to element that wraps the image and make it semi-transparent
+                        var wrap_id = "#image_wrap";
+                        var wrap = $(wrap_id).fadeTo("medium", 0.5);
+
+                        // the large image from www.flickr.com
+                        var img = new Image();
+
+                        // call this function after it's loaded
+                        img.onload = function() {
+
+                            // make wrapper fully visible
+                            wrap.fadeTo("fast", 1);
+
+                            // change the image
+                            wrap.find("img").attr("src", url);
+
+                        };
+
+                        img.src = url;
+
+                        // activate item
+                        var item = 'item' + id;
+                        $(item).removeClass("active");
+
+                        return false;
+
+
+                        // when page loads simulate a "click" on the first image
+                    });
+
+        });
+    </script>
+
+
+    <script type="text/javascript">
+//<![CDATA[
+    $(document).ready(function(){
+
+        $("#jquery_jplayer_2").jPlayer({
+            ready: function () {
+                $(this).jPlayer("setMedia", {
+                                m4v: "/{{ video.flvvideo }}",
+                                poster: "/{{ video.photo }}"
+                            });
+
+            },
+            ended: function (event) {
+                $(this).jPlayer("play");
+            },
+            swfPath: "http://www.jplayer.org/latest/js",
+            supplied: "m4v",
+            errorAlerts: true,
+            warningAlerts: true,
+            cssSelectorAncestor: "#jp_interface_2"
+
+
+        });
+        $("#jplayer_inspector_2").jPlayerInspector({jPlayer:$("#jquery_jplayer_2")});
+
+
+    });
+//]]>
+    </script>
+
+
+    <!-- twocolumns -->
+    <div class="twocolumns news-wrap wrap">
+        <!-- column -->
+        <div class="column">
+            <h2><span>{{ profile }}</span></h2>
+            {% include "snippets/account_menu.html" %}
+            <!-- tab box -->
+            <div class="tab-box" id="tab2" style='position: relative;'>
+
+                <div class="main-photo">
+                    <div class="jp-video jp-video-270p">
+			<div class="jp-type-playlist">
+				<div id="jquery_jplayer_2" class="jp-jplayer"></div>
+				<div id="jp_interface_2" class="jp-interface">
+					<div class="jp-video-play"></div>
+					<ul class="jp-controls">
+						<li><a href="#" class="jp-play" tabindex="1" style='height: 40px'>play</a></li>
+						<li><a href="#" class="jp-pause" tabindex="1" style='height: 40px'>pause</a></li>
+						<li><a href="#" class="jp-stop" tabindex="1">stop</a></li>
+						<li><a href="#" class="jp-mute" tabindex="1">mute</a></li>
+						<li><a href="#" class="jp-unmute" tabindex="1">unmute</a></li>
+						<li><a href="#" class="jp-previous" tabindex="1">previous</a></li>
+						<li><a href="#" class="jp-next" tabindex="1">next</a></li>
+					</ul>
+					<div class="jp-progress">
+						<div class="jp-seek-bar">
+							<div class="jp-play-bar"></div>
+						</div>
+					</div>
+					<div class="jp-volume-bar">
+						<div class="jp-volume-bar-value"></div>
+					</div>
+					<div class="jp-current-time"></div>
+					<div class="jp-duration"></div>
+				</div>
+				<div id="jp_playlist_2" class="jp-playlist">
+					<ul>
+						<!-- The method Playlist.displayPlaylist() uses this unordered list -->
+						<li></li>
+					</ul>
+				</div>
+                <div id="jplayer_inspector_2"></div>
+
+			</div>
+		</div>
+                    <div class="info-photo">
+                        <a href="#comment">Комментировать</a>
+
+                        <p>Загружено: {{ video.timestamp|date:"F j, Y" }} <br>Описание: {{ video.description }}</p>
+                    </div>
+                </div>
+
+                <h3>ЕЩЕ ВИДЕО</h3>
+                <!-- galley -->
+                <div class="gallery-video jcarousel-container">
+                    <span id="prevBtn" class='jcarousel-prev'><a class="prev"
+                                                                 href="javascript:void(0)">previous</a></span>
+                    <span id="nextBtn" class='jcarousel-next'><a class="next" href="javascript:void(0)">next</a></span>
+                    <div class="wrap video-range jcarousel-clip jcarousel-clip-horizontal">
+                        <ul id='mycarousel'>
+                            {% for video in videos %}
+                                <li>
+                                    <div class="video">
+                                        <a href="#"><img src="/{{ video.photo }}" id="item{{ video.pk }}"
+                                                         class='showimg' alt="{{ video.name }}"
+                                                         style='width: 135px; height: 135px;'></a>
+                                    </div>
+                                    <p><a href="#">{{ video.name }}</a></p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            
+                <div class="comments-wrap">
+                    <!-- box comment -->
+                    {% for comment in comments %}
+                    <div class="box-comment wrap">
+                        <div class="avatar">
+                            <a href="#"><img alt="" src="/static/images/img-avatar.jpg"></a>
+                        </div>
+                        <div class="box-comment-hold wrap">
+                            <div class="heading wrap">
+                                <strong><a href="#">{{ comment.user.username }}</a></strong>
+                                <span>{{ comment.date_creating|date:"F j, Y" }}</span>
+                            </div>
+                            <div class="text-comment">
+                                <p>{{ comment.text }}</p>
+                            </div>
+                            <div class="wrap">
+                                <ul>
+                                    <li><a href="#">Ответить</a></li>
+                                    <li><a href="#">Цитата</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <br />
+                    <br />
+                    <br />
+                    <div class='leavecomment' style='display: none'>
+                        <form action="/photoalbum/comment/add/{{ album.pk }}/" method='post'>
+
+                        <fieldset>
+                        {% csrf_token %}
+                        {% include "snippets/forms.html" %}
+
+                            <input type='hidden' name='photo' value='{{ photos.0.pk }}' />
+                            
+                            <div class='input'>
+                                <input type='submit' name='submit' value='Добавить' />
+                            </div>
+                        </fieldset>
+                        </form>
+                    </div>
+                </div>
+
+                <br/>
+                <br/>
+            </div>
+        </div>
+        <!-- column -->
+        <div class="column column2">
+            <h2><span>Реклама</span></h2>
+
+            <div class="box-reklama">
+                <a href="#"><img src="/static/images/img-banner3.jpg" alt="image description"/></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

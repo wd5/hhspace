@@ -5,7 +5,8 @@ from django import forms
 from django.forms.models import save_instance
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User, get_hexdigest
-from account.models import CustomUser, Singer, Group, Membership
+from account.models import CustomUser, Singer
+from hhspace.group.models import Group, Membership
 
 import re
 import datetime
@@ -55,9 +56,6 @@ class RegistrationForm(forms.ModelForm):
 
 
 
-    username = forms.CharField(max_length=30,
-                               widget=forms.TextInput(attrs=attrs_dict),
-                               label=_(u'Творческий псевдоним'))
     email = forms.EmailField(widget=forms.TextInput(attrs=dict(attrs_dict,
                                                                maxlength=75)),
                              label=_(u'Емайл'))
@@ -88,23 +86,22 @@ class RegistrationForm(forms.ModelForm):
 
     class Meta:
         model = CustomUser
-        fields = ('username', 'first_name', 'last_name', 'sex', 'birthday_year', 'birthday_month', 'birthday_day', 'country',  'region', 'city',  'email',   'password1',  'password2', )
+        fields = ('first_name', 'last_name', 'sex', 'birthday_year', 'birthday_month', 'birthday_day', 'country',  'region', 'city',  'email',   'password1',  'password2', )
         # exclude = ('biography', 'is_staff', 'password', 'is_superuser', 'status', 'mood', 'is_active', 'last_login', 'date_joined', 'groups', 'user_permissions')
 
-    def clean_username(self):
+    def clean_email(self):
         """
         FIXME
         Validate that the username is alphanumeric and is not already
         in use.
 
         """
-        if not alnum_re.search(self.cleaned_data['username']):
-            raise forms.ValidationError(_(u'Usernames can only contain letters, numbers and underscores'))
         try:
-            user = User.objects.get(username__iexact=self.cleaned_data['username'])
+            User.objects.get(email=self.cleaned_data['email'])
         except User.DoesNotExist:
-            return self.cleaned_data['username']
-        raise forms.ValidationError(_(u'This username is already taken. Please choose another.'))
+            return self.cleaned_data['email']
+        
+        raise forms.ValidationError(_(u'Данный емайл уже занят. Укажите другой емайл адрес либо воспользуйтесь функцией восстановления пароля'))
 
     def clean(self):
         """
@@ -141,6 +138,9 @@ class RegistrationForm(forms.ModelForm):
 
 class SingerRegistrationForm(RegistrationForm):
 
+    username = forms.CharField(max_length=30,
+                               widget=forms.TextInput(attrs=attrs_dict),
+                               label=_(u'Творческий псевдоним'))
     date_created_year = forms.ChoiceField(
         widget=forms.Select(attrs={'class' : 'sel-small1'}),
         choices=DATECREATED_YEARS,
@@ -156,9 +156,24 @@ class SingerRegistrationForm(RegistrationForm):
 
     reg_group = forms.ChoiceField(widget=forms.Select(), choices=((0, 'Исполнитель'), (1, 'Группа')), label = 'Регистрируюсь как ?')
 
+    def clean_username(self):
+        """
+        FIXME
+        Validate that the username is alphanumeric and is not already
+        in use.
+
+        """
+        if not alnum_re.search(self.cleaned_data['username']):
+            raise forms.ValidationError(_(u'Usernames can only contain letters, numbers and underscores'))
+        try:
+            user = User.objects.get(username__iexact=self.cleaned_data['username'])
+        except User.DoesNotExist:
+            return self.cleaned_data['username']
+        raise forms.ValidationError(_(u'This username is already taken. Please choose another.'))
+    
     class Meta:
         model = Singer
-        fields = ('reg_group', 'username', 'date_created_year', 'date_created_month', 'date_created_day', 'styles', 'first_name', 'last_name', 'sex', 'birthday_year', 'birthday_month', 'birthday_day', 'country',  'region', 'city',  'email',   'password1',  'password2', 'directions')
+        fields = ( 'username', 'date_created_year', 'date_created_month', 'date_created_day', 'styles', 'first_name', 'last_name', 'sex', 'birthday_year', 'birthday_month', 'birthday_day', 'country',  'region', 'city',  'email',   'password1',  'password2', 'directions')
 
 
     def save(self, user):

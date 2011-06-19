@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %} {{ user }} {% endblock %}
+{% block content %}
+    <!-- twoco  lumns -->
+    <div class="twocolumns news-wrap wrap">
+        <!-- column -->
+        <div class="column">
+            <h2><span>{{ profile }} - Дискография</span></h2>
+            {% include "snippets/account_menu.html" %}
+            <!-- tab box -->
+            <div class="tab-box" id="tab2" style='position: relative;'>
+
+                {% autoescape off %}
+                    {{ editurl }}
+                {% endautoescape %}
+
+                <div class="photo-albums">
+                    <ul>
+                        {% for album in albums %}
+                            <li>
+                                <a href="{{ album.get_absolute_url }}"><img src="{{ album.image.url }}"
+                                                                            alt="{{ album.name }}"
+                                                                            style='width: 160px; height: 160px;'/></a>
+                                <dl>
+                                    <dt>Альбом:</dt>
+                                    <dd><strong>{{ album.name }}</strong></dd>
+                                    <dt>{{ album.city }} - {{ album.year }}</dt>
+                                    <dd>&nbsp;</dd>
+                                    <dt>Создан:</dt>
+                                    <dd>{{ album.date|date:"F j, Y" }}</dd>
+                                </dl>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- column -->
+        <div class="column column2">
+            <h2><span>Реклама</span></h2>
+
+            <div class="box-reklama">
+                <a href="#"><img src="/static/images/img-banner3.jpg" alt="image description"/></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

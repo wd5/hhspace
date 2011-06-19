@@ -1,143 +1,183 @@
 {% extends "base.html" %}
-{% block title %} h-hspace mainpage {% endblock %}
+{% block title %} {{ profile }} {% endblock %}
 {% load avatar_tags %}
 
-{%  block content %}
-<!-- twocolumns -->
-<div class="twocolumns news-wrap wrap">
-    <!-- column -->
-    <div class="column">
-                        <h2><span>каста</span></h2>
-                        {% include "snippets/account_menu.html" %}
-                        <!-- tab box -->
-                        <div class="tab-box" id="tab1">
-                            <div class="about">
-                                <div class="pict-hold">
-                                    <div class="frame">
-                                        {% avatar singer %}
-                                        <a href="{% url avatar_change %}">Сменить аватар</a>
-                                    </div>
-                                    <div class="hold">
-                                        <a href="#" class="mail">mail</a>
-                                        <a href="#" class="favourites">favourites</a>
-                                        <dl>
-                                            <dt>Статус:</dt><dd>on-line</dd>
-                                            <dt>Настроение:</dt><dd>отпад</dd>
-                                        </dl>
-                                    </div>
-                                </div>
-                                <div class="about-text">
-                                    <dl>
-                                        <dt>Псевдоним:</dt><dd><span><strong>{{ singer.username }}</strong></span></dd>
-                                        <dt>Напраление:</dt><dd><span>{% for direction in singer.directions.all %} {{ direction }} {% endfor %}</span><span>&nbsp;</span></dd>
-                                        {% if singer.membership_set.all %}
-                                        <dt>Состоит в группе:</dt><dd><span>{% for member in singer.membership_set.all %}{{ member.group }} {% endfor %}</span><span>&nbsp;</span></dd>
-                                        {% endif %}
-                                        <dt>Дата начала деятельности:</dt><dd>{{ singer.date_created|date:"F j, Y"  }}<span>&nbsp;</span></dd>
-                                        <dt>Стили:</dt><dd>{% for style in singer.styles.all %}<span>{{ style }}</span>{% endfor %}<span>&nbsp;</span></dd>
-                                        <dt>Кол-во совместных работ (featurings):</dt><dd><span>{{ singer.featuring }}</span><span>&nbsp;</span></dd>
-                                        <dt>Ссылка на сайт:</dt><dd><a href="http://{{ singer.url }}/" title="{{ singer }}">{{ singer.url }}</a><span>&nbsp;</span></dd>
-                                        <dt>Страна, Регион:</dt><dd><span>{{ singer.country }}</span>, <span>{{ singer.region }}</span><span>&nbsp;</span></dd>
-                                        <dt>Город:</dt><dd><span>{{ singer.city }}</span><span>&nbsp;</span></dd>
-                                        <dt>На сайте:</dt><dd>{{ singer.date_joined|date:"F j, Y" }}<span>&nbsp;</span></dd>
-                                        <dt>Последний визит:</dt><dd>{{ singer.last_visit|date:"F j, Y" }}<span>&nbsp;</span></dd>
-                                        <dt>Рейтинг:</dt>
-                                        <dd>
-                                            <ul class="star">
-                                                <li class="act">star</li>
-                                                <li class="act">star</li>
-                                                <li class="act">star</li>
-                                                <li class="act-half">star</li>
-                                                <li>star</li>
-                                            </ul>
-                                            (проголосовавших: 0)
-                                        </dd>
-                                    </dl>
-                                </div>
-                            </div>
-                            <h3>ДОПОЛНИТЕЛЬНОЕ НАПРАВЛЕНИЕ</h3>
-                            <div class="additional">
-                                <dl>
-                                    <dt>Название или псевдоним:</dt><dd>Влади</dd>
-                                    <dt>Напраление</dt><dd><span>Напраление:</span></dd>
-                                    <dt>Стили:</dt><dd><span>андерграунд</span>, <span>r’n’b</span></dd>
-                                    <dt>Дата начала деятельности:</dt><dd>21.02.2000</dd>
-                                </dl>
-                            </div>
-                            <h3>ПОСЛЕДНЕЕ ФОТО</h3>
-                            <!-- last photo -->
-                            <div class="last-photo">
-                                <ul>
-                                    <li>
-                                        <div class="frame">
-                                            <a href="#"><img src="/static/images/img-5.jpg" width="221" height="145" alt="image description" /></a>
-                                        </div>
-                                        <a href="#">Про Макса</a>
-                                    </li>
-                                    <li>
-                                        <div class="frame">
-                                            <a href="#"><img src="/static/images/img-6.jpg" width="221" height="145" alt="image description" /></a>
-                                        </div>
-                                        <a href="#">Про Грина</a>
-                                    </li>
-                                </ul>
-                                <a href="#" class="more-link">Еще фото</a>
-                            </div>
-                            <h3>ПОСЛЕДНЕЕ ВИДЕО</h3>
-                            <!-- last photo -->
-                            <div class="last-photo">
-                                <ul>
-                                    <li>
-                                        <div class="frame">
-                                            <a href="#"><img src="/static/images/img-7.jpg" width="221"  alt="image description" /></a>
-                                        </div>
-                                        <a href="#">Про Макса</a>
-                                    </li>
-                                    <li>
-                                        <div class="frame">
-                                            <a href="#"><img src="/static/images/img-7.jpg" width="221"  alt="image description" /></a>
-                                        </div>
-                                        <a href="#">Про Грина</a>
-                                    </li>
-                                </ul>
-                                <a href="#" class="more-link">Еще видео</a>
-                            </div>
-                            <h3>ПОХОЖИЕ ИСПОЛНИТЕЛИ</h3>
-                            <!-- galley -->
-                            <div class="gallery-video">
-                                <a class="prev" href="#">previous</a>
-                                <a class="next active" href="#">next</a>
-                                <div class="wrap">
-                                    <ul>
-                                        <li>
-                                            <div class="video">
-                                                <a href="#"><img src="/static/images/img-video4.gif" width="136" height="96" alt="video description" /></a>
-                                            </div>
-                                            <p><a href="#">Смоки Мо</a></p>
-                                        </li>
-                                        <li>
-                                            <div class="video">
-                                                <a href="#"><img src="/static/images/img-video4.gif" width="136" height="96" alt="video description" /></a>
-                                            </div>
-                                            <p><a href="#">Отрицательное Влияние</a></p>
-                                        </li>
-                                        <li>
-                                            <div class="video">
-                                                <a href="#"><img src="/static/images/img-video4.gif" width="136" height="96" alt="video description" /></a>
-                                            </div>
-                                            <p><a href="#">Skrip</a></p>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+{% block content %}
+    <link rel='stylesheet' type='text/css' href='/static/css/jquery.jcarousel.css'/>
+    <script type='text/javascript' src='/static/js/jquery.jcarousel.pack.js'></script>
+    <!-- twocolumns -->
+    <div class="twocolumns news-wrap wrap">
+        <!-- column -->
+        <div class="column">
+            <h2><span>{{ profile.username }}</span></h2>
+            {% include "snippets/account_menu.html" %}
+
+            <!-- tab box -->
+            <div class="tab-box" id="tab1">
+                <div class="about">
+                    <div class="pict-hold">
+                        <div class="frame">
+                            <img src='{{ profile.get_avatar }}' /> 
+                            {% if user.pk == profile.pk %}
+                                <a href="{% url avatar_change %}">Сменить аватар</a>
+                            {% endif %}
                         </div>
-</div>
-    <!-- column -->
-    <div class="column column2">
-        <h2><span>Реклама</span></h2>
-        <div class="box-reklama">
-            <a href="#"><img src="/static/images/img-banner3.jpg" alt="image description" /></a>
+                        <div class="hold">
+                            <a href="#" class="mail">mail</a>
+                            <a href="#" class="favourites">favourites</a>
+                            <dl>
+                                <dt>Статус:</dt>
+                                <dd>&nbsp;{{ profile.status }}</dd>
+                                <dt>Настроение:</dt>
+                                <dd>&nbsp;{{ profile.mood }}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="about-text">
+                        <dl>
+                            <dt>Псевдоним:</dt>
+                            <dd><span><strong>{{ profile.username }}</strong></span></dd>
+                            <dt>Напраление:</dt>
+                            <dd><span>{% for direction in profile.directions.all %} {{ direction }} {% endfor %}</span>
+                                <span>&nbsp;</span></dd>
+                            {% if profile.membership_set.all %}
+                                <dt>Состоит в группе:</dt>
+                                <dd>
+                                    <span>{% for member in profile.membership_set.all %}<a href="{{ member.group.get_absolute_url }}">{{ member.group }}</a> {% endfor %}</span>
+                                    <span>&nbsp;</span></dd>
+                            {% endif %}
+                            <dt>Дата начала деятельности:</dt>
+                            <dd>{{ profile.date_created|date:"F j, Y" }}<span>&nbsp;</span></dd>
+                            <dt>Стили:</dt>
+                            <dd>{% for style in profile.styles.all %}<span>{{ style }}</span>{% endfor %}<span>
+                            &nbsp;</span></dd>
+                            <dt>Кол-во совместных работ (featurings):</dt>
+                            <dd><span>{{ profile.featuring }}</span><span>&nbsp;</span></dd>
+                            <dt>Ссылка на сайт:</dt>
+                            <dd><a href="http://{{ profile.url }}/"
+                                   title="{{ user }}">{{ profile.url }}</a><span>&nbsp;</span></dd>
+                            <dt>Страна, Регион:</dt>
+                            <dd><span>{{ profile.country }}</span>, <span>{{ profile.region }}</span><span>&nbsp;</span></dd>
+                            <dt>Город:</dt>
+                            <dd><span>{{ profile.city }}</span><span>&nbsp;</span></dd>
+                            <dt>На сайте:</dt>
+                            <dd>{{ profile.date_joined|date:"F j, Y" }}<span>&nbsp;</span></dd>
+                            <dt>Последний визит:</dt>
+                            <dd>{{ profile.last_login|date:"F j, Y" }}<span>&nbsp;</span></dd>
+                            <dt>Рейтинг:</dt>
+                            <dd>
+                                <ul class="star">
+                                    <li class="act">star</li>
+                                    <li class="act">star</li>
+                                    <li class="act">star</li>   
+                                    <li class="act-half">star</li>
+                                    <li>star</li>
+                                </ul>
+                                (проголосовавших: 0)
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <h3>ДОПОЛНИТЕЛЬНОЕ НАПРАВЛЕНИЕ</h3>
+
+                <div class="additional">
+                    <dl>
+                        <dt>Название или псевдоним:</dt>
+                        <dd>Влади</dd>
+                        <dt>Напраление</dt>
+                        <dd><span>Напраление:</span></dd>
+                        <dt>Стили:</dt>
+                        <dd><span>андерграунд</span>, <span>r’n’b</span></dd>
+                        <dt>Дата начала деятельности:</dt>
+                        <dd>21.02.2000</dd>
+                    </dl>
+                </div>
+
+                {% if albums %}
+                <h3>ПОСЛЕДНЕЕ ФОТО</h3>
+                <!-- last photo -->
+                <div class="last-photo">
+                    <ul>
+                        {% for album in albums %}
+                            <li>
+                                <div class="frame">
+                                    <a href="{{ album.photo_set.all.0.get_absolute_url }}"><img src="{{ album.photo_set.all.0.image.url }}" width="221" height="145"
+                                                     alt="{{ album.photo_set.all.0.name }}"/></a>
+                                </div>
+                                <a href="">{{ album.name }}</a>
+                            </li>
+                        {% empty %}
+                            {% if photoaddurl %}
+                            <li>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+
+                    {% if photos %}
+                        <a href="{{ morevideourl }}" class="more-link">Еще фото</a>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                {% if videos %}
+                <h3>ПОСЛЕДНЕЕ ВИДЕО</h3>
+                <!-- last photo -->
+                <div class="last-photo">
+                    <ul>
+                        {% for video in videos %}
+                            <li>
+                                <div class="frame">
+                                    <a href="#"><img src="/{{ video.photo }}" width="221" height="145"
+                                                     alt="{{ video.description }}"/></a>
+                                </div>
+                                <a href="">{{ video.name }}</a>
+                            </li>
+                        {% empty %}
+                            <li>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    {% if videos %}
+                        <a href="{% url video_list profile.pk %}" class="more-link">Еще видео</a>
+                    {% endif %}
+                </div>
+                {% endif %}
+                <h3>ПОХОЖИЕ ИСПОЛНИТЕЛИ</h3>
+                <!-- galley -->
+                <div class="gallery-video jcarousel-container">
+                    <span id="prevBtn" class='jcarousel-prev'><a class="prev" href="javascript:void(0)">previous</a></span>
+                    <span id="nextBtn" class='jcarousel-next'><a class="next" href="javascript:void(0)">next</a></span>
+                    <div class="wrap video-range jcarousel-clip jcarousel-clip-horizontal">
+                        <ul id='mycarousel'>
+                            {% for singer in singers %}
+                                <li>
+                                    <div class="video">
+                                        <a href="#"><img src="{{ singer.get_avatar_thumb }}" id="item{{ singer.pk }}"
+                                                         class='showimg' alt="{{ singer.username }}"
+                                                         style='width: 135px; height: 135px;'></a>
+                                    </div>
+                                    <p><a href="{{ singer.get_absolute_url }}">{{ singer.username }}</a></p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <!-- column -->
+        <div class="column column2">
+            <h2><span>Реклама</span></h2>
+
+            <div class="box-reklama">
+                <a href="#"><img src="/static/images/img-banner3.jpg" alt="image description"/></a>
+            </div>
         </div>
     </div>
-</div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#mycarousel').jcarousel();
+        });
+    </script>
 {% endblock %}

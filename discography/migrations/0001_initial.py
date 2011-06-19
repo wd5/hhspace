@@ -11,11 +11,11 @@ class Migration(SchemaMigration):
         # Adding model 'GroupAlbum'
         db.create_table('discography_groupalbum', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('date_creation', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2011, 5, 15, 20, 56, 17, 715594), auto_now_add=True, blank=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=150)),
             ('description', self.gf('django.db.models.fields.TextField')(default='')),
             ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
             ('city', self.gf('django.db.models.fields.CharField')(max_length=150)),
-            ('date_creation', self.gf('django.db.models.fields.DateField')(default='', blank=True)),
             ('date_update', self.gf('django.db.models.fields.DateField')(auto_now_add=True, blank=True)),
             ('group', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['account.Group'])),
         ))
@@ -24,11 +24,11 @@ class Migration(SchemaMigration):
         # Adding model 'SingerAlbum'
         db.create_table('discography_singeralbum', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('date_creation', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2011, 5, 15, 20, 56, 17, 715594), auto_now_add=True, blank=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=150)),
             ('description', self.gf('django.db.models.fields.TextField')(default='')),
             ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
             ('city', self.gf('django.db.models.fields.CharField')(max_length=150)),
-            ('date_creation', self.gf('django.db.models.fields.DateField')(default='', blank=True)),
             ('date_update', self.gf('django.db.models.fields.DateField')(auto_now_add=True, blank=True)),
             ('singer', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['account.Singer'])),
         ))
@@ -95,6 +95,7 @@ class Migration(SchemaMigration):
         'account.customuser': {
             'Meta': {'object_name': 'CustomUser', '_ormbases': ['auth.User']},
             'biography': ('django.db.models.fields.TextField', [], {'default': "''", 'blank': 'True'}),
+            'birthday': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now', 'blank': 'True'}),
             'city': ('django.db.models.fields.related.ForeignKey', [], {'default': '1', 'to': "orm['account.City']"}),
             'country': ('django.db.models.fields.related.ForeignKey', [], {'default': '1', 'to': "orm['account.Country']"}),
             'mood': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '50', 'blank': 'True'}),
@@ -192,7 +193,7 @@ class Migration(SchemaMigration):
         'discography.groupalbum': {
             'Meta': {'object_name': 'GroupAlbum'},
             'city': ('django.db.models.fields.CharField', [], {'max_length': '150'}),
-            'date_creation': ('django.db.models.fields.DateField', [], {'default': "''", 'blank': 'True'}),
+            'date_creation': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2011, 5, 15, 20, 56, 17, 715594)', 'auto_now_add': 'True', 'blank': 'True'}),
             'date_update': ('django.db.models.fields.DateField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'description': ('django.db.models.fields.TextField', [], {'default': "''"}),
             'group': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['account.Group']"}),
@@ -203,7 +204,7 @@ class Migration(SchemaMigration):
         'discography.singeralbum': {
             'Meta': {'object_name': 'SingerAlbum'},
             'city': ('django.db.models.fields.CharField', [], {'max_length': '150'}),
-            'date_creation': ('django.db.models.fields.DateField', [], {'default': "''", 'blank': 'True'}),
+            'date_creation': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2011, 5, 15, 20, 56, 17, 715594)', 'auto_now_add': 'True', 'blank': 'True'}),
             'date_update': ('django.db.models.fields.DateField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'description': ('django.db.models.fields.TextField', [], {'default': "''"}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),

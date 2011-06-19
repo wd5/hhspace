@@ -78,7 +78,8 @@ def add(request, extra_context=None, next_override=None,
             context_instance = RequestContext(
                 request,
                 { 'avatar': avatar, 
-                  'avatars': avatars, 
+                  'avatars': avatars,
+                  'profile' : request.user,
                   'upload_avatar_form': upload_avatar_form,
                   'next': next_override or _get_next(request), }
             )
@@ -118,6 +119,7 @@ def change(request, extra_context=None, next_override=None,
             request,
             { 'avatar': avatar, 
               'avatars': avatars,
+              'profile' : request.user,
               'upload_avatar_form': upload_avatar_form,
               'primary_avatar_form': primary_avatar_form,
               'next': next_override or _get_next(request), }
@@ -153,6 +155,7 @@ def delete(request, extra_context=None, next_override=None, *args, **kwargs):
             request,
             { 'avatar': avatar, 
               'avatars': avatars,
+              'profile' : request.user,
               'delete_avatar_form': delete_avatar_form,
               'next': next_override or _get_next(request), }
         )
