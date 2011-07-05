@@ -1,29 +1,36 @@
 # -*- coding: utf8 -*-
 from django.utils.html import linebreaks
-from account.models import CustomUser, TrackSingerAblum, SingerAlbum, Photo, PhotoComment, PhotoAlbum, Video, Audio
+from account.models import CustomUser, TrackSingerAblum, SingerAlbum, Photo, PhotoComment, PhotoAlbum, Video, Audio, Region, City, Country, Style, Singer, Message
 from django import forms
 import hhspace
+from utils.autocomplete import ModelAutoCompleteField
 
+MUSIC_YEARS = map(lambda a: (a,a), range(2000, 2012))
 class ProfileForm(forms.ModelForm):
 
+    username = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Псевдоним')
     first_name = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Имя')
     last_name = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Фамилия')
-    street = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Улица')
-    index = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Индекс')
-    #country  = models.ForeignKey(Country, default=1, verbose_name='Страна')
-    #region = models.ForeignKey(Region, default=1, verbose_name='Регион')
-    #city = models.ForeignKey(City, default=1, verbose_name='Город')
-    status = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Статус')
-    mood = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Настроение')
-    url = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Сайт')
-    birthday = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'День рождения')
+    street = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Улица', required=False)
+    index = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Индекс', required=False)
+    styles = ModelAutoCompleteField(lookup_url = '/style/ajax_list/?q=styles',  model = Style, required=False)
+    country  = forms.ModelChoiceField(widget=forms.Select(attrs={'class':'field'}), queryset=Country.objects.all(), label=u'Страна')
+    region = forms.ModelChoiceField(widget=forms.Select(attrs={'class':'field'}), queryset=Region.objects.all(), label=u'Регион')
+    city = forms.ModelChoiceField(widget=forms.Select(attrs={'class':'field'}), queryset=City.objects.all(), label=u'Город')
+
+    status = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Статус', required=False)
+    mood = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Настроение', required=False)
+    url = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Сайт', required=False)
+    birthday = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'День рождения', required=False)
 
     class Meta:
-        model = CustomUser
-        fields = ('first_name', 'last_name', 'street', 'index', 'status', 'mood', 'url', 'birthday', )
+        model = Singer
+        fields = ('username','country', 'region', 'city', 'first_name', 'last_name', 'street', 'index', 'status', 'mood', 'url', 'birthday', )
 
     def save(self):
-        obj = super(ProfileForm, self).save(commit=False)
+        obj = super(ProfileForm, self).save()
+        obj.styles = self.data['styles']
+        
         return obj.save()
 
 class UserProfileForm(forms.ModelForm):
@@ -31,9 +38,9 @@ class UserProfileForm(forms.ModelForm):
     username = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Псевдоним')
     first_name = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Имя')
     last_name = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Фамилия')
-    #country  = models.ForeignKey(Country, default=1, verbose_name='Страна')
-    #region = models.ForeignKey(Region, default=1, verbose_name='Регион')
-    #city = models.ForeignKey(City, default=1, verbose_name='Город')
+    country  = forms.ModelChoiceField(widget=forms.Select(attrs={'class':'field'}), queryset=Country.objects.all(), label=u'Страна')
+    region = forms.ModelChoiceField(widget=forms.Select(attrs={'class':'field'}), queryset=Region.objects.all(), label=u'Регион')
+    city = forms.ModelChoiceField(widget=forms.Select(attrs={'class':'field'}), queryset=City.objects.all(), label=u'Город')
     status = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Статус')
     mood = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Настроение')
     url = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Сайт')
@@ -66,6 +73,7 @@ class SingerAlbumForm(forms.ModelForm):
     name = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Название')
     description = forms.CharField(widget=forms.Textarea(), required=False, label = u'Описание')
     city = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Город')
+    year = forms.ChoiceField(choices=MUSIC_YEARS, widget=forms.Select(attrs={'class':'field'}), label = 'Год')
 
     class Meta:
         model = SingerAlbum
@@ -84,7 +92,7 @@ class SingerTrackForm(forms.ModelForm):
     city = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Город')
     perform_by = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Автор')
     right_to = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Права')
-    year = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Год')
+    year = forms.ChoiceField(choices=MUSIC_YEARS,  widget=forms.Select(attrs={'class':'field'}), label = 'Год')
 
     class Meta:
         model = TrackSingerAblum
@@ -119,10 +127,11 @@ class PhotoForm(forms.ModelForm):
 
     name = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Название', required=False)
     image = forms.ImageField()
+    description = forms.CharField(widget=forms.Textarea())
 
     class Meta:
         model = Photo
-        fields = ('name', 'image')
+        fields = ('name', 'image', 'description')
 
     def save(self, album_id):
         obj = super(PhotoForm, self).save(commit=False)
@@ -151,20 +160,7 @@ class CommentForm(forms.ModelForm):
         return obj
 
 
-yearchoise = (
-    (2000, 2000),
-    (2001, 2001),
-    (2002, 2002),
-    (2003, 2003),
-    (2004, 2004),
-    (2005, 2005),
-    (2006, 2006),
-    (2007, 2007),
-    (2008, 2008),
-    (2009, 2009),
-    (2010, 2010),
-    (2011, 2011),
-)
+yearchoise = map(lambda a: (a,a), range(2000,2011))
 
 class VideoForm(forms.ModelForm):
 
@@ -207,21 +203,6 @@ class VideoForm(forms.ModelForm):
         return obj.save()
 
 
-yearchoise = (
-    (2000, 2000),
-    (2001, 2001),
-    (2002, 2002),
-    (2003, 2003),
-    (2004, 2004),
-    (2005, 2005),
-    (2006, 2006),
-    (2007, 2007),
-    (2008, 2008),
-    (2009, 2009),
-    (2010, 2010),
-    (2011, 2011),
-)
-
 class AudioForm(forms.ModelForm):
 
     artist = forms.CharField(required=False, widget=forms.TextInput(
@@ -259,3 +240,27 @@ class AudioForm(forms.ModelForm):
     def save(self):
         obj = super(AudioForm, self).save(commit=False)
         return obj.save()
+
+class MessageForm(forms.ModelForm):
+
+    # ffrom = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'От')
+    to_id = ModelAutoCompleteField(lookup_url = '/singer/ajax_list/?name=to_id',  model = CustomUser, required=True, label = 'Кому')
+    theme = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Тема')
+    message = forms.CharField(widget=forms.Textarea(attrs={'class':'field acfb-input'}), label = 'Сообщение')
+
+    class Meta:
+        model = Message
+        fields = ('to_id', 'theme', 'message', )
+
+class MessageReplyForm(forms.ModelForm):
+
+    # ffrom = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'От')
+    to_id = forms.CharField(widget=forms.HiddenInput())
+    theme = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Тема')
+    message = forms.CharField(widget=forms.Textarea(attrs={'class':'field acfb-input'}), label = 'Сообщение')
+
+    class Meta:
+        model = Message
+        fields = ('to_id', 'theme', 'message', )
+
+   

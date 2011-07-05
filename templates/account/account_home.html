@@ -23,13 +23,22 @@
                             {% endif %}
                         </div>
                         <div class="hold">
-                            <a href="#" class="mail">mail</a>
-                            <a href="#" class="favourites">favourites</a>
+                            {% if user.pk != profile.pk %}
+                            <a href="{% url message_reply profile.pk %}" class="mail">mail</a>
+                            <a href="{% url user_bookmark_add profile.pk %}" class="ajax favourites" onclick="alert('Добавлено');">favourites</a>
+                            {% endif %}
                             <dl>
+                                {% if user.pk == profile.pk %}
+                                <dt>Статус:</dt>
+                                <dd><a href="#" class="input">&nbsp;{{ profile.status }}</a> <input class="focus little" name="status" style="display: none" rel="{% url user_ajax_change user.pk %}" /></dd>
+                                <dt>Настроение:</dt>
+                                <dd><a href="#" class="input">&nbsp;{{ profile.mood }}</a><input class="focus little" name="mood" style="display: none" rel="{% url user_ajax_change user.pk %}"/></dd>
+                                {% else %}
                                 <dt>Статус:</dt>
                                 <dd>&nbsp;{{ profile.status }}</dd>
                                 <dt>Настроение:</dt>
                                 <dd>&nbsp;{{ profile.mood }}</dd>
+                                {% endif %}
                             </dl>
                         </div>
                     </div>
@@ -109,13 +118,14 @@
                         {% empty %}
                             {% if photoaddurl %}
                             <li>
+                                {{ photoaddurl }}
                             </li>
                             {% endif %}
                         {% endfor %}
                     </ul>
 
                     {% if photos %}
-                        <a href="{{ morevideourl }}" class="more-link">Еще фото</a>
+                        <a href="{% url singer_photoalbum_view profile.pk %}" class="more-link">Еще фото</a>
                     {% endif %}
                 </div>
                 {% endif %}
@@ -143,6 +153,7 @@
                     {% endif %}
                 </div>
                 {% endif %}
+                {% if singers %}
                 <h3>ПОХОЖИЕ ИСПОЛНИТЕЛИ</h3>
                 <!-- galley -->
                 <div class="gallery-video jcarousel-container">
@@ -153,7 +164,7 @@
                             {% for singer in singers %}
                                 <li>
                                     <div class="video">
-                                        <a href="#"><img src="{{ singer.get_avatar_thumb }}" id="item{{ singer.pk }}"
+                                        <a href="{{ singer.get_absolute_url }}"><img src="{{ singer.get_avatar_thumb }}" id="item{{ singer.pk }}"
                                                          class='showimg' alt="{{ singer.username }}"
                                                          style='width: 135px; height: 135px;'></a>
                                     </div>
@@ -163,6 +174,7 @@
                         </ul>
                     </div>
                 </div>
+                {% endif %}
                 
             </div>
         </div>

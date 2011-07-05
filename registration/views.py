@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, redirect
 from django.core.context_processors import csrf
@@ -49,15 +50,15 @@ def register(request):
                 if form.is_valid():
                     form.save(request.user)
                     
-                    user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
+                    user = authenticate(username=form.cleaned_data['email'], password=form.cleaned_data['password1'])
                     if user and user.is_active:
                         login(request, user)
 
                     gr = request.POST.get('reg_group', 0)
                     if gr != '0':
-                        return HttpResponseRedirect('/registration/group/')
+                        return HttpResponseRedirect(reverse('group_edit'))
                     else:
-                        return HttpResponseRedirect('/registration/complete/')
+                        return HttpResponseRedirect(reverse('account', args=[user.pk]))
                 else:
                     form = SingerRegistrationForm(request.POST)
                     c['form'] = form

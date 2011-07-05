@@ -1,6 +1,7 @@
 # -*- coding: utf8 -*-
 from django import forms
 from django.core.urlresolvers import reverse
+from django.forms.extras.widgets import SelectDateWidget
 from account.models import Singer
 from group.models import Group,TrackGroupAblum, GroupAlbum, Photo, PhotoAlbum, PhotoComment, Video
 from hhspace.utils.autocomplete import ModelAutoCompleteField
@@ -10,18 +11,14 @@ class GroupForm(forms.ModelForm):
     name = forms.CharField(required=True, widget=forms.TextInput(
         attrs = { 'class' : 'field', }),
         label = u'Название'
-
     )
-    date_created = forms.CharField(required=False, widget=forms.TextInput(
-        attrs = { 'class' : 'field', }),
-        label = u'Дата создания'
-    )
+    # date_created = forms.DateField(widget=SelectDateWidget(attrs={'class' : 'sel-small'},), label=_(u'Дата начала деятельности'))
     invite = ModelAutoCompleteField(lookup_url = '/singer/ajax_list/',
                                     model = Singer, required=False)
 
     class Meta:
         model = Group
-        fields = ('name', 'date_created', 'country', 'region', 'city', 'directions', 'styles', 'invite'  )
+        fields = ('name', 'image', 'country', 'region', 'city', 'directions', 'styles', 'invite'  )
 
     def save(self):
         obj = super(GroupForm, self).save(commit=False)
@@ -37,6 +34,7 @@ class GroupBiographyForm(forms.ModelForm):
 
     def save(self):
         obj = super(GroupBiographyForm, self).save(commit=False)
+        obj.biography = obj.biography.replace('\n','<br />')
         return obj.save()
 
 

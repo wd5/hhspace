@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %} {{ profile }} сообщения {% endblock %}
+
+{% block content %}
+    <div class="twocolumns news-wrap wrap ">
+        <!-- column -->
+        <div class="column">
+            <h2><span>{{ profile }} - личные сообщения</span></h2>
+            {% include "snippets/account_menu.html" %}
+            <!-- tab box -->
+            <div class="tab-box" id="tab2">
+            <div class="edit-box"><a href="{% url message_edit %}">Написать сообщение</a></div>
+                <div class="box-view">
+                <!--
+						<div class="choice">
+							<select>
+								<option></option>
+							</select>
+							<select>
+								<option>Кому</option>
+							</select>
+							<select>
+								<option>Тема</option>
+							</select>
+
+						</div>
+						-->
+						<table>
+							<tbody>
+                            {% for message in msgs %}
+                            <tr>
+								<td><a href="{{ message.ffrom.get_absolute_url }}"><img src="{{ message.ffrom.get_avatar_thumb }}" alt="{{ message.ffrom.get_username }}" /></a></td>
+								<td>{{ message.ffrom.get_username }}</td>
+								<td><a href="{% url message_view message.pk %}">{{ message.theme }}</a></td>
+								<td>{{ message.message|wordwrap:20 }}</td>
+                                <td><a href="{% url message_view message.pk %}">Читать</a> <br /> <a href="{% url message_reply message.ffrom.pk %}">Ответить</a></td>
+							</tr>
+                            {% endfor %}
+						</tbody>
+                        </table>
+					</div>
+            </div>
+        </div>
+        <!-- column -->
+        <div class="column column2">
+            <h2><span>Реклама</span></h2>
+
+            <div class="box-reklama">
+                <a href="#"><img alt="image description" src="/static/images/img-banner4.gif"></a>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

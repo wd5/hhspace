@@ -63,6 +63,7 @@ def album_view(request, album_id, singer_id, photo_id = None):
     c['album'] = PhotoAlbum.objects.get(pk=album_id)
     c['photos'] = photos
     c['request'] = request.user
+    c['edit_url'] = edit_url(request.user, c['profile'], 'photoalbum_photo_add', [request.user.id, c['album'].pk,])
     c['comments'] = comments
     c['commenturl'] = edit_url(request.user, c['profile'], 'photoalbum_comment_add', [request.user.id, c['album'].pk, c['photos'][0].pk], 0)
 

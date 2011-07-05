@@ -88,11 +88,11 @@
 				<div class="kabinet-content">
 					<p>Рад видеть тебя, <a href='/account/{{ user.pk }}'>{{ user.username }}</a></p>
 					<ul>
-						<li class="it1"><a class="alt" href="#">Личные сообщения</a><a href="#">0</a><em>&nbsp;|&nbsp;</em><a href="#">7</a></li>
-                        {% if user.issinger %}
+						<li class="it1"><a class="alt" href="{% url message_list %}">Личные сообщения</a><a href="{% url message_list %}">{{ user.messages_count }}</a><em>&nbsp;|&nbsp;</em><a href="{% url message_list_new %}">{{ user.messages_new_count }}</a></li>
+                        {% if user.singer %}
                             <li class="it2"><a class="alt" href="{% url group_list user.pk %}">Группы</a></li>
                         {% endif %}
-						<li class="it2"><a class="alt" href="#">Закладки</a><a href="#">3</a></li>
+						<li class="it2"><a class="alt" href="{% url bookmark_list user.pk %}">Закладки</a><a href="{% url bookmark_list user.pk %}">{{ cy }}</a></li>
 						<li class="it3"><a class="alt" href="{% url profile_edit %}">Настройки</a></li>
 						<li class="it4"><a href="/account/logout/">Выход</a></li>
 					</ul>

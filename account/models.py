@@ -94,8 +94,8 @@ class CustomUser(User):
     region = models.ForeignKey(Region, default=1, verbose_name='Регион')
     city = models.ForeignKey(City, default=1, verbose_name='Город')
     sex = models.BooleanField(default=True, choices=SEX_CHOICES, verbose_name='Пол')
-    status = models.CharField(max_length=50, blank=True, default='')
-    mood = models.CharField(max_length=50, blank=True, default='')
+    status = models.CharField(max_length=50, blank=True, default='Online')
+    mood = models.CharField(max_length=50, blank=True, default='Отпад')
     url = models.URLField(max_length=100, blank=True, default='')
     birthday = models.DateTimeField(blank=True, default=datetime.now, auto_created=True)
 
@@ -134,15 +134,20 @@ class CustomUser(User):
     @permalink
     def get_absolute_url(self):
         return ('hhspace.account.views.account', None, {'id' : self.id})
-    
+
+    def messages_new_count(self):
+        return Message.objects.filter(to__id=self.pk).filter(is_read=0).count()
+
+    def messages_count(self):
+        return Message.objects.filter(to__id=self.pk).count()
 
 class Singer(CustomUser):
     directions = models.ManyToManyField(Direction)
     # category = models.ForeignKey(Category)
     styles = models.ManyToManyField(Style, verbose_name='styles')
     featuring = models.IntegerField(default = 0)
-    date_created = models.DateField(blank=True),
-    street = models.CharField(max_length=100, blank=True),
+    date_created = models.DateField(blank=True, null=True)
+    street = models.CharField(max_length=100, blank=True)
     index = models.CharField(max_length=20, blank=True)
 
     def __unicode__(self):
@@ -193,3 +198,24 @@ class Audio(Audio):
     @permalink
     def get_absolute_url(self):
         return ('singer_audio_view', None, { 'singer_id' : self.singer_id, 'audio_id' : self.id})
+
+
+class Message(models.Model):
+    ffrom = models.ForeignKey(CustomUser, default=1, null=False, related_name='from_messages')
+    to = models.ForeignKey(CustomUser, default=1, null=False, related_name='to_messages')
+    theme = models.CharField(max_length=150, default='', null=False, verbose_name='Тема')
+    message = models.TextField()
+    is_read = models.BooleanField(default=0, null=False)
+    date = models.DateTimeField(auto_now=True, blank=True, default=datetime.now)
+
+    def __unicode__(self):
+        return self.theme
+
+    @permalink
+    def get_absolute_url(self):
+        return ('user_message_view', None, { 'message_id' : self.pk})
+
+class BookmarkUser(models.Model):
+    user = models.ForeignKey(CustomUser, default=1, related_name='bookmarks_users')
+    mark = models.ForeignKey(CustomUser, default=1, related_name='mark_users')
+    date = models.DateTimeField(auto_now=True, blank=True)

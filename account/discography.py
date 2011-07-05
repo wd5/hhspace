@@ -66,15 +66,15 @@ def track_edit(request, album_id, singer_id):
     c = {}
     c.update(csrf(request))
     c['user'] = request.user
-    profile = Singer.objects.get(pk=singer_id)
+    c['profile']= Singer.objects.get(pk=singer_id)
     album = SingerAlbum.objects.get(pk=album_id)
     c['album'] = album
     c['disco_tab'] = 'active'
-    c['formurl']  = edit_url(request.user, profile, "track_edit", [request.user.id, album_id], 0)
+    c['formurl']  = edit_url(request.user, c['profile'], "track_edit", [request.user.id, album_id], 0)
     c['nnation_tab'] = 'active'
 
     if not request.POST:
-        form = SingerTrackForm(initial={ 'perform_by': profile.username })
+        form = SingerTrackForm(initial={ 'perform_by': c['profile'].username })
         c['form'] = form
         return render_to_response('discography/track_edit.html', c)
     else:

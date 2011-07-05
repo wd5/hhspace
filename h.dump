@@ -1,0 +1,1765 @@
+-- MySQL dump 10.13  Distrib 5.1.56, for portbld-freebsd8.1 (i386)
+--
+-- Host: localhost    Database: hhspace
+-- ------------------------------------------------------
+-- Server version	5.1.50
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `account_audio`
+--
+
+DROP TABLE IF EXISTS `account_audio`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_audio` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `artist` varchar(150) NOT NULL,
+  `music_author` varchar(150) NOT NULL,
+  `words_author` varchar(150) NOT NULL,
+  `year` int(10) unsigned NOT NULL,
+  `right_to` varchar(150) NOT NULL,
+  `description` longtext NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `order` int(10) unsigned NOT NULL,
+  `audio` varchar(100) NOT NULL,
+  `timestamp` datetime NOT NULL,
+  `singer_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `account_audio_29a27876` (`singer_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_audio`
+--
+
+LOCK TABLES `account_audio` WRITE;
+/*!40000 ALTER TABLE `account_audio` DISABLE KEYS */;
+INSERT INTO `account_audio` VALUES (1,'','','',2000,'','','',1,'audio/track_01.mp3','2011-06-02 11:03:33',38),(2,'','','',2000,'','','',1,'audio/track_02.mp3','2011-06-02 11:04:38',38),(3,'','','',2000,'','','',1,'audio/track_01_1.mp3','2011-06-05 14:15:04',39),(4,'','','',2000,'','','',1,'audio/track_02_1.mp3','2011-06-05 14:16:33',39);
+/*!40000 ALTER TABLE `account_audio` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_category`
+--
+
+DROP TABLE IF EXISTS `account_category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_category`
+--
+
+LOCK TABLES `account_category` WRITE;
+/*!40000 ALTER TABLE `account_category` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_city`
+--
+
+DROP TABLE IF EXISTS `account_city`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_city` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `region_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `account_city_9574fce` (`region_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_city`
+--
+
+LOCK TABLES `account_city` WRITE;
+/*!40000 ALTER TABLE `account_city` DISABLE KEYS */;
+INSERT INTO `account_city` VALUES (1,'Москва',1);
+/*!40000 ALTER TABLE `account_city` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_country`
+--
+
+DROP TABLE IF EXISTS `account_country`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_country` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_country`
+--
+
+LOCK TABLES `account_country` WRITE;
+/*!40000 ALTER TABLE `account_country` DISABLE KEYS */;
+INSERT INTO `account_country` VALUES (1,'Россия');
+/*!40000 ALTER TABLE `account_country` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_customuser`
+--
+
+DROP TABLE IF EXISTS `account_customuser`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_customuser` (
+  `user_ptr_id` int(11) NOT NULL,
+  `birthday` datetime NOT NULL,
+  `country_id` int(11) NOT NULL,
+  `region_id` int(11) NOT NULL,
+  `city_id` int(11) NOT NULL,
+  `sex` tinyint(1) NOT NULL,
+  `status` varchar(50) NOT NULL,
+  `mood` varchar(50) NOT NULL,
+  `url` varchar(100) NOT NULL,
+  `biography` longtext NOT NULL,
+  PRIMARY KEY (`user_ptr_id`),
+  KEY `account_customuser_534dd89` (`country_id`),
+  KEY `account_customuser_9574fce` (`region_id`),
+  KEY `account_customuser_586a73b5` (`city_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_customuser`
+--
+
+LOCK TABLES `account_customuser` WRITE;
+/*!40000 ALTER TABLE `account_customuser` DISABLE KEYS */;
+INSERT INTO `account_customuser` VALUES (36,'2011-05-20 12:49:16',1,1,1,1,'','','',''),(37,'2011-05-21 08:34:24',1,1,1,1,'','','',''),(38,'2011-06-02 08:40:07',1,1,1,1,'','','',''),(39,'2011-06-05 14:12:23',1,1,1,1,'','','',''),(40,'2011-06-22 17:23:54',1,1,1,1,'','','','');
+/*!40000 ALTER TABLE `account_customuser` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_direction`
+--
+
+DROP TABLE IF EXISTS `account_direction`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_direction` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_direction`
+--
+
+LOCK TABLES `account_direction` WRITE;
+/*!40000 ALTER TABLE `account_direction` DISABLE KEYS */;
+INSERT INTO `account_direction` VALUES (1,'Исполнитель'),(2,'Битмейкер/Продюсер'),(3,'Битбоксер'),(4,'Ди-джей'),(5,'Райтер'),(6,'Танцор');
+/*!40000 ALTER TABLE `account_direction` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_group`
+--
+
+DROP TABLE IF EXISTS `account_group`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date_joined` datetime NOT NULL,
+  `last_login` datetime NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `country_id` int(11) NOT NULL,
+  `region_id` int(11) NOT NULL,
+  `city_id` int(11) NOT NULL,
+  `leaders` varchar(255) NOT NULL,
+  `date_created` date NOT NULL,
+  `featuring` int(11) NOT NULL,
+  `status` varchar(50) NOT NULL,
+  `mood` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  KEY `account_group_534dd89` (`country_id`),
+  KEY `account_group_9574fce` (`region_id`),
+  KEY `account_group_586a73b5` (`city_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_group`
+--
+
+LOCK TABLES `account_group` WRITE;
+/*!40000 ALTER TABLE `account_group` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_group` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_group_directions`
+--
+
+DROP TABLE IF EXISTS `account_group_directions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_group_directions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `direction_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `group_id` (`group_id`,`direction_id`),
+  KEY `account_group_directions_425ae3c4` (`group_id`),
+  KEY `account_group_directions_2b9311f6` (`direction_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_group_directions`
+--
+
+LOCK TABLES `account_group_directions` WRITE;
+/*!40000 ALTER TABLE `account_group_directions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_group_directions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_group_styles`
+--
+
+DROP TABLE IF EXISTS `account_group_styles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_group_styles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `style_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `group_id` (`group_id`,`style_id`),
+  KEY `style_id_refs_id_79b4aa63` (`style_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_group_styles`
+--
+
+LOCK TABLES `account_group_styles` WRITE;
+/*!40000 ALTER TABLE `account_group_styles` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_group_styles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_group_users`
+--
+
+DROP TABLE IF EXISTS `account_group_users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_group_users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `singer_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `group_id` (`group_id`,`singer_id`),
+  KEY `account_group_users_425ae3c4` (`group_id`),
+  KEY `account_group_users_29a27876` (`singer_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_group_users`
+--
+
+LOCK TABLES `account_group_users` WRITE;
+/*!40000 ALTER TABLE `account_group_users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_group_users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_membership`
+--
+
+DROP TABLE IF EXISTS `account_membership`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_membership` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `singer_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  `date_joined` date NOT NULL,
+  `invite_reason` varchar(160) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `account_membership_29a27876` (`singer_id`),
+  KEY `account_membership_425ae3c4` (`group_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_membership`
+--
+
+LOCK TABLES `account_membership` WRITE;
+/*!40000 ALTER TABLE `account_membership` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_membership` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_news`
+--
+
+DROP TABLE IF EXISTS `account_news`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_news` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(150) NOT NULL,
+  `subtitle` varchar(150) NOT NULL,
+  `text` longtext NOT NULL,
+  `date_created` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_news`
+--
+
+LOCK TABLES `account_news` WRITE;
+/*!40000 ALTER TABLE `account_news` DISABLE KEYS */;
+INSERT INTO `account_news` VALUES (1,'ВИНТ И МЭФ ГОТОВЯТ АЛЬБОМ','УЖЕ СНЯТ ПЕРВЫЙ КЛИП','После распада группы ЮГ достаточно быстро было объявлено о появлении новой творческой единицы в виде дуэта Мака и К.И.Т.а. А о деятельности оставшихся','2011-06-03 04:21:15');
+/*!40000 ALTER TABLE `account_news` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_photo`
+--
+
+DROP TABLE IF EXISTS `account_photo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_photo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  `visited` int(10) unsigned NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `album_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `account_photo_1293c648` (`album_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_photo`
+--
+
+LOCK TABLES `account_photo` WRITE;
+/*!40000 ALTER TABLE `account_photo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_photo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_photoalbum`
+--
+
+DROP TABLE IF EXISTS `account_photoalbum`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_photoalbum` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  `date_created` date NOT NULL,
+  `date_updated` datetime NOT NULL,
+  `year` int(10) unsigned NOT NULL,
+  `city` varchar(150) NOT NULL,
+  `singer_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `account_photoalbum_29a27876` (`singer_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_photoalbum`
+--
+
+LOCK TABLES `account_photoalbum` WRITE;
+/*!40000 ALTER TABLE `account_photoalbum` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_photoalbum` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_photocomment`
+--
+
+DROP TABLE IF EXISTS `account_photocomment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_photocomment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(150) NOT NULL,
+  `date_created` datetime NOT NULL,
+  `text` longtext NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `photo_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `account_photocomment_403f60f` (`user_id`),
+  KEY `account_photocomment_7c6c8bb1` (`photo_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_photocomment`
+--
+
+LOCK TABLES `account_photocomment` WRITE;
+/*!40000 ALTER TABLE `account_photocomment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_photocomment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_region`
+--
+
+DROP TABLE IF EXISTS `account_region`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_region` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `county_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `account_region_3a0d0688` (`county_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_region`
+--
+
+LOCK TABLES `account_region` WRITE;
+/*!40000 ALTER TABLE `account_region` DISABLE KEYS */;
+INSERT INTO `account_region` VALUES (1,'Московская область',1);
+/*!40000 ALTER TABLE `account_region` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_singer`
+--
+
+DROP TABLE IF EXISTS `account_singer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_singer` (
+  `customuser_ptr_id` int(11) NOT NULL,
+  `featuring` int(11) NOT NULL,
+  `index` varchar(20) NOT NULL,
+  PRIMARY KEY (`customuser_ptr_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_singer`
+--
+
+LOCK TABLES `account_singer` WRITE;
+/*!40000 ALTER TABLE `account_singer` DISABLE KEYS */;
+INSERT INTO `account_singer` VALUES (36,0,''),(37,0,''),(38,0,''),(39,0,''),(40,0,'');
+/*!40000 ALTER TABLE `account_singer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_singer_directions`
+--
+
+DROP TABLE IF EXISTS `account_singer_directions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_singer_directions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `singer_id` int(11) NOT NULL,
+  `direction_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `singer_id` (`singer_id`,`direction_id`),
+  KEY `direction_id_refs_id_7bfb90b1` (`direction_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_singer_directions`
+--
+
+LOCK TABLES `account_singer_directions` WRITE;
+/*!40000 ALTER TABLE `account_singer_directions` DISABLE KEYS */;
+INSERT INTO `account_singer_directions` VALUES (1,36,1),(2,37,2),(3,38,5),(4,39,4),(5,40,1);
+/*!40000 ALTER TABLE `account_singer_directions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_singer_styles`
+--
+
+DROP TABLE IF EXISTS `account_singer_styles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_singer_styles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `singer_id` int(11) NOT NULL,
+  `style_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `singer_id` (`singer_id`,`style_id`),
+  KEY `style_id_refs_id_58b7cdf9` (`style_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_singer_styles`
+--
+
+LOCK TABLES `account_singer_styles` WRITE;
+/*!40000 ALTER TABLE `account_singer_styles` DISABLE KEYS */;
+INSERT INTO `account_singer_styles` VALUES (1,36,17),(2,36,14),(3,37,11),(4,37,13),(5,37,14),(6,38,9),(7,38,12),(8,38,14),(9,39,17),(10,39,10),(11,39,12),(12,40,8);
+/*!40000 ALTER TABLE `account_singer_styles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_singeralbum`
+--
+
+DROP TABLE IF EXISTS `account_singeralbum`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_singeralbum` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  `description` longtext NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `city` varchar(150) NOT NULL,
+  `date_creation` datetime NOT NULL,
+  `date_update` date NOT NULL,
+  `singer_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `account_singeralbum_29a27876` (`singer_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_singeralbum`
+--
+
+LOCK TABLES `account_singeralbum` WRITE;
+/*!40000 ALTER TABLE `account_singeralbum` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_singeralbum` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_style`
+--
+
+DROP TABLE IF EXISTS `account_style`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_style` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_style`
+--
+
+LOCK TABLES `account_style` WRITE;
+/*!40000 ALTER TABLE `account_style` DISABLE KEYS */;
+INSERT INTO `account_style` VALUES (1,'Hip-Hop'),(2,'Southern Rap'),(3,'Underground Rap'),(4,'Pop-Rap'),(5,'Political Rap'),(6,'Party Rap'),(7,'Jazz-Rap'),(8,'Gangsta Rap'),(9,'East Coast Rap'),(10,'Foreign Rap'),(11,'DownBeats'),(12,'Dirty Rap'),(13,'Comedy Rap'),(14,'British Rap'),(15,'Alternative Rap'),(16,'Urban'),(17,'Break Beat');
+/*!40000 ALTER TABLE `account_style` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_tracksingerablum`
+--
+
+DROP TABLE IF EXISTS `account_tracksingerablum`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_tracksingerablum` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  `description` longtext NOT NULL,
+  `city` varchar(150) NOT NULL,
+  `music_by` varchar(150) NOT NULL,
+  `perform_by` varchar(150) NOT NULL,
+  `right_to` varchar(150) NOT NULL,
+  `year` int(10) unsigned NOT NULL,
+  `duration` varchar(10) NOT NULL,
+  `album_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `account_tracksingerablum_1293c648` (`album_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_tracksingerablum`
+--
+
+LOCK TABLES `account_tracksingerablum` WRITE;
+/*!40000 ALTER TABLE `account_tracksingerablum` DISABLE KEYS */;
+/*!40000 ALTER TABLE `account_tracksingerablum` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `account_video`
+--
+
+DROP TABLE IF EXISTS `account_video`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `account_video` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `video` varchar(100) NOT NULL,
+  `photo` varchar(250) NOT NULL,
+  `flvvideo` varchar(250) NOT NULL,
+  `artist` varchar(150) NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `director` varchar(150) NOT NULL,
+  `year` int(10) unsigned NOT NULL,
+  `city` varchar(150) NOT NULL,
+  `album` varchar(150) NOT NULL,
+  `description` longtext NOT NULL,
+  `timestamp` datetime NOT NULL,
+  `converted` int(10) unsigned NOT NULL,
+  `order` int(10) unsigned NOT NULL,
+  `singer_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `account_video_29a27876` (`singer_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account_video`
+--
+
+LOCK TABLES `account_video` WRITE;
+/*!40000 ALTER TABLE `account_video` DISABLE KEYS */;
+INSERT INTO `account_video` VALUES (1,'video/Xenical_-_Mysterious_lady_480_x_360.mp4','media/video/Xenical_-_Mysterious_lady_480_x_360.jpg','media/video/Xenical_-_Mysterious_lady_480_x_360.mp4','','','',2000,'','','','2011-06-01 13:28:26',2,0,36),(2,'video/Dj_Tiesto_feat_Kirsty_Hawkshaw_-_Just_be.mpg','media/video/Dj_Tiesto_feat_Kirsty_Hawkshaw_-_Just_be.jpg','media/video/Dj_Tiesto_feat_Kirsty_Hawkshaw_-_Just_be.mp4','Dj Tiesto','Just be','',2000,'','','','2011-06-02 08:00:05',2,0,36);
+/*!40000 ALTER TABLE `account_video` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `audio_audio`
+--
+
+DROP TABLE IF EXISTS `audio_audio`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `audio_audio` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `artist` varchar(150) NOT NULL,
+  `music_author` varchar(150) NOT NULL DEFAULT '',
+  `words_author` varchar(150) NOT NULL DEFAULT '',
+  `year` int(10) unsigned NOT NULL DEFAULT '2000',
+  `right_to` varchar(150) NOT NULL DEFAULT '',
+  `description` longtext NOT NULL,
+  `name` varchar(150) NOT NULL DEFAULT '',
+  `order` int(10) unsigned NOT NULL DEFAULT '1',
+  `audio` varchar(100) NOT NULL DEFAULT '',
+  `timestamp` datetime NOT NULL DEFAULT '2011-05-17 16:40:27',
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `audio_audio_403f60f` (`user_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `audio_audio`
+--
+
+LOCK TABLES `audio_audio` WRITE;
+/*!40000 ALTER TABLE `audio_audio` DISABLE KEYS */;
+INSERT INTO `audio_audio` VALUES (1,'asgdasdgasdg','sadgdasg','asdgadsgsdg',2002,'asdgasdg','dfa\r\nasdgasdg','asdgadsg asdgasdg ',0,'audio/Enigma_05_-_Fata_Morgana.mp3','2011-05-19 02:52:40',35),(2,'asgdasdgasdg','sadgdasg','asdgadsgsdg',2002,'asdgasdg','dfa\r\nasdgasdg','asdgadsg asdgasdg ',0,'audio/Enigma_05_-_Fata_Morgana_1.mp3','2011-05-19 02:55:32',35),(3,'asgdasdgasdg','sadgdasg','asdgadsgsdg',2002,'asdgasdg','dfa\r\nasdgasdg','asdgadsg asdgasdg ',0,'audio/markup.zip','2011-05-19 02:56:35',35),(4,'asdg12','123sadf','gasd12sdf',2002,'123asdfasdf','asdgasdgasgd\r\nasdgasdg\r\nasdgsadg','asdgasdg asdgasdg asdg',1,'audio/markup_1.zip','2011-05-19 02:58:16',35),(5,'','','',2000,'','','',0,'audio/bairtra_1.sql.gz','2011-05-19 03:09:19',35),(6,'Enigma','','',2000,'','','',1,'audio/Enigma_03_-_Touchness.mp3','2011-05-19 03:16:11',35),(7,'','','',2000,'','','',0,'audio/102-atb_-_what_about_us.mp3','2011-05-20 14:39:53',35);
+/*!40000 ALTER TABLE `audio_audio` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_group`
+--
+
+DROP TABLE IF EXISTS `auth_group`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(80) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_group`
+--
+
+LOCK TABLES `auth_group` WRITE;
+/*!40000 ALTER TABLE `auth_group` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_group` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_group_permissions`
+--
+
+DROP TABLE IF EXISTS `auth_group_permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_group_permissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `group_id` (`group_id`,`permission_id`),
+  KEY `auth_group_permissions_425ae3c4` (`group_id`),
+  KEY `auth_group_permissions_1e014c8f` (`permission_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_group_permissions`
+--
+
+LOCK TABLES `auth_group_permissions` WRITE;
+/*!40000 ALTER TABLE `auth_group_permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_group_permissions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_message`
+--
+
+DROP TABLE IF EXISTS `auth_message`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_message` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `message` longtext NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `auth_message_403f60f` (`user_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_message`
+--
+
+LOCK TABLES `auth_message` WRITE;
+/*!40000 ALTER TABLE `auth_message` DISABLE KEYS */;
+INSERT INTO `auth_message` VALUES (3,35,'Your file has been received.'),(4,35,'Your file has been received.'),(5,35,'Your file has been received.'),(6,35,'Your file has been received.'),(7,35,'Your file has been received.'),(8,35,'Your file has been received.'),(9,35,'Successfully uploaded a new avatar.'),(10,35,'Successfully uploaded a new avatar.'),(11,35,'Successfully updated your avatar.'),(12,35,'Successfully uploaded a new avatar.'),(13,35,'Successfully updated your avatar.'),(14,35,'Successfully uploaded a new avatar.'),(15,35,'Your file has been received.'),(16,35,'Your file has been received.'),(17,35,'Your file has been received.'),(18,35,'Your file has been received.'),(19,35,'Your file has been received.'),(20,35,'Your file has been received.'),(21,35,'Your file has been received.'),(22,35,'Your file has been received.'),(23,35,'Your file has been received.'),(24,35,'Your file has been received.'),(25,35,'Your file has been received.'),(26,35,'Your file has been received.'),(27,35,'Your file has been received.'),(28,35,'Your file has been received.');
+/*!40000 ALTER TABLE `auth_message` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_permission`
+--
+
+DROP TABLE IF EXISTS `auth_permission`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_permission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `content_type_id` int(11) NOT NULL,
+  `codename` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `content_type_id` (`content_type_id`,`codename`),
+  KEY `auth_permission_1bb8f392` (`content_type_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=154 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_permission`
+--
+
+LOCK TABLES `auth_permission` WRITE;
+/*!40000 ALTER TABLE `auth_permission` DISABLE KEYS */;
+INSERT INTO `auth_permission` VALUES (1,'Can add permission',1,'add_permission'),(2,'Can change permission',1,'change_permission'),(3,'Can delete permission',1,'delete_permission'),(4,'Can add group',2,'add_group'),(5,'Can change group',2,'change_group'),(6,'Can delete group',2,'delete_group'),(7,'Can add user',3,'add_user'),(8,'Can change user',3,'change_user'),(9,'Can delete user',3,'delete_user'),(10,'Can add message',4,'add_message'),(11,'Can change message',4,'change_message'),(12,'Can delete message',4,'delete_message'),(13,'Can add content type',5,'add_contenttype'),(14,'Can change content type',5,'change_contenttype'),(15,'Can delete content type',5,'delete_contenttype'),(16,'Can add session',6,'add_session'),(17,'Can change session',6,'change_session'),(18,'Can delete session',6,'delete_session'),(19,'Can add site',7,'add_site'),(20,'Can change site',7,'change_site'),(21,'Can delete site',7,'delete_site'),(22,'Can add log entry',8,'add_logentry'),(23,'Can change log entry',8,'change_logentry'),(24,'Can delete log entry',8,'delete_logentry'),(25,'Can add direction',9,'add_direction'),(26,'Can change direction',9,'change_direction'),(27,'Can delete direction',9,'delete_direction'),(28,'Can add style',10,'add_style'),(29,'Can change style',10,'change_style'),(30,'Can delete style',10,'delete_style'),(31,'Can add country',11,'add_country'),(32,'Can change country',11,'change_country'),(33,'Can delete country',11,'delete_country'),(34,'Can add region',12,'add_region'),(35,'Can change region',12,'change_region'),(36,'Can delete region',12,'delete_region'),(37,'Can add city',13,'add_city'),(38,'Can change city',13,'change_city'),(39,'Can delete city',13,'delete_city'),(40,'Can add category',14,'add_category'),(41,'Can change category',14,'change_category'),(42,'Can delete category',14,'delete_category'),(43,'Can add custom user',15,'add_customuser'),(44,'Can change custom user',15,'change_customuser'),(45,'Can delete custom user',15,'delete_customuser'),(46,'Can add singer',16,'add_singer'),(47,'Can change singer',16,'change_singer'),(48,'Can delete singer',16,'delete_singer'),(122,'Can change membership',41,'change_membership'),(121,'Can add membership',41,'add_membership'),(120,'Can delete group',40,'delete_group'),(119,'Can change group',40,'change_group'),(118,'Can add group',40,'add_group'),(55,'Can add group album',19,'add_groupalbum'),(56,'Can change group album',19,'change_groupalbum'),(57,'Can delete group album',19,'delete_groupalbum'),(58,'Can add singer album',20,'add_singeralbum'),(59,'Can change singer album',20,'change_singeralbum'),(60,'Can delete singer album',20,'delete_singeralbum'),(61,'Can add track group ablum',21,'add_trackgroupablum'),(62,'Can change track group ablum',21,'change_trackgroupablum'),(63,'Can delete track group ablum',21,'delete_trackgroupablum'),(72,'Can delete photoalbum',24,'delete_photoalbum'),(71,'Can change photoalbum',24,'change_photoalbum'),(70,'Can add photoalbum',24,'add_photoalbum'),(67,'Can add track singer ablum',23,'add_tracksingerablum'),(68,'Can change track singer ablum',23,'change_tracksingerablum'),(69,'Can delete track singer ablum',23,'delete_tracksingerablum'),(73,'Can add photo',25,'add_photo'),(74,'Can change photo',25,'change_photo'),(75,'Can delete photo',25,'delete_photo'),(76,'Can add migration history',26,'add_migrationhistory'),(77,'Can change migration history',26,'change_migrationhistory'),(78,'Can delete migration history',26,'delete_migrationhistory'),(79,'Can add knight',27,'add_knight'),(80,'Can change knight',27,'change_knight'),(81,'Can delete knight',27,'delete_knight'),(82,'Can add avatar',28,'add_avatar'),(83,'Can change avatar',28,'change_avatar'),(84,'Can delete avatar',28,'delete_avatar'),(147,'Can delete news',49,'delete_news'),(146,'Can change news',49,'change_news'),(145,'Can add news',49,'add_news'),(88,'Can add comment',30,'add_comment'),(89,'Can change comment',30,'change_comment'),(90,'Can delete comment',30,'delete_comment'),(91,'Can add audio',31,'add_audio'),(92,'Can change audio',31,'change_audio'),(93,'Can delete audio',31,'delete_audio'),(94,'Can add video',32,'add_video'),(95,'Can change video',32,'change_video'),(96,'Can delete video',32,'delete_video'),(97,'Can add singer album',33,'add_singeralbum'),(98,'Can change singer album',33,'change_singeralbum'),(99,'Can delete singer album',33,'delete_singeralbum'),(100,'Can add track singer ablum',34,'add_tracksingerablum'),(101,'Can change track singer ablum',34,'change_tracksingerablum'),(102,'Can delete track singer ablum',34,'delete_tracksingerablum'),(103,'Can add photo album',35,'add_photoalbum'),(104,'Can change photo album',35,'change_photoalbum'),(105,'Can delete photo album',35,'delete_photoalbum'),(106,'Can add photo',36,'add_photo'),(107,'Can change photo',36,'change_photo'),(108,'Can delete photo',36,'delete_photo'),(109,'Can add photo comment',37,'add_photocomment'),(110,'Can change photo comment',37,'change_photocomment'),(111,'Can delete photo comment',37,'delete_photocomment'),(112,'Can add video',38,'add_video'),(113,'Can change video',38,'change_video'),(114,'Can delete video',38,'delete_video'),(115,'Can add audio',39,'add_audio'),(116,'Can change audio',39,'change_audio'),(117,'Can delete audio',39,'delete_audio'),(123,'Can delete membership',41,'delete_membership'),(124,'Can add group album',42,'add_groupalbum'),(125,'Can change group album',42,'change_groupalbum'),(126,'Can delete group album',42,'delete_groupalbum'),(127,'Can add track group ablum',43,'add_trackgroupablum'),(128,'Can change track group ablum',43,'change_trackgroupablum'),(129,'Can delete track group ablum',43,'delete_trackgroupablum'),(130,'Can add photo album',44,'add_photoalbum'),(131,'Can change photo album',44,'change_photoalbum'),(132,'Can delete photo album',44,'delete_photoalbum'),(133,'Can add photo',45,'add_photo'),(134,'Can change photo',45,'change_photo'),(135,'Can delete photo',45,'delete_photo'),(136,'Can add photo comment',46,'add_photocomment'),(137,'Can change photo comment',46,'change_photocomment'),(138,'Can delete photo comment',46,'delete_photocomment'),(139,'Can add video',47,'add_video'),(140,'Can change video',47,'change_video'),(141,'Can delete video',47,'delete_video'),(142,'Can add audio',48,'add_audio'),(143,'Can change audio',48,'change_audio'),(144,'Can delete audio',48,'delete_audio'),(148,'Can add event',50,'add_event'),(149,'Can change event',50,'change_event'),(150,'Can delete event',50,'delete_event'),(151,'Can add page',51,'add_page'),(152,'Can change page',51,'change_page'),(153,'Can delete page',51,'delete_page');
+/*!40000 ALTER TABLE `auth_permission` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_user`
+--
+
+DROP TABLE IF EXISTS `auth_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(30) NOT NULL,
+  `first_name` varchar(30) NOT NULL,
+  `last_name` varchar(30) NOT NULL,
+  `email` varchar(75) NOT NULL,
+  `password` varchar(128) NOT NULL,
+  `is_staff` tinyint(1) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `is_superuser` tinyint(1) NOT NULL,
+  `last_login` datetime NOT NULL,
+  `date_joined` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_user`
+--
+
+LOCK TABLES `auth_user` WRITE;
+/*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
+INSERT INTO `auth_user` VALUES (1,'vladka','','','vladka@webdevelop.pro','sha1$c91c8$e1c4bce7ec2be51b7c82eecaa41cc19cbe29bd15',1,1,1,'2011-06-05 14:09:20','2011-04-15 08:39:19'),(2,'rusenko','Ivan','Vladimirovich','tempmbox@ya.ru','sha1$b28b7$5fdb16c23d4d7b558d80dcc297daada364240c7f',0,1,0,'2011-04-15 20:12:12','2011-04-15 14:20:18'),(24,'ivanos','Daos','Pushkin','push@ya.ru','sha1$c45ce$7d04131a608d43938066c89f22d5f4c1bfe377cc',0,1,0,'2011-04-21 01:04:37','2011-04-20 07:28:24'),(23,'dana3','dyna','davalova','dana@mail.ru','sha1$026d0$10de51953bbe4416a520263ecba238384a140bdb',0,1,0,'2011-04-21 01:05:06','2011-04-19 05:43:54'),(22,'dana2','dyna','davalova','dana@mail.ru','sha1$a827c$e8770a1352fdc18a54b2ab5dcb956aeebc6a6b50',0,1,0,'2011-04-19 05:42:48','2011-04-19 05:42:48'),(21,'dana1','dyna','davalova','dana@mail.ru','sha1$febce$993a4d7a2206e12eccdd5456ec7cc877bb8b9dfa',0,1,0,'2011-04-19 05:39:36','2011-04-19 05:39:36'),(20,'dana','dyna','davalova','dana@mail.ru','sha1$2fb16$bae5b2f84b8e46c1e4f0be6c40fd003addc7ec26',0,1,0,'2011-04-21 01:05:15','2011-04-19 05:37:01'),(18,'vta','vitalya','kanarovsky','123@mail.ru','sha1$bebf2$9e11432aaf18401a8c3c11a12236b80a22d76c1c',0,1,0,'2011-04-18 03:21:51','2011-04-18 03:21:51'),(19,'','','','','',0,1,0,'2011-04-19 03:14:09','2011-04-19 03:14:09'),(14,'t5','Ivan','grozhnyj','ivan@mail.ru','sha1$57d9a$737a2cb5cc7c1629518bd8f4a79d0b7a0876109e',0,1,0,'2011-04-17 05:32:00','2011-04-17 05:32:00'),(25,'ivan2','Daos','Pushkin','push@ya.ru','sha1$65652$f55106e0ab0dabe4a0d23d65f3f4e3363240c439',0,1,0,'2011-04-20 07:39:53','2011-04-20 07:39:53'),(26,'ivan22','Daos','Pushkin','push@ya.ru','sha1$b44d2$1f2e4c0019928119af85fcef4779509140c49d4a',0,1,0,'2011-04-20 07:42:09','2011-04-20 07:42:09'),(27,'ivan_mish','Иван','Михалик','hmvano@mail.ru','sha1$652f3$6df90a818004328da3a1f69cd974e6ac710ac7de',0,1,0,'2011-04-21 01:05:58','2011-04-21 01:01:48'),(28,'vladka1','Елена','Куликов','push@ya.ru','sha1$f7d7b$619e5cb5ab947053c508695da56c142be58c648f',0,1,0,'2011-04-21 01:03:08','2011-04-21 01:03:08'),(29,'dd3d','josh','konan','josh@mail.ru','sha1$bb380$f505d13b943b11a186a4849601405c01b7278c8a',0,1,0,'2011-04-21 01:07:02','2011-04-21 01:06:40'),(30,'d2d3d4','josh','konan','dfd@mail.ru','sha1$a66d1$f9ccdd9a26a360142f2065c99869b02aa9191d22',0,1,0,'2011-04-21 01:09:11','2011-04-21 01:09:11'),(31,'jossh','josh','konan','dfd@mail.ru','sha1$94934$2deb13ef25af64720f5d7e9602eaec5d0661c5fb',0,1,0,'2011-04-21 01:10:45','2011-04-21 01:10:45'),(32,'ohgod','Константин','Нитолек','ddddfdasdsf@ya.ru','sha1$fd60e$13023dd102490b16347b7f0139abe8559d1a56b6',0,1,0,'2011-04-21 01:21:39','2011-04-21 01:21:39'),(33,'marti','ilaska','honders','marti@ya.ru','sha1$85941$72d416fd7e0f5b21a8ba7371e58d84b3c1089c01',0,1,0,'2011-04-21 01:24:05','2011-04-21 01:24:04'),(34,'devaloka','Влад','Видальте','vova@mail.ru','sha1$773fc$95c59d6745806e30fb50b1758fefe34373b7bfe5',0,1,0,'2011-05-12 21:41:36','2011-05-12 21:41:36'),(35,'datana','123414','235235235235','d2d@mail.ru','sha1$58a45$44732e1864eed74b483759e5965c34445ae2a443',0,1,0,'2011-05-18 14:18:12','2011-05-13 02:00:13'),(36,'latinos','Иван','Брежнев','tempmbox@ya.ru','sha1$b031a$7019e26a0da1eb1d6b3e8aa601bcd9d183d152e0',0,1,0,'2011-06-01 13:26:50','2011-05-20 12:49:16'),(37,'dylankohovsky','Дулян','Коховски','d2d@mail.ru','sha1$cf87d$f53eabb9bf2eca4a1de340ba3a44937eedee9f81',0,1,0,'2011-05-21 08:34:24','2011-05-21 08:34:24'),(38,'didlos','Ivan','Fedorov','vanya@mail.ru','sha1$05d80$9f622270e7b11e5589f0c89caa3d0025e5023114',0,1,0,'2011-06-02 08:40:07','2011-06-02 08:40:07'),(39,'megaG','dj monk','lavandos','tt@ya.ru','sha1$b6ae2$cf204aa84766ac45aa35f97929f70f39294eecc6',0,1,0,'2011-06-05 14:12:23','2011-06-05 14:12:23'),(40,'thuggrin','Тони','Монтана','thuggrin@mail.ru','sha1$2c420$57ed4d67e129dd9bdd402c4a184bce3037243c66',0,1,0,'2011-06-22 17:23:54','2011-06-22 17:23:54');
+/*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_user_groups`
+--
+
+DROP TABLE IF EXISTS `auth_user_groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_user_groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`,`group_id`),
+  KEY `auth_user_groups_403f60f` (`user_id`),
+  KEY `auth_user_groups_425ae3c4` (`group_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_user_groups`
+--
+
+LOCK TABLES `auth_user_groups` WRITE;
+/*!40000 ALTER TABLE `auth_user_groups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_user_groups` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `auth_user_user_permissions`
+--
+
+DROP TABLE IF EXISTS `auth_user_user_permissions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `auth_user_user_permissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`,`permission_id`),
+  KEY `auth_user_user_permissions_403f60f` (`user_id`),
+  KEY `auth_user_user_permissions_1e014c8f` (`permission_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `auth_user_user_permissions`
+--
+
+LOCK TABLES `auth_user_user_permissions` WRITE;
+/*!40000 ALTER TABLE `auth_user_user_permissions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `auth_user_user_permissions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `avatar_avatar`
+--
+
+DROP TABLE IF EXISTS `avatar_avatar`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `avatar_avatar` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `primary` tinyint(1) NOT NULL,
+  `avatar` varchar(1024) NOT NULL,
+  `date_uploaded` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `avatar_avatar_403f60f` (`user_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `avatar_avatar`
+--
+
+LOCK TABLES `avatar_avatar` WRITE;
+/*!40000 ALTER TABLE `avatar_avatar` DISABLE KEYS */;
+INSERT INTO `avatar_avatar` VALUES (1,23,0,'avatars/dana3/what-yah-lookin-at-mitoyo-japan+1152_12905540019-tpfil02aw-11877.jpg','2011-04-19 06:29:42'),(2,23,1,'avatars/dana3/what-yah-lookin-at-mitoyo-japan+1152_12905540019-tpfil02aw-11877_1.jpg','2011-04-19 06:29:55'),(3,35,0,'avatars/datana/404910017_771fb938b6.jpg','2011-05-19 17:42:00'),(4,35,0,'avatar/datana/3078737697_b089f11062.jpg','2011-05-19 17:46:07'),(5,35,0,'avatar/datana/27678a91422d.jpg','2011-05-19 17:55:43'),(6,35,1,'avatar/datana/27678a91422d_1.jpg','2011-05-19 18:03:10'),(7,36,1,'avatars/latinos/1290955710_Internet Explorer.png','2011-05-20 12:50:16'),(8,38,0,'avatars/didlos/a_854d50fc.jpg','2011-06-02 08:40:27'),(9,38,1,'avatars/didlos/13183.jpg','2011-06-02 08:51:40');
+/*!40000 ALTER TABLE `avatar_avatar` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `content_event`
+--
+
+DROP TABLE IF EXISTS `content_event`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `content_event` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(150) NOT NULL,
+  `subtitle` varchar(150) NOT NULL,
+  `text` longtext NOT NULL,
+  `date_created` datetime NOT NULL,
+  `timestamp` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `content_event`
+--
+
+LOCK TABLES `content_event` WRITE;
+/*!40000 ALTER TABLE `content_event` DISABLE KEYS */;
+/*!40000 ALTER TABLE `content_event` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `content_news`
+--
+
+DROP TABLE IF EXISTS `content_news`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `content_news` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(150) NOT NULL,
+  `subtitle` varchar(150) NOT NULL,
+  `text` longtext NOT NULL,
+  `date_created` datetime NOT NULL,
+  `timestamp` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `content_news`
+--
+
+LOCK TABLES `content_news` WRITE;
+/*!40000 ALTER TABLE `content_news` DISABLE KEYS */;
+INSERT INTO `content_news` VALUES (1,'123','12321','3213123','2011-06-05 23:04:17','2011-06-05 14:09:53');
+/*!40000 ALTER TABLE `content_news` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `content_page`
+--
+
+DROP TABLE IF EXISTS `content_page`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `content_page` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(150) NOT NULL,
+  `text` longtext NOT NULL,
+  `date_created` datetime NOT NULL,
+  `timestamp` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `content_page`
+--
+
+LOCK TABLES `content_page` WRITE;
+/*!40000 ALTER TABLE `content_page` DISABLE KEYS */;
+/*!40000 ALTER TABLE `content_page` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `discography_groupalbum`
+--
+
+DROP TABLE IF EXISTS `discography_groupalbum`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `discography_groupalbum` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date_creation` date NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `description` longtext NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `city` varchar(150) NOT NULL,
+  `date_update` date NOT NULL,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `discography_groupalbum_425ae3c4` (`group_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `discography_groupalbum`
+--
+
+LOCK TABLES `discography_groupalbum` WRITE;
+/*!40000 ALTER TABLE `discography_groupalbum` DISABLE KEYS */;
+/*!40000 ALTER TABLE `discography_groupalbum` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `discography_singeralbum`
+--
+
+DROP TABLE IF EXISTS `discography_singeralbum`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `discography_singeralbum` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `date_creation` date NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `description` longtext NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `city` varchar(150) NOT NULL,
+  `date_update` date NOT NULL,
+  `singer_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `discography_singeralbum_29a27876` (`singer_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `discography_singeralbum`
+--
+
+LOCK TABLES `discography_singeralbum` WRITE;
+/*!40000 ALTER TABLE `discography_singeralbum` DISABLE KEYS */;
+INSERT INTO `discography_singeralbum` VALUES (1,'2011-05-15','asdgasdg','asdgadgs\r\nasdgasdg\r\nasdgasgd','albums/god_particle.jpg','moscow','2011-05-15',35),(2,'2011-05-15','gasdg','asdgasdg\r\nasdgdasg\r\nasdgasdg','albums/27678a91422d.jpg','new york','2011-05-15',35),(3,'2011-05-15','adfcasadg','asdgasdg','albums/2643040930_549aa4ae97.jpg','234','2011-05-15',35);
+/*!40000 ALTER TABLE `discography_singeralbum` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `discography_trackgroupablum`
+--
+
+DROP TABLE IF EXISTS `discography_trackgroupablum`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `discography_trackgroupablum` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  `description` longtext NOT NULL,
+  `city` varchar(150) NOT NULL,
+  `music_by` varchar(150) NOT NULL,
+  `perform_by` varchar(150) NOT NULL,
+  `right_to` varchar(150) NOT NULL,
+  `year` int(10) unsigned NOT NULL,
+  `duration` varchar(10) NOT NULL,
+  `album_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `discography_trackgroupablum_1293c648` (`album_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `discography_trackgroupablum`
+--
+
+LOCK TABLES `discography_trackgroupablum` WRITE;
+/*!40000 ALTER TABLE `discography_trackgroupablum` DISABLE KEYS */;
+/*!40000 ALTER TABLE `discography_trackgroupablum` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `discography_tracksingerablum`
+--
+
+DROP TABLE IF EXISTS `discography_tracksingerablum`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `discography_tracksingerablum` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  `description` longtext NOT NULL,
+  `city` varchar(150) NOT NULL,
+  `music_by` varchar(150) NOT NULL,
+  `perform_by` varchar(150) NOT NULL,
+  `right_to` varchar(150) NOT NULL,
+  `year` int(10) unsigned NOT NULL,
+  `duration` varchar(10) NOT NULL,
+  `album_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `discography_tracksingerablum_1293c648` (`album_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `discography_tracksingerablum`
+--
+
+LOCK TABLES `discography_tracksingerablum` WRITE;
+/*!40000 ALTER TABLE `discography_tracksingerablum` DISABLE KEYS */;
+INSERT INTO `discography_tracksingerablum` VALUES (1,'1111','234234234\r\n2342','moscow','234234','234234','w234234',2001,'1:55',1),(2,'231124124124','asdgasdg\r\nasdgasdg\r\nsdagasdg','234','adfg','asdg','asdf',1111,'1:55',1),(3,'dgasdg','agasgd\r\nasdgasdgasdg\r\nasdgasg','234','gad','1234','1234',234,'234',1);
+/*!40000 ALTER TABLE `discography_tracksingerablum` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_admin_log`
+--
+
+DROP TABLE IF EXISTS `django_admin_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `django_admin_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `action_time` datetime NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `content_type_id` int(11) DEFAULT NULL,
+  `object_id` longtext,
+  `object_repr` varchar(200) NOT NULL,
+  `action_flag` smallint(5) unsigned NOT NULL,
+  `change_message` longtext NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `django_admin_log_403f60f` (`user_id`),
+  KEY `django_admin_log_1bb8f392` (`content_type_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_admin_log`
+--
+
+LOCK TABLES `django_admin_log` WRITE;
+/*!40000 ALTER TABLE `django_admin_log` DISABLE KEYS */;
+INSERT INTO `django_admin_log` VALUES (1,'2011-04-15 09:08:12',1,9,'1','Исполнитель',1,''),(2,'2011-04-15 09:08:44',1,9,'2','битмэйкер/продюсер',1,''),(3,'2011-04-15 09:08:56',1,9,'3','ди-джея',1,''),(4,'2011-04-15 09:09:09',1,9,'4','райтер',1,''),(5,'2011-04-15 09:09:20',1,9,'5','танцор',1,''),(6,'2011-04-15 09:09:31',1,9,'3','ди-джей',2,'Changed name.'),(7,'2011-04-15 09:09:49',1,9,'1','исполнитель',2,'Changed name.'),(8,'2011-04-15 14:09:23',1,10,'1','hip-hop',1,''),(9,'2011-04-15 14:18:24',1,9,'1','исполнитель',1,''),(10,'2011-04-15 14:18:32',1,9,'2','танцор',1,''),(11,'2011-04-15 14:18:42',1,9,'3','продюсер',1,''),(12,'2011-04-15 14:19:43',1,10,'1','hip-hop',1,''),(13,'2011-04-15 14:19:57',1,10,'2','black metall',1,''),(14,'2011-04-15 17:47:29',1,11,'1','Россия',1,''),(15,'2011-04-15 17:47:55',1,12,'1','Московская область',1,''),(16,'2011-04-15 17:48:00',1,13,'1','Москва',1,''),(17,'2011-05-20 10:53:02',1,9,'1','Исполнители',1,''),(18,'2011-05-20 10:53:16',1,9,'2','Битмейкеры/Продюсеры',1,''),(19,'2011-05-20 10:53:27',1,9,'3','Битбоксеры',1,''),(20,'2011-05-20 10:53:40',1,9,'4','Ди-джеи',1,''),(21,'2011-05-20 11:03:18',1,9,'5','Райтеры',1,''),(22,'2011-05-20 11:03:32',1,9,'6','Танцоры',1,''),(23,'2011-05-20 11:35:24',1,9,'1','Исполнитель',2,'Changed name.'),(24,'2011-05-20 11:35:33',1,9,'2','Битмейкер/Продюсер',2,'Changed name.'),(25,'2011-05-20 11:35:38',1,9,'3','Битбоксер',2,'Changed name.'),(26,'2011-05-20 11:35:44',1,9,'4','Ди-джей',2,'Changed name.'),(27,'2011-05-20 11:35:48',1,9,'5','Райтер',2,'Changed name.'),(28,'2011-05-20 11:35:54',1,9,'6','Танцор',2,'Changed name.'),(29,'2011-05-20 12:44:22',1,10,'1','Hip-Hop',1,''),(30,'2011-05-20 12:44:30',1,10,'2','Southern Rap',1,''),(31,'2011-05-20 12:44:37',1,10,'3','Underground Rap',1,''),(32,'2011-05-20 12:44:44',1,10,'4','Pop-Rap',1,''),(33,'2011-05-20 12:44:50',1,10,'5','Political Rap',1,''),(34,'2011-05-20 12:45:00',1,10,'6','Party Rap',1,''),(35,'2011-05-20 12:45:08',1,10,'7','Jazz-Rap',1,''),(36,'2011-05-20 12:45:15',1,10,'8','Gangsta Rap',1,''),(37,'2011-05-20 12:45:23',1,10,'9','East Coast Rap',1,''),(38,'2011-05-20 12:45:30',1,10,'10','Foreign Rap',1,''),(39,'2011-05-20 12:45:39',1,10,'11','DownBeats',1,''),(40,'2011-05-20 12:45:46',1,10,'12','Dirty Rap',1,''),(41,'2011-05-20 12:45:53',1,10,'13','Comedy Rap',1,''),(42,'2011-05-20 12:45:59',1,10,'14','British Rap',1,''),(43,'2011-05-20 12:46:05',1,10,'15','Alternative Rap',1,''),(44,'2011-05-20 12:46:24',1,10,'16','Urban',1,''),(45,'2011-05-20 12:46:38',1,10,'17','Break Beat',1,''),(46,'2011-05-20 12:47:57',1,11,'1','Россия',1,''),(47,'2011-05-20 12:48:04',1,12,'1','Московская область',1,''),(48,'2011-05-20 12:48:08',1,13,'1','Москва',1,''),(50,'2011-06-05 14:09:53',1,49,'1','123',1,'');
+/*!40000 ALTER TABLE `django_admin_log` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_content_type`
+--
+
+DROP TABLE IF EXISTS `django_content_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `django_content_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `app_label` varchar(100) NOT NULL,
+  `model` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `app_label` (`app_label`,`model`)
+) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_content_type`
+--
+
+LOCK TABLES `django_content_type` WRITE;
+/*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
+INSERT INTO `django_content_type` VALUES (1,'permission','auth','permission'),(2,'group','auth','group'),(3,'user','auth','user'),(4,'message','auth','message'),(5,'content type','contenttypes','contenttype'),(6,'session','sessions','session'),(7,'site','sites','site'),(8,'log entry','admin','logentry'),(9,'direction','account','direction'),(10,'style','account','style'),(11,'country','account','country'),(12,'region','account','region'),(13,'city','account','city'),(14,'category','account','category'),(15,'custom user','account','customuser'),(16,'singer','account','singer'),(41,'membership','group','membership'),(40,'group','group','group'),(19,'group album','discography','groupalbum'),(20,'singer album','discography','singeralbum'),(21,'track group ablum','discography','trackgroupablum'),(24,'photoalbum','photoalbum','photoalbum'),(23,'track singer ablum','discography','tracksingerablum'),(25,'photo','photoalbum','photo'),(26,'migration history','south','migrationhistory'),(27,'knight','southut','knight'),(28,'avatar','avatar','avatar'),(49,'news','content','news'),(30,'comment','photoalbum','comment'),(31,'audio','audio','audio'),(32,'video','video','video'),(33,'singer album','account','singeralbum'),(34,'track singer ablum','account','tracksingerablum'),(35,'photo album','account','photoalbum'),(36,'photo','account','photo'),(37,'photo comment','account','photocomment'),(38,'video','account','video'),(39,'audio','account','audio'),(42,'group album','group','groupalbum'),(43,'track group ablum','group','trackgroupablum'),(44,'photo album','group','photoalbum'),(45,'photo','group','photo'),(46,'photo comment','group','photocomment'),(47,'video','group','video'),(48,'audio','group','audio'),(50,'event','content','event'),(51,'page','content','page');
+/*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_session`
+--
+
+DROP TABLE IF EXISTS `django_session`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `django_session` (
+  `session_key` varchar(40) NOT NULL,
+  `session_data` longtext NOT NULL,
+  `expire_date` datetime NOT NULL,
+  PRIMARY KEY (`session_key`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_session`
+--
+
+LOCK TABLES `django_session` WRITE;
+/*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
+INSERT INTO `django_session` VALUES ('de788d2891316c5eded8b7bb35400709','gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEBdS42YmU2MDQxYzJlNDU2OTQ4NGM5\nZjRjNGZlYjdkNGVlYg==\n','2011-04-29 14:09:01'),('12938a6fcfd83950b45b9848b608a933','gAJ9cQEoVQp0ZXN0Y29va2llcQJVBndvcmtlZHEDVQ1fYXV0aF91c2VyX2lkcQSKARdVEl9hdXRo\nX3VzZXJfYmFja2VuZHEFVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2Vu\nZHEGdS5lNTdmNjg3ZThjZGY5MmI2Mzk4OThkNmU0N2JlY2EyYQ==\n','2011-05-03 13:05:07'),('993231e37171a158e99a8104c3b696f5','gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEhdS41NWNkZTc5ZGExODFmMWRiZDNl\nNDliZWRmZTZiODI0Mg==\n','2011-05-05 01:24:05'),('ec24609ae2f36d5ea04791488f03a7fc','NGMyOTk3MzQ5NzllOWU0YzBmZGVmNDZkNzFjNTU5Yzc3YWE0ZWRhYzqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVTNoaHNwYWNlLmFjY291bnQuYXV0aF9iYWNrZW5kLkN1c3RvbVVzZXJNb2Rl\nbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEjdS4=\n','2011-05-29 17:18:17'),('d3c98f98f1a83132b5fc7c793b964bb5','MTgwYWRhOGUxNDJmN2VlMzRiOWVhYzg0YWI2ODdiOTI0ZjQzZjc3ZDqAAn1xAS4=\n','2011-05-27 02:20:58'),('4d58d5e6407f4b946159d0277fcbae35','NGMyOTk3MzQ5NzllOWU0YzBmZGVmNDZkNzFjNTU5Yzc3YWE0ZWRhYzqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVTNoaHNwYWNlLmFjY291bnQuYXV0aF9iYWNrZW5kLkN1c3RvbVVzZXJNb2Rl\nbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEjdS4=\n','2011-05-29 02:21:08'),('fa0394d4d18a397f4cae21302a9bc11b','NGMyOTk3MzQ5NzllOWU0YzBmZGVmNDZkNzFjNTU5Yzc3YWE0ZWRhYzqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVTNoaHNwYWNlLmFjY291bnQuYXV0aF9iYWNrZW5kLkN1c3RvbVVzZXJNb2Rl\nbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEjdS4=\n','2011-05-31 04:35:50'),('57a63e5ae6c3986f1014a01c2a10ea09','MDU2M2FkZGY0NGUxMDBlYjc3NDczOWRmNGRkZTExZDlhZTJlYWY2MzqAAn1xAShVCnRlc3Rjb29r\naWVxAlUGd29ya2VkcQNVEl9hdXRoX3VzZXJfYmFja2VuZHEEVTNoaHNwYWNlLmFjY291bnQuYXV0\naF9iYWNrZW5kLkN1c3RvbVVzZXJNb2RlbEJhY2tlbmRxBVUNX2F1dGhfdXNlcl9pZHEGigEjdS4=\n','2011-06-01 22:17:59'),('edfe5cee04c7fe6a323f9be2d8f99928','MTgwYWRhOGUxNDJmN2VlMzRiOWVhYzg0YWI2ODdiOTI0ZjQzZjc3ZDqAAn1xAS4=\n','2011-06-01 22:28:23'),('6b4550feeedc4eb95922f2218db3c3e4','gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEEigEkdS4zNDc4NjZlNzA3YThhNWMzZGU2\nNDAxMDNiMDZlODhmYg==\n','2011-06-03 12:49:16'),('0b34d64a6ec5752f38bcf309b2af080e','OWUyNDEwNjczZDc4ZGQwODEzODRhYzk0MjI3MjEzMTM2ZGEwNTY3ZTqAAn1xAVUKdGVzdGNvb2tp\nZXECVQZ3b3JrZWRxA3Mu\n','2011-06-29 05:57:59'),('562fa24cede35f1b312e8781aedfc6e2','OTcxNjE0NmFlOWE1NDY3YzQ5ZGY4NzZmOWE5YWY3MDdhOTc3MzFhNTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHED\nVQ1fYXV0aF91c2VyX2lkcQSKASd1Lg==\n','2011-06-19 14:12:23'),('0c60ce74644ce1d9948b7b501955f8d4','ZDk4NGFlYzg5Y2Y3MGRkZGFjMGRlZDQ1MzhlMjg5M2QxYzVhOWMzZjqAAn1xAShVCnRlc3Rjb29r\naWVxAlUGd29ya2VkcQNVDV9hdXRoX3VzZXJfaWRxBIoBJFUSX2F1dGhfdXNlcl9iYWNrZW5kcQVV\nKWRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kcQZ1Lg==\n','2011-06-16 11:06:48'),('9e53339b31729602eeac08ab744802b8','ODEwYmE0MDA3ZTRjMThhMzk5YmUxMjFiMGYwOTQzYzY1NmEyZWMxYTqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHED\nVQ1fYXV0aF91c2VyX2lkcQSKASh1Lg==\n','2011-07-06 17:23:54');
+/*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_site`
+--
+
+DROP TABLE IF EXISTS `django_site`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `django_site` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `domain` varchar(100) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_site`
+--
+
+LOCK TABLES `django_site` WRITE;
+/*!40000 ALTER TABLE `django_site` DISABLE KEYS */;
+INSERT INTO `django_site` VALUES (1,'example.com','example.com');
+/*!40000 ALTER TABLE `django_site` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `group_audio`
+--
+
+DROP TABLE IF EXISTS `group_audio`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `group_audio` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `artist` varchar(150) NOT NULL,
+  `music_author` varchar(150) NOT NULL,
+  `words_author` varchar(150) NOT NULL,
+  `year` int(10) unsigned NOT NULL,
+  `right_to` varchar(150) NOT NULL,
+  `description` longtext NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `order` int(10) unsigned NOT NULL,
+  `audio` varchar(100) NOT NULL,
+  `timestamp` datetime NOT NULL,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `group_audio_425ae3c4` (`group_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `group_audio`
+--
+
+LOCK TABLES `group_audio` WRITE;
+/*!40000 ALTER TABLE `group_audio` DISABLE KEYS */;
+/*!40000 ALTER TABLE `group_audio` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `group_group`
+--
+
+DROP TABLE IF EXISTS `group_group`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `group_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `last_visit` datetime NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `country_id` int(11) NOT NULL,
+  `region_id` int(11) NOT NULL,
+  `city_id` int(11) NOT NULL,
+  `leaders` varchar(255) NOT NULL,
+  `date_created` datetime NOT NULL,
+  `featuring` int(11) NOT NULL,
+  `timestamp` datetime NOT NULL,
+  `biography` longtext NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  KEY `group_group_534dd89` (`country_id`),
+  KEY `group_group_9574fce` (`region_id`),
+  KEY `group_group_586a73b5` (`city_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `group_group`
+--
+
+LOCK TABLES `group_group` WRITE;
+/*!40000 ALTER TABLE `group_group` DISABLE KEYS */;
+/*!40000 ALTER TABLE `group_group` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `group_group_directions`
+--
+
+DROP TABLE IF EXISTS `group_group_directions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `group_group_directions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `direction_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `group_id` (`group_id`,`direction_id`),
+  KEY `group_group_directions_425ae3c4` (`group_id`),
+  KEY `group_group_directions_2b9311f6` (`direction_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `group_group_directions`
+--
+
+LOCK TABLES `group_group_directions` WRITE;
+/*!40000 ALTER TABLE `group_group_directions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `group_group_directions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `group_group_styles`
+--
+
+DROP TABLE IF EXISTS `group_group_styles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `group_group_styles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `style_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `group_id` (`group_id`,`style_id`),
+  KEY `group_group_styles_425ae3c4` (`group_id`),
+  KEY `group_group_styles_4edb092e` (`style_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `group_group_styles`
+--
+
+LOCK TABLES `group_group_styles` WRITE;
+/*!40000 ALTER TABLE `group_group_styles` DISABLE KEYS */;
+/*!40000 ALTER TABLE `group_group_styles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `group_groupalbum`
+--
+
+DROP TABLE IF EXISTS `group_groupalbum`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `group_groupalbum` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  `description` longtext NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `city` varchar(150) NOT NULL,
+  `date_creation` datetime NOT NULL,
+  `date_update` date NOT NULL,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `group_groupalbum_425ae3c4` (`group_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `group_groupalbum`
+--
+
+LOCK TABLES `group_groupalbum` WRITE;
+/*!40000 ALTER TABLE `group_groupalbum` DISABLE KEYS */;
+/*!40000 ALTER TABLE `group_groupalbum` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `group_membership`
+--
+
+DROP TABLE IF EXISTS `group_membership`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `group_membership` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `singer_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  `date_joined` date NOT NULL,
+  `invite_reason` varchar(160) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `group_membership_29a27876` (`singer_id`),
+  KEY `group_membership_425ae3c4` (`group_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `group_membership`
+--
+
+LOCK TABLES `group_membership` WRITE;
+/*!40000 ALTER TABLE `group_membership` DISABLE KEYS */;
+/*!40000 ALTER TABLE `group_membership` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `group_photo`
+--
+
+DROP TABLE IF EXISTS `group_photo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `group_photo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  `visited` int(10) unsigned NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `album_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `group_photo_1293c648` (`album_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `group_photo`
+--
+
+LOCK TABLES `group_photo` WRITE;
+/*!40000 ALTER TABLE `group_photo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `group_photo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `group_photoalbum`
+--
+
+DROP TABLE IF EXISTS `group_photoalbum`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `group_photoalbum` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  `date_created` date NOT NULL,
+  `date_updated` datetime NOT NULL,
+  `year` int(10) unsigned NOT NULL,
+  `city` varchar(150) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `group_photoalbum_425ae3c4` (`group_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `group_photoalbum`
+--
+
+LOCK TABLES `group_photoalbum` WRITE;
+/*!40000 ALTER TABLE `group_photoalbum` DISABLE KEYS */;
+/*!40000 ALTER TABLE `group_photoalbum` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `group_photocomment`
+--
+
+DROP TABLE IF EXISTS `group_photocomment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `group_photocomment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(150) NOT NULL,
+  `date_created` datetime NOT NULL,
+  `text` longtext NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `photo_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `group_photocomment_403f60f` (`user_id`),
+  KEY `group_photocomment_7c6c8bb1` (`photo_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `group_photocomment`
+--
+
+LOCK TABLES `group_photocomment` WRITE;
+/*!40000 ALTER TABLE `group_photocomment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `group_photocomment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `group_trackgroupablum`
+--
+
+DROP TABLE IF EXISTS `group_trackgroupablum`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `group_trackgroupablum` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  `description` longtext NOT NULL,
+  `city` varchar(150) NOT NULL,
+  `music_by` varchar(150) NOT NULL,
+  `perform_by` varchar(150) NOT NULL,
+  `right_to` varchar(150) NOT NULL,
+  `year` int(10) unsigned NOT NULL,
+  `duration` varchar(10) NOT NULL,
+  `album_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `group_trackgroupablum_1293c648` (`album_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `group_trackgroupablum`
+--
+
+LOCK TABLES `group_trackgroupablum` WRITE;
+/*!40000 ALTER TABLE `group_trackgroupablum` DISABLE KEYS */;
+/*!40000 ALTER TABLE `group_trackgroupablum` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `group_video`
+--
+
+DROP TABLE IF EXISTS `group_video`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `group_video` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `video` varchar(100) NOT NULL,
+  `photo` varchar(250) NOT NULL,
+  `flvvideo` varchar(250) NOT NULL,
+  `artist` varchar(150) NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `director` varchar(150) NOT NULL,
+  `year` int(10) unsigned NOT NULL,
+  `city` varchar(150) NOT NULL,
+  `album` varchar(150) NOT NULL,
+  `description` longtext NOT NULL,
+  `timestamp` datetime NOT NULL,
+  `converted` int(10) unsigned NOT NULL,
+  `order` int(10) unsigned NOT NULL,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `group_video_425ae3c4` (`group_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `group_video`
+--
+
+LOCK TABLES `group_video` WRITE;
+/*!40000 ALTER TABLE `group_video` DISABLE KEYS */;
+/*!40000 ALTER TABLE `group_video` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `photoalbum_comment`
+--
+
+DROP TABLE IF EXISTS `photoalbum_comment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `photoalbum_comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(150) NOT NULL DEFAULT '',
+  `date_created` date NOT NULL DEFAULT '2011-05-16',
+  `text` longtext NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT '1',
+  `photo_id` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `photoalbum_comment_403f60f` (`user_id`),
+  KEY `photoalbum_comment_7c6c8bb1` (`photo_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `photoalbum_comment`
+--
+
+LOCK TABLES `photoalbum_comment` WRITE;
+/*!40000 ALTER TABLE `photoalbum_comment` DISABLE KEYS */;
+INSERT INTO `photoalbum_comment` VALUES (1,'','2011-05-16','asdg\r\nasdgasdg\r\nasdg\r\nasdg\r\nasdg\r\nasdg\r\nasd',1,4),(2,'','2011-05-16','asdg\r\ncxv\r\nasdf\r\nasdg',1,4);
+/*!40000 ALTER TABLE `photoalbum_comment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `photoalbum_photo`
+--
+
+DROP TABLE IF EXISTS `photoalbum_photo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `photoalbum_photo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  `visited` int(10) unsigned NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `album_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `photoalbum_photo_1293c648` (`album_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `photoalbum_photo`
+--
+
+LOCK TABLES `photoalbum_photo` WRITE;
+/*!40000 ALTER TABLE `photoalbum_photo` DISABLE KEYS */;
+INSERT INTO `photoalbum_photo` VALUES (1,'name',100,'photos/what-yah-lookin-at-mitoyo-japan1152_12905540019-tpfil02aw-11877.jpg',1),(2,'123',0,'photos/what-yah-lookin-at-mitoyo-japan1152_12905540019-tpfil02aw-11877_1.jpg',1),(3,'лакшми',1,'photos/lakshmi1.jpg',2),(4,'asdgasdg',1,'photos/27678a91422d.jpg',3),(5,'54666',5,'photos/2643040930_549aa4ae97.jpg',3),(6,'457547',6,'photos/2616537223_e6f6b67070.jpg',3),(7,'brend 001',0,'photos/kissme.jpg',3);
+/*!40000 ALTER TABLE `photoalbum_photo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `photoalbum_photoalbum`
+--
+
+DROP TABLE IF EXISTS `photoalbum_photoalbum`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `photoalbum_photoalbum` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  `date_created` date NOT NULL,
+  `date_updated` date NOT NULL,
+  `year` int(10) unsigned NOT NULL,
+  `city` varchar(150) NOT NULL,
+  `singer_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `photoalbum_photoalbum_29a27876` (`singer_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `photoalbum_photoalbum`
+--
+
+LOCK TABLES `photoalbum_photoalbum` WRITE;
+/*!40000 ALTER TABLE `photoalbum_photoalbum` DISABLE KEYS */;
+INSERT INTO `photoalbum_photoalbum` VALUES (1,'till tomorrow come','2011-04-18','2011-04-18',2005,'Minsk',18),(2,'майков','2011-05-03','2011-05-03',2010,'минск',33),(3,'asdg','2011-05-15','2011-05-15',1111,'new york',35);
+/*!40000 ALTER TABLE `photoalbum_photoalbum` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `south_migrationhistory`
+--
+
+DROP TABLE IF EXISTS `south_migrationhistory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `south_migrationhistory` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `app_name` varchar(255) NOT NULL,
+  `migration` varchar(255) NOT NULL,
+  `applied` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `south_migrationhistory`
+--
+
+LOCK TABLES `south_migrationhistory` WRITE;
+/*!40000 ALTER TABLE `south_migrationhistory` DISABLE KEYS */;
+INSERT INTO `south_migrationhistory` VALUES (1,'southut','0001_initial','2011-04-18 12:09:47'),(2,'southut','0002_auto__add_field_knight_dances_whenever_able','2011-04-18 12:09:48'),(3,'account','0001_initial','2011-04-18 12:11:09'),(4,'discography','0001_initial','2011-04-18 12:11:19'),(5,'photoalbum','0001_initial','2011-04-18 12:11:28'),(6,'southut','0003_auto__add_field_knight_shrubberies','2011-04-18 12:16:08'),(7,'southut','0004_auto__add_unique_knight_name','2011-04-18 12:18:08'),(10,'photoalbum','0002_auto__add_comment','2011-05-16 05:54:19'),(9,'account','0002_auto__add_field_customuser_birthday','2011-05-13 22:21:22'),(11,'photoalbum','0003_auto__del_comment','2011-05-16 05:55:35'),(12,'photoalbum','0004_auto__add_comment','2011-05-16 05:57:58'),(13,'audio','0001_initial','2011-05-17 21:38:17'),(14,'audio','0002_initial','2011-05-17 21:40:27'),(15,'audio','0003_auto__add_field_audio_Singer','2011-05-18 07:42:37'),(16,'audio','0004_auto__del_field_audio_Singer','2011-05-18 07:43:18'),(17,'audio','0005_auto__add_field_audio_user','2011-05-18 07:43:46'),(18,'video','0001_initial','2011-05-20 20:10:20'),(19,'video','0002_auto__add_field_video_photo','2011-05-20 21:09:23'),(20,'video','0003_auto__add_field_video_flvvideo','2011-05-20 21:55:04');
+/*!40000 ALTER TABLE `south_migrationhistory` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `southut_knight`
+--
+
+DROP TABLE IF EXISTS `southut_knight`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `southut_knight` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `of_the_round_table` tinyint(1) NOT NULL DEFAULT '0',
+  `dances_whenever_able` tinyint(1) NOT NULL,
+  `shrubberies` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `southut_knight_name_uniq` (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `southut_knight`
+--
+
+LOCK TABLES `southut_knight` WRITE;
+/*!40000 ALTER TABLE `southut_knight` DISABLE KEYS */;
+/*!40000 ALTER TABLE `southut_knight` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `video_video`
+--
+
+DROP TABLE IF EXISTS `video_video`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `video_video` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `video` varchar(100) NOT NULL DEFAULT '',
+  `artist` varchar(150) NOT NULL,
+  `name` varchar(150) NOT NULL DEFAULT '',
+  `director` varchar(150) NOT NULL DEFAULT '',
+  `year` int(10) unsigned NOT NULL DEFAULT '2000',
+  `city` varchar(150) NOT NULL DEFAULT '',
+  `album` varchar(150) NOT NULL DEFAULT '',
+  `description` longtext NOT NULL,
+  `timestamp` datetime NOT NULL DEFAULT '2011-05-20 15:10:20',
+  `user_id` int(11) NOT NULL DEFAULT '1',
+  `converted` int(10) unsigned NOT NULL DEFAULT '0',
+  `order` int(10) unsigned NOT NULL DEFAULT '0',
+  `photo` varchar(250) NOT NULL,
+  `flvvideo` varchar(250) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `video_video_403f60f` (`user_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `video_video`
+--
+
+LOCK TABLES `video_video` WRITE;
+/*!40000 ALTER TABLE `video_video` DISABLE KEYS */;
+/*!40000 ALTER TABLE `video_video` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2011-07-01 12:19:08

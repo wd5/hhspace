@@ -15,19 +15,32 @@
                 <div class="about">
                     <div class="pict-hold">
                         <div class="frame">
-                            <img src='{{ profile.get_avatar }}' />
-                            {% if user.pk == profile.uleader %}
-                                <a href="{% url avatar_change %}">Сменить аватар</a>
-                            {% endif %}
+                            <img src='{{ profile.get_avatar.url }}' style="width: 163px;"/>
+                            {% ifequal user.pk profile.leaders|add:"0" %}
+                                <a href="{% url group_edit profile.pk %}">Настройка</a>
+                            {% endifequal %}
                         </div>
                         <div class="hold">
-                            <a href="#" class="mail">mail</a>
-                            <a href="#" class="favourites">favourites</a>
+                            <a href="{% url message_reply profile.leaders %}" class="mail">mail</a>
+                            <a href="{% url group_bookmark_add profile.pk %}" class="ajax favourites"
+                               onclick="alert('Добавлено');">favourites</a>
                             <dl>
-                                <dt>Статус:</dt>
-                                <dd>on-line</dd>
-                                <dt>Настроение:</dt>
-                                <dd>отпад</dd>
+                                <dl>
+                                    <dt>Статус:</dt>
+                                    {% ifequal user.pk profile.leaders|add:"0" %}
+                                        <dd><a href="#" class="input">&nbsp;{{ profile.status }}</a> <input
+                                                class="focus little" name="status" style="display: none"
+                                                rel="{% url group_ajax_change profile.pk %}"/></dd>
+                                        <dt>Настроение:</dt>
+                                        <dd><a href="#" class="input">&nbsp;{{ profile.mood }}</a><input
+                                                class="focus little" name="mood" style="display: none"
+                                                rel="{% url group_ajax_change profile.pk %}"/></dd>
+                                    {% else %}
+                                        <dd>&nbsp;{{ profile.status }}</dd>
+                                        <dt>Настроение:</dt>
+                                        <dd>&nbsp;{{ profile.mood }}</dd>
+                                    {% endifequal %}
+                                </dl>
                             </dl>
                         </div>
                     </div>
@@ -55,7 +68,8 @@
                             <dd><a href="http://{{ profile.url }}/"
                                    title="{{ user }}">{{ profile.url }}</a><span>&nbsp;</span></dd>
                             <dt>Страна, Регион:</dt>
-                            <dd><span>{{ profile.country }}</span>, <span>{{ profile.region }}</span><span>&nbsp;</span></dd>
+                            <dd><span>{{ profile.country }}</span>, <span>{{ profile.region }}</span><span>&nbsp;</span>
+                            </dd>
                             <dt>Город:</dt>
                             <dd><span>{{ profile.city }}</span><span>&nbsp;</span></dd>
                             <dt>На сайте:</dt>
@@ -97,77 +111,70 @@
                         {% for album in albums %}
                             <li>
                                 <div class="frame">
-                                    <a href="#"><img src="{{ album.photo_set.all.0.image.url }}" width="221" height="145"
+                                    <a href="#"><img src="{{ album.photo_set.all.0.image.url }}" width="221"
+                                                     height="145"
                                                      alt="{{ album.photo_set.all.0.name }}"/></a>
                                 </div>
                                 <a href="">{{ album.name }}</a>
                             </li>
                         {% empty %}
+                            {% if photoaddurl %}
                             <li>
-                                Вы еще не создали ни одного фотоальбома. <br/>
-                                Хотите <a href='#'> Создать ? </a>
                             </li>
+                            {% endif %}
                         {% endfor %}
                     </ul>
 
                     {% if photos %}
-                        <a href="#" class="more-link">Еще фото</a>
+                        <a href="{% url group_photoalbum_view profile.pk %}" class="more-link">Еще фото</a>
                     {% else %}
                     {% endif %}
                 </div>
+                {% if videos %}
                 <h3>ПОСЛЕДНЕЕ ВИДЕО</h3>
                 <!-- last photo -->
                 <div class="last-photo">
                     <ul>
-                        <li>
-                            <div class="frame">
-                                <a href="#"><img src="/static/images/img-7.jpg" width="221"
-                                                 alt="image description"/></a>
-                            </div>
-                            <a href="#">Про Макса</a>
-                        </li>
-                        <li>
-                            <div class="frame">
-                                <a href="#"><img src="/static/images/img-7.jpg" width="221"
-                                                 alt="image description"/></a>
-                            </div>
-                            <a href="#">Про Грина</a>
-                        </li>
+                        {% for video in videos %}
+                            <li>
+                                <div class="frame">
+                                    <a href="#"><img src="/{{ video.photo }}" width="221" height="145"
+                                                     alt="{{ video.description }}"/></a>
+                                </div>
+                                <a href="">{{ video.name }}</a>
+                            </li>
+                        {% empty %}
+                            <li>
+                            </li>
+                        {% endfor %}
                     </ul>
-                    <a href="#" class="more-link">Еще видео</a>
+                    {% if videos %}
+                        <a href="{% url group_video_list profile.pk %}" class="more-link">Еще видео</a>
+                    {% endif %}
                 </div>
+                {% endif %}
+                {% if groups %}
                 <h3>ПОХОЖИЕ ИСПОЛНИТЕЛИ</h3>
                 <!-- galley -->
-                <div class="gallery-video">
-                    <a class="prev" href="#">previous</a>
-                    <a class="next active" href="#">next</a>
-
-                    <div class="wrap">
-                        <ul>
-                            <li>
-                                <div class="video">
-                                    <a href="#"><img src="/static/images/img-video4.gif" width="136" height="96"
-                                                     alt="video description"/></a>
-                                </div>
-                                <p><a href="#">Смоки Мо</a></p>
-                            </li>
-                            <li>
-                                <div class="video">
-                                    <a href="#"><img src="/static/images/img-video4.gif" width="136" height="96"
-                                                     alt="video description"/></a>
-                                </div>
-                                <p><a href="#">Отрицательное Влияние</a></p>
-                            </li>
-                            <li>
-                                <div class="video">
-                                    <a href="#"><img src="/static/images/img-video4.gif" width="136" height="96"
-                                                     alt="video description"/></a>
-                                </div>
-                                <p><a href="#">Skrip</a></p>
-                            </li>
+                <div class="gallery-video jcarousel-container">
+                    <span id="prevBtn" class='jcarousel-prev'><a class="prev" href="javascript:void(0)">previous</a></span>
+                    <span id="nextBtn" class='jcarousel-next'><a class="next" href="javascript:void(0)">next</a></span>
+                    <div class="wrap video-range jcarousel-clip jcarousel-clip-horizontal">
+                        <ul id='mycarousel'>
+                            {% for group in groups %}
+                                <li>
+                                    <div class="video">
+                                        <a href="{{ group.get_absolute_url }}"><img src="{{ group.get_avatar_thumb }}" id="item{{ group.pk }}"
+                                                         class='showimg' alt="{{ group.username }}"
+                                                         style='width: 135px; height: 135px;'></a>
+                                    </div>
+                                    <p><a href="{{ group.get_absolute_url }}">{{ group.username }}</a></p>
+                                </li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
         <!-- column -->

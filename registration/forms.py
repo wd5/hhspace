@@ -2,14 +2,17 @@
 from datetime import datetime
 
 from django import forms
+from django.forms.extras.widgets import SelectDateWidget
 from django.forms.models import save_instance
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User, get_hexdigest
-from account.models import CustomUser, Singer
+from account.models import CustomUser, Singer, Style
 from hhspace.group.models import Group, Membership
 
 import re
 import datetime
+from utils.autocomplete import ModelAutoCompleteField
+
 alnum_re = re.compile(r'^\w+$') # regexp. from jamesodo in #django
 
 # I put this on all required fields, because it's easier to pick up
@@ -24,20 +27,9 @@ BIRTHDAY_YEARS = ()
 for n in range(1920, now.year):
     BIRTHDAY_YEARS += ((n,n),)
 
-MONTHS = ()
-
-for n in ('Январь',"Февраль","Март","Апрель","Май","Июль","Июнь","Август","Сентябрь","Октябрь","Ноябрь","Декабрь",):
-    MONTHS += ((n,n),)
-
-DAYS = ()
-for n in range(1,31):
-    DAYS += ((n,n),)
-
-DATECREATED_YEARS = ()
-
-for n in range(1980, now.year):
-    DATECREATED_YEARS += ((n,n),)
-
+MONTHS = map(lambda a: (a,a), ('Январь',"Февраль","Март","Апрель","Май","Июль","Июнь","Август","Сентябрь","Октябрь","Ноябрь","Декабрь",))
+DAYS = map(lambda a: (a,a), range(1,13))
+DATECREATED_YEARS = map(lambda a: (a,a), range(1950, 2012))
 
 class RegistrationForm(forms.ModelForm):
     """
@@ -52,19 +44,6 @@ class RegistrationForm(forms.ModelForm):
     argument and passes it through to
     ``RegistrationProfile.objects.create_inactive_user()``.
 
-    """
-
-
-
-    email = forms.EmailField(widget=forms.TextInput(attrs=dict(attrs_dict,
-                                                               maxlength=75)),
-                             label=_(u'Емайл'))
-    first_name = forms.CharField(widget=forms.TextInput(attrs=dict(attrs_dict,
-                                                               maxlength=75)),
-                             label=_(u'Имя'))
-    last_name = forms.CharField(widget=forms.TextInput(attrs=dict(attrs_dict,
-                                                               maxlength=75)),
-                             label=_(u'Фамилия'))
 
     birthday_year = forms.ChoiceField(
         widget=forms.Select(attrs={'class' : 'sel-small1'}),
@@ -78,6 +57,23 @@ class RegistrationForm(forms.ModelForm):
         widget=forms.Select( attrs={'class': 'sel-small1'}, ),
         choices=DAYS ,
         label=_(u'.'))
+    """
+    
+    email = forms.EmailField(widget=forms.TextInput(attrs=dict(attrs_dict,
+                                                               maxlength=75)),
+                             label=_(u'Емайл'))
+
+    first_name = forms.CharField(widget=forms.TextInput(attrs=dict(attrs_dict,
+                                                               maxlength=75)),
+                             label=_(u'Имя'))
+    last_name = forms.CharField(widget=forms.TextInput(attrs=dict(attrs_dict,
+                                                               maxlength=75)),
+                             label=_(u'Фамилия'))
+
+
+    date_created = forms.DateField(widget=SelectDateWidget(attrs={'class' : 'sel-small'},), label=_(u'Дата начала деятельности'))
+    birthday = forms.DateField(widget=SelectDateWidget(attrs={'class' : 'sel-small'},), label=_(u'Дата рождения'))
+
     password1 = forms.CharField(widget=forms.PasswordInput(attrs=attrs_dict, render_value=False),
                                 label=_(u'Пароль'))
 
@@ -86,7 +82,7 @@ class RegistrationForm(forms.ModelForm):
 
     class Meta:
         model = CustomUser
-        fields = ('first_name', 'last_name', 'sex', 'birthday_year', 'birthday_month', 'birthday_day', 'country',  'region', 'city',  'email',   'password1',  'password2', )
+        fields = ('first_name', 'last_name', 'sex', 'birthday', 'country',  'region', 'city',  'email',   'password1',  'password2', )
         # exclude = ('biography', 'is_staff', 'password', 'is_superuser', 'status', 'mood', 'is_active', 'last_login', 'date_joined', 'groups', 'user_permissions')
 
     def clean_email(self):
@@ -141,18 +137,10 @@ class SingerRegistrationForm(RegistrationForm):
     username = forms.CharField(max_length=30,
                                widget=forms.TextInput(attrs=attrs_dict),
                                label=_(u'Творческий псевдоним'))
-    date_created_year = forms.ChoiceField(
-        widget=forms.Select(attrs={'class' : 'sel-small1'}),
-        choices=DATECREATED_YEARS,
-        label=_(u'Дата начала деятельности'))
-    date_created_month = forms.ChoiceField(
-        widget=forms.Select( attrs={'class': 'sel-small1'}, ),
-        choices=MONTHS ,
-        label=_(u'.'))
-    date_created_day = forms.ChoiceField(
-        widget=forms.Select( attrs={'class': 'sel-small1'}, ),
-        choices=DAYS ,
-        label=_(u'.'))
+    styles = ModelAutoCompleteField(lookup_url = '/style/ajax_list/',
+                                    model = Style, required=False)
+
+    directions = forms.CharField(widget=forms.HiddenInput())
 
     reg_group = forms.ChoiceField(widget=forms.Select(), choices=((0, 'Исполнитель'), (1, 'Группа')), label = 'Регистрируюсь как ?')
 
@@ -170,15 +158,18 @@ class SingerRegistrationForm(RegistrationForm):
         except User.DoesNotExist:
             return self.cleaned_data['username']
         raise forms.ValidationError(_(u'This username is already taken. Please choose another.'))
-    
+
     class Meta:
         model = Singer
-        fields = ( 'username', 'date_created_year', 'date_created_month', 'date_created_day', 'styles', 'first_name', 'last_name', 'sex', 'birthday_year', 'birthday_month', 'birthday_day', 'country',  'region', 'city',  'email',   'password1',  'password2', 'directions')
+        fields = ( 'reg_group', 'username', 'date_created', 'styles', 'first_name', 'last_name', 'sex', 'birthday', 'country',  'region', 'city',  'email',   'password1',  'password2', 'directions')
 
 
     def save(self, user):
         # self.directions = [ self.direction, ]
         r = super(SingerRegistrationForm, self).save(user = user)
+        user.date_created = "%s %s %s" % (self.data['date_created_year'], self.data['date_created_month'], self.data['date_created_day'])
+        user.birthday = "%s %s %s" % (self.data['birthday_year'], self.data['birthday_month'], self.data['birthday_day'])
+        user.directions = self.data['directions']
         # r.save_m2m()
         return r
 

@@ -22,6 +22,10 @@ class Group(models.Model):
     featuring = models.IntegerField(default = 0)
     last_visit = models.DateTimeField(auto_created=True,auto_now=True)
     timestamp = models.DateTimeField(auto_now=True, default=datetime.datetime.now())
+    image = models.ImageField(upload_to='group')
+
+    status = models.CharField(max_length=50, blank=True, default='Online')
+    mood = models.CharField(max_length=50, blank=True, default='Отпад')
 
     biography = models.TextField(blank=True, default='')
 
@@ -32,11 +36,26 @@ class Group(models.Model):
     def get_absolute_url(self):
         return ('group_view', None, {'group_id' : self.pk})
 
+    def isleader(self, id):
+        return id == int(self.leaders)
+    
     def username(self):
         return self.name
 
     def issinger(self):
         return True
+
+    def get_username(self):
+        return self.name
+
+    def get_avatar_thumb(self):
+        return self.image
+
+    def get_avatar_mainthumb(self):
+        return self.image
+
+    def get_avatar(self):
+        return self.image
 
 class Membership(models.Model):
     singer = models.ForeignKey(Singer)
@@ -91,3 +110,9 @@ class Audio(Audio):
     @permalink
     def get_absolute_url(self):
         return ('group_audio_view', None, { 'group_id' : self.group_id, 'audio_id' : self.id})
+
+
+class BookmarkGroup(models.Model):
+    user = models.ForeignKey(CustomUser, default=1, related_name='bookmarks_groups')
+    mark = models.ForeignKey(Group, default=1, related_name='mark_groups')
+    date = models.DateTimeField(auto_now=True, blank=True)

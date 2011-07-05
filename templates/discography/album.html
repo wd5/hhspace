@@ -9,11 +9,8 @@
                         <h2><span>{{ profile }}</span></h2>
                         {% include "snippets/account_menu.html" %}
                         <!-- tab box -->
-                        <div class="tab-box" id="tab2" style='position: relative;'>
-
-
-                            {{ edit_url }}
-
+                        <div class="tab-box" id="tab2">
+                            {{ editurl|safe }}
                             <div class="albums-info">
                                 <!-- pict -->
                                 <div class="pict">

@@ -17,6 +17,8 @@
                             return;
                         }
                         id = $(this).attr('id');
+                        desc = $(this).attr('title');
+                        dt =  $(this).attr('rel')
 
                         // calclulate large image's URL based on the thumbnail URL (flickr specific)
                         var url = $(this).attr("src");
@@ -36,7 +38,8 @@
 
                             // change the image
                             wrap.find("img").attr("src", url);
-
+                            $('#date').html(dt)
+                            $('#desc').html(desc)
                         };
 
                         img.src = url;
@@ -64,7 +67,7 @@
             <div class="tab-box" id="tab2" style='position: relative;'>
 
                 {% autoescape off %}
-                    {{ editurl }}
+                    {{ edit_url }}
                 {% endautoescape %}
             
                 <div class="main-photo">
@@ -77,7 +80,7 @@
                     <div class="info-photo">
                         <a href="#comment">Комментировать</a>
 
-                        <p>Загружено: {{ photos.0.create_date }} <br>Описание: {{ photos.0.description }}</p>
+                        <p>Загружено: <span id='date'>{{ photos.0.date_created|date:"m.d.Y" }}</span> <br>Описание: <span id='desc'>{{ photos.0.description }}</span></p>
                     </div>
                 </div>
 
@@ -94,7 +97,7 @@
                                     <div class="video">
                                         <a href="#"><img src="{{ photo.image.url }}" id="item{{ photo.pk }}"
                                                          class='showimg' alt="{{ photo.name }}"
-                                                         style='width: 135px; height: 135px;'></a>
+                                                         style='width: 135px; height: 135px;' rel="{{ photo.date_created|date:"m.d.Y" }}" title="{{ photo.description }}"></a>
                                     </div>
                                     <p><a href="#">{{ photo.name }}</a></p>
                                 </li>

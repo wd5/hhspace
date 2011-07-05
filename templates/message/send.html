@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %} Сообщение отправленно {{ profile }} {% endblock %}
+
+{% block content %}
+
+    <div class="twocolumns news-wrap wrap">
+        <!-- column -->
+        <div class="column">
+            <h2><span> Сообщение отправленно {{ profile }}</span></h2>
+            {% include "snippets/account_menu.html" %}
+            <!-- tab box -->
+            <div class="tab-box" id="tab2">
+
+                Ваше сообщение отправленно адресатам.
+            </div>
+        </div>
+        <!-- column -->
+        <div class="column column2">
+            <h2><span>Реклама</span></h2>
+
+            <div class="box-reklama">
+                <a href="#"><img alt="image description" src="/static/images/img-banner4.gif"></a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %} Написание сообщения {{ profile }} {% endblock %}
+
+{% block content %}
+
+    <script src="/static/js/jquery.validate.js"></script>
+    <script src="/static/js/validate.js"></script>
+
+    <div class="twocolumns news-wrap wrap">
+        <!-- column -->
+        <div class="column">
+            <h2><span> Ответить на сообщение {{ profile }}</span></h2>
+            {% include "snippets/account_menu.html" %}
+            <!-- tab box -->
+            <div class="tab-box" id="tab2">
+
+                <form action="{% url message_reply to %}" method="post" enctype="multipart/form-data"
+                      accept-charset="utf-8" class="validate" >
+
+                    <div class="form-register" >
+                        {% if form.file.errors %}<p>{{ form.file.errors }}</p>{% endif %}
+                        <fieldset>
+                            
+                            {% include 'snippets/forms.html' %}
+
+                            <div class="register-wrap">
+                                    <input class="button" type="submit" value="Отправить" id="submit"/>
+							</div>
+
+                        </fieldset>
+                    </div>
+                    {% csrf_token %}
+                    {% if form.file.errors %}<p>{{ form.notes.errors }}</p>{% endif %}
+                </form>
+
+                
+            </div>
+        </div>
+        <!-- column -->
+        <div class="column column2">
+            <h2><span>Реклама</span></h2>
+
+            <div class="box-reklama">
+                <a href="#"><img alt="image description" src="/static/images/img-banner4.gif"></a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

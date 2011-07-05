@@ -31,9 +31,9 @@
                                     <dt>Создан:</dt>
                                     <dd>{{ album.date_created }}</dd>
                                     <dt>Обновлен:</dt>
-                                    <dd>{{ album.date_updated }}</dd>
+                                    <dd>{{ album.date_updated|date:"m d Y" }}</dd>
                                     <dt>Кол-во фото:</dt>
-                                    <dd>{{ album.photos }}</dd>
+                                    <dd>{{ album.photo_set.count }}</dd>
                                 </dl>
                             </li>
                         {% endfor %}

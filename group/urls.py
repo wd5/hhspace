@@ -2,10 +2,14 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('hhspace.group.views',
                        url('^(?P<group_id>[\d]+)$', 'object_view', name='group_view'),
-                       url('^edit/$', 'object_edit', name='group_edit'),
+                       url('^edit/$', 'object_edit', name='group_new'),
+                       url('^edit/(?P<group_id>\d+)/$', 'object_edit', name='group_edit'),
                        url('^list/$', 'object_list', name='group_list'),
                        url('^(?P<group_id>[\d]+)/biography/$', 'biography_view', name='group_biography_view'),
                        url('^(?P<group_id>[\d]+)/biography/edit/$', 'biography_edit', name='group_biography_edit'),
+                       url('^(?P<id>\d+)/bookmark/add/', 'bookmark_add', name='group_bookmark_add'),
+                       url('^(?P<id>\d+)/bookmark/remove/', 'bookmark_remove', name='group_bookmark_remove'),
+                       url('^(?P<group_id>\d+)/ajax/change/', 'ajax_change', name='group_ajax_change')
 )
 
 urlpatterns += patterns('hhspace.group.discography',

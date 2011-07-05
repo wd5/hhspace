@@ -10,6 +10,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url('^$', 'hhspace.account.views.main', name='mainpage'),
     url('^singer/ajax_list/$', 'hhspace.account.views.ajax_singer_list', name='ajax_singer_list'),
+    url('^style/ajax_list/$', 'hhspace.account.views.ajax_style_list', name='ajax_style_list'),
     
     (r'^registration/', include('hhspace.registration.urls')),
     url('^account/', include('hhspace.account.urls')),

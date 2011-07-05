@@ -67,13 +67,12 @@ class ModelAutoCompleteWidget(forms.widgets.TextInput):
 </ul>
 <br/>
 
-<input type="hidden" name="%s" id="%s" value="" />
 <script type="text/javascript">
      $(function(){
         var acfb = 	$("ul.first").autoCompletefb({urlLookup:"%s"});
      });
 </script>
-""" % (name, html_id, name, html_id, lookup_url ))
+""" % (name, html_id, lookup_url ))
 
 
     def value_from_datadict(self, data, files, name):

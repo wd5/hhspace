@@ -934,7 +934,7 @@ h1,h2,h3,h4,h5,h6,p {
 	text-align:center;
 	line-height: 23px;
 	background: url(../images/bg-tab-nav.gif) no-repeat;
-	padding: 0px 5px;
+	padding: 0px 5px 0px 6px;
 }
 .tabset ul a.active,
 .tabset ul a:hover {
@@ -1029,7 +1029,7 @@ h1,h2,h3,h4,h5,h6,p {
 	margin-top:30px;
 	overflow:hidden;
 	text-indent:-9999px;
-	width:14px;
+	width:15px;
 }
 .gallery-video a.next {
 	background:url("../images/btn-next.gif") no-repeat scroll 0 0 transparent;
@@ -1546,6 +1546,12 @@ h1,h2,h3,h4,h5,h6,p {
 	overflow:auto;
 	background:#fff;
 	border:1px solid #666;
+    padding-left: 5px;
+}
+.form-register textarea.field {
+    width: 240px;
+    max-width: 240px;
+    height: 100px;
 }
 .form-register .row-wrap {
 	overflow:hidden;
@@ -1916,6 +1922,35 @@ h1,h2,h3,h4,h5,h6,p {
 
 .tab-box em {
     font-style: italic;
+}
+
+.row .errorlist {
+    position: absolute;
+    margin-left: 430px;
+    color: red;
+}
+
+.row .error {
+    color: red;
+    float: none;
+    /* left: 442px; */
+    margin-left: 5px;
+    position: absolute;
+    width: auto;
+    z-index: 100;
+    display: inline !important;
+}
+
+.row input.error, .row select.error {
+    border: 1px solid red;
+    position: relative;
+    z-index: 0;
+    margin-left: 0px;
+    float: left;
+}
+
+input.litter {
+    width: 100px;
 }
 
 

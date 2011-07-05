@@ -3,16 +3,25 @@
 
 {% block content %}
 
+    <link rel="stylesheet" type="text/css" href="/static/css/jquery.autocompletefb.css" />
+    <script type='text/javascript' src='/static/js/jquery.bgiframe.min.js'></script>
+    <script type='text/javascript' src='/static/js/jquery.dimensions.js'></script>
+    <script type='text/javascript' src='/static/js/jquery.autocomplete.js'></script>
+    <script type='text/javascript' src="/static/js/jquery.autocompletefb.js"></script>
+
+    <script src="/static/js/jquery.validate.js"></script>
+    <script src="/static/js/validate.js"></script>
+
     <div class="twocolumns news-wrap wrap">
         <!-- column -->
         <div class="column">
             <h2><span>Редактирование {{ profile }}</span></h2>
             {% include "snippets/account_menu.html" %}
             <!-- tab box -->
-            <div class="tab-box" id="tab2" style='position: relative;'>
+            <div class="tab-box" id="tab2">
 
                 <form action="{% url profile_edit %}" method="post" enctype="multipart/form-data"
-                      accept-charset="utf-8" name="upload_form" >
+                      accept-charset="utf-8" name="upload_form" class="validate" >
 
                     <div class="form-register" >
                         {% if form.file.errors %}<p>{{ form.file.errors }}</p>{% endif %}

@@ -18,8 +18,10 @@ class Photoalbum(models.Model):
 
 class Photo(models.Model):
     name = models.CharField(max_length=150, null=False)
-    visited = models.PositiveIntegerField(default = 0, null=False)
+    visited = models.PositiveIntegerField(default = 0)
     image = models.ImageField(upload_to='photos', null=False)
+    description = models.CharField(max_length=250, null=False, default='')
+    date_created = models.DateTimeField(auto_now=True, blank=True)
 
     def __unicode__(self):
         return self.name
