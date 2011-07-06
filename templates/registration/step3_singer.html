@@ -8,46 +8,59 @@
     <script type='text/javascript' src='/static/js/jquery.autocomplete.js'></script>
     <script type='text/javascript' src="/static/js/jquery.autocompletefb.js"></script>
 
-    <script>
+    <script type="text/javascript">
     $(function() {
 
     $(".validate").validate({
 		rules: {
-			username: {
-				required: true,
-				minlength: 2
-			},
 
-            name: {
+            username: {
 				required: true,
 				minlength: 2
 			},
-			password1: {
-				required: true,
-				minlength: 5
-			},
-			password2: {
-				required: true,
-				minlength: 5,
-				equalTo: "#id_password1"
-			},
-			email: {
-				required: true,
-				email: true
-			},
-			first_name: {
+            first_name: {
 				required: true,
 				minlength: 2
 			},
-            last_name: {
+            country: {
 				required: true,
-				minlength: 2
-			}
+				number: true
+			},
+            region: {
+                require: true,
+                number: true
+            },
+            city: {
+                require: true,
+                number: true
+            },
+            password1: {
+                require: true,
+                minLength: 5
+            },
+            password2: {
+                require: true,
+                minLength: 5,
+                equalTo: password1
+            },
+            year: {
+				required: true,
+                number: true
+			},
+            date_created_month: {
+                require: true
+            },
+            date_created_year: {
+                require: true
+            },
+            date_created_day: {
+                require: true
+            }
 		}
 	});
 })
     </script>
-    
+
 <div class="twocolumns news-wrap wrap">
 				<!-- column -->
 				<div class="column">

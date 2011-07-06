@@ -3,9 +3,10 @@ from django import forms
 from django.core.urlresolvers import reverse
 from django.forms.extras.widgets import SelectDateWidget
 from account.models import Singer
-from group.models import Group,TrackGroupAblum, GroupAlbum, Photo, PhotoAlbum, PhotoComment, Video
+from group.models import Group,TrackGroupAblum, GroupAlbum, Photo, PhotoAlbum, PhotoComment, Video, Audio
 from hhspace.utils.autocomplete import ModelAutoCompleteField
 
+MUSIC_YEARS = map(lambda a: (a,a), range(2000, 2012))
 class GroupForm(forms.ModelForm):
 
     name = forms.CharField(required=True, widget=forms.TextInput(
@@ -44,6 +45,7 @@ class GroupAlbumForm(forms.ModelForm):
     name = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Название')
     description = forms.CharField(widget=forms.Textarea(), required=False, label = u'Описание')
     city = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Город')
+    year = forms.ChoiceField(choices=MUSIC_YEARS, widget=forms.Select(attrs={'class':'field'}), label = 'Год')
 
     class Meta:
         model = GroupAlbum
@@ -62,7 +64,7 @@ class GroupTrackForm(forms.ModelForm):
     city = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Город')
     perform_by = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Автор')
     right_to = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Права')
-    year = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Год')
+    year = forms.ChoiceField(choices=MUSIC_YEARS,  widget=forms.Select(attrs={'class':'field'}), label = 'Год')
 
     class Meta:
         model = TrackGroupAblum
@@ -81,10 +83,11 @@ class PhotoAlbumForm(forms.ModelForm):
     city = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Город', required=False)
     year = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Год', required=False)
     image = forms.ImageField()
+    description = forms.CharField(max_length=250, widget=forms.Textarea(), label='Описание')
 
     class Meta:
         model = PhotoAlbum
-        fields = ('name', 'city', 'year', )
+        fields = ('name', 'city', 'year', 'description', )
         exclude = ('singer')
 
     def save(self, group_id):
@@ -97,10 +100,11 @@ class PhotoForm(forms.ModelForm):
 
     name = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Название', required=False)
     image = forms.ImageField()
+    description = forms.CharField(widget=forms.Textarea(), label='Описание', required=False)
 
     class Meta:
         model = Photo
-        fields = ('name', 'image')
+        fields = ('name', 'image', 'description')
 
     def save(self, album_id):
         obj = super(PhotoForm, self).save(commit=False)
@@ -128,22 +132,6 @@ class CommentForm(forms.ModelForm):
         obj = super(CommentForm, self).save(commit=False)
         return obj
 
-
-yearchoise = (
-    (2000, 2000),
-    (2001, 2001),
-    (2002, 2002),
-    (2003, 2003),
-    (2004, 2004),
-    (2005, 2005),
-    (2006, 2006),
-    (2007, 2007),
-    (2008, 2008),
-    (2009, 2009),
-    (2010, 2010),
-    (2011, 2011),
-)
-
 class VideoForm(forms.ModelForm):
 
     artist = forms.CharField(required=False, widget=forms.TextInput(
@@ -161,7 +149,7 @@ class VideoForm(forms.ModelForm):
     )
     year = forms.ChoiceField(
         widget=forms.Select(attrs={'class' : 'sel-data'}),
-        choices=yearchoise,
+        choices=MUSIC_YEARS,
         label = u'Год'
         )
     city = forms.CharField(required=False, widget=forms.TextInput(
@@ -182,4 +170,42 @@ class VideoForm(forms.ModelForm):
 
     def save(self):
         obj = super(VideoForm, self).save(commit=False)
+        return obj.save()
+
+class AudioForm(forms.ModelForm):
+
+    artist = forms.CharField(required=False, widget=forms.TextInput(
+        attrs = { 'class' : 'field', }),
+        label = u'Исполнитель'
+
+    )
+    music_author = forms.CharField(required=False, widget=forms.TextInput(
+        attrs = { 'class' : 'field', }),
+        label = u'Автор музыки'
+    )
+    words_author = forms.CharField(required=False, widget=forms.TextInput(
+        attrs = { 'class' : 'field', }),
+        label = u'Автор слов'
+    )
+    right_to = forms.CharField(required=False, widget=forms.TextInput(
+        attrs = { 'class' : 'field', 'style' : 'width: 168px'}),
+        label = u'Права'
+    )
+    description = forms.CharField(widget=forms.Textarea(), required=False, label = u'Описание')
+    name = forms.CharField(required=False, widget=forms.TextInput(
+        attrs = { 'class' : 'field', }),
+        label = u'Название'
+    )
+    year = forms.ChoiceField(
+        widget=forms.Select(attrs={'class' : 'sel-data'}),
+        choices=MUSIC_YEARS,
+        label = u'Год'
+        )
+
+    class Meta:
+        model = Audio
+        fields = ('audio', 'artist', 'music_author', 'words_author', 'year', 'right_to', 'description', )
+
+    def save(self):
+        obj = super(AudioForm, self).save(commit=False)
         return obj.save()    

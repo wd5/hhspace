@@ -90,6 +90,7 @@ def album_edit(request, singer_id):
             album = form.save(request.user.id)
             photo = Photo()
             photo.album = album
+            photo.description = request.POST.get('description', '')
             save_instance(photoform, photo)
                 
             return HttpResponseRedirect(reverse('singer_photoalbum_view', args=[request.user.pk, album.pk]))

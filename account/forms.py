@@ -67,10 +67,11 @@ class PhotoAlbumForm(forms.ModelForm):
     city = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Город', required=False)
     year = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Год', required=False)
     image = forms.ImageField()
+    description = forms.CharField(max_length=250, widget=forms.Textarea(), label='Описание')
 
     class Meta:
         model = PhotoAlbum
-        fields = ('name', 'city', 'year', )
+        fields = ('name', 'city', 'year', 'description', )
         exclude = ('singer')
 
     def save(self, singer_id):
@@ -83,7 +84,7 @@ class PhotoForm(forms.ModelForm):
 
     name = forms.CharField(max_length=150, widget=forms.TextInput(attrs={'class':'field'}), label = 'Название', required=False)
     image = forms.ImageField()
-    description = forms.CharField(widget=forms.Textarea())
+    description = forms.CharField(widget=forms.Textarea(), label='Описание', required=False)
 
     class Meta:
         model = Photo
@@ -116,7 +117,6 @@ class CommentForm(forms.ModelForm):
         return obj
 
 
-yearchoise = map(lambda a: (a,a), range(2000,2011))
 
 class VideoForm(forms.ModelForm):
 
@@ -135,7 +135,7 @@ class VideoForm(forms.ModelForm):
     )
     year = forms.ChoiceField(
         widget=forms.Select(attrs={'class' : 'sel-data'}),
-        choices=yearchoise,
+        choices=MUSIC_YEARS,
         label = u'Год'
         )
     city = forms.CharField(required=False, widget=forms.TextInput(
@@ -185,7 +185,7 @@ class AudioForm(forms.ModelForm):
     )
     year = forms.ChoiceField(
         widget=forms.Select(attrs={'class' : 'sel-data'}),
-        choices=yearchoise,
+        choices=MUSIC_YEARS,
         label = u'Год'
         )
 

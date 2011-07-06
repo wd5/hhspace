@@ -34,3 +34,10 @@ urlpatterns += patterns('hhspace.group.video',
                        url(r'^(?P<group_id>\d+)/video/(?P<video_id>\d+)/$', 'object_show', name='group_video_show'),
                        url(r'^(?P<group_id>\d+)/video/upload/$', 'video_upload', name='group_video_upload'),
 )
+
+urlpatterns += patterns('hhspace.group.audio',
+                       url(r'^(?P<group_id>\d+)/audio/edit/$', 'edit', name='group_audio_add'),
+                       url(r'^(?P<group_id>\d+)/audio/$', 'list', name='group_audio_list'),
+                       url(r'^(?P<group_id>\d+)/audio/upload/$', 'upload', name='group_audio_upload'),
+                       # url(r'^progress/$', 'audio_upload_progress', name="audio_upload_progress"),
+)

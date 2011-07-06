@@ -91,9 +91,9 @@ CUSTOM_USER_MODEL = 'customuser.CustomUser'
 
 ROOT_URLCONF = 'hhspace.urls'
 
-TEMPLATE_DIRS = ('z:/home/hhspace.com/hhspace/templates', )
-STATIC_ROOT = "z:/home/hhspace.com/hhspace/static/"
-MEDIA_ROOT = "z:/home/hhspace.com/hhspace/media/"
+TEMPLATE_DIRS = ('/home/vladka/hhspace/templates', )
+STATIC_ROOT = "/home/vladka/hhspace/static/"
+MEDIA_ROOT = "/home/vladka/hhspace/media/"
 
 INTERNAL_IPS = ('127.0.0.1', '192.168.1.5', '10.0.0.2', )
 
@@ -118,6 +118,10 @@ INSTALLED_APPS = (
     'hhspace.avatar',
     'hhspace.audio',
     'hhspace.video',
+<<<<<<< HEAD
+=======
+    'hhspace.group',
+>>>>>>> b0a7e86c678725bf35bbfb2a50146f33ea8b0197
     'hhspace.utils',
     'hhspace.content',
 )
@@ -136,7 +140,7 @@ DEBUG_TOOLBAR_PANELS = (
 
 import logging
 
-LOG_FILENAME = 'z:/home/hhspace.com/hhspace/log/app.log'
+LOG_FILENAME = '/home/vladka/hhspace/log/app.log'
 logging.basicConfig(filename=LOG_FILENAME,level=logging.DEBUG)
 
 AUTO_GENERATE_AVATAR_SIZES = (90, 110, )

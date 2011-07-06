@@ -30,7 +30,7 @@ def album_view(request, album_id, group_id, photo_id = None):
     c['photo_tab'] = 'active'
     c['profile'] = get_object_or_404(Group, pk=group_id)
     c['formurl']  = edit_url(request.user, c['profile'], "photoalbum_add", [c['profile'].pk], 0)
-    c['editurl'] = edit_url(request.user, c['profile'], "photoalbum_photo_add", [c['profile'].pk, album_id])
+    c['edit_url'] = edit_url(request.user, c['profile'], "photoalbum_photo_add", [c['profile'].pk, album_id])
 
 
     if request.POST:
@@ -61,7 +61,7 @@ def album_view(request, album_id, group_id, photo_id = None):
 
     c['album'] = PhotoAlbum.objects.get(pk=album_id)
     c['photos'] = photos
-    c['request'] = request.user
+    c['user'] = request.user
     c['comments'] = comments
     c['commenturl'] = edit_url(request.user, c['profile'], 'photoalbum_comment_add', [c['profile'].pk, c['album'].pk, c['photos'][0].pk], 0)
 
@@ -87,6 +87,7 @@ def album_edit(request, group_id):
             album = form.save(c['profile'].pk)
             photo = Photo()
             photo.album = album
+            photo.description = request.POST.get('description', '')
             save_instance(photoform, photo)
                 
             return HttpResponseRedirect(reverse('group_photoalbum_view', args=[c['profile'].pk, album.pk]))

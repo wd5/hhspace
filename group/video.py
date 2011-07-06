@@ -33,9 +33,9 @@ def object_edit(request, group_id):
             logging.info("Upload form is valid: %s" % form)
             video = Video()
             video.timestamp = datetime.datetime.now()
-            video.singer_id = request.user.id
+            video.group_id = group_id
             save_instance(form, video)
-            return HttpResponseRedirect(reverse('group_video_list', args=[singer_id]))
+            return HttpResponseRedirect(reverse('group_video_list', args=[group_id]))
         else:
             c['form'] = form
 

@@ -2,27 +2,47 @@
 {% block title %} Редактирование видео записи {% endblock %}
 
 {% block content %}
+
+    <script type="text/javascript">
+    $(function() {
+
+    $(".validate").validate({
+		rules: {
+            video: {
+				required: true,
+				minlength: 2
+			},
+            artist: {
+				required: true,
+				minlength: 2
+			}
+		}
+	});
+})
+    </script>
+
     <div class="twocolumns news-wrap wrap">
         <!-- column -->
         <div class="column">
             <h2><span>Добавление видео</span></h2>
             {% include "snippets/account_menu.html" %}
             <!-- tab box -->
-            <div class="tab-box" id="tab2" style='position: relative;'>
+            <div class="tab-box" id="tab2">
 
-                <form id="upload_form" action="{{ formurl }}" method="post" enctype="multipart/form-data"
-                      accept-charset="utf-8" name="upload_form">
-
-                    <div class="form-register form-alfa" style='width: 290px; margin: auto;'>
-                        {% if form.file.errors %}<p>{{ form.file.errors }}</p>{% endif %}
-                        <fieldset>
-                            
-                            <div id="progress_container">
+                <div id="progress_container">
                                     <div id="progress_filename"></div>
                                     <div id="progress_bar">
                                         <div id="progress_indicator"></div>
                                     </div>
                             </div>
+                <form id="upload_form" action="{{ formurl }}" method="post" enctype="multipart/form-data"
+                      accept-charset="utf-8" name="upload_form" class="validate1">
+
+                    <div class="form-register form-alfa " style='width: 290px; margin: auto;'>
+                        {% if form.file.errors %}<p>{{ form.file.errors }}</p>{% endif %}
+                        <fieldset>
+                            
+
                             {% include 'snippets/forms.html' %}
 
                             <div class="register-wrap">
@@ -62,10 +82,14 @@
                             progressBar: '#progress_indicator',
                             progressUrl: '{% url video_upload_progress %}',
                             start: function() {
-                                // $("#upload_form").hide();
-                                filename = $("#id_video").val().split(/[\/\\]/).pop();
-                                $("#progress_filename").html('Uploading ' + filename + "...");
-                                $("#progress_container").show();
+                                if($('.validate').valid()) {
+                                    $("#upload_form").hide();
+                                    filename = $("#id_video").val().split(/[\/\\]/).pop();
+                                    $("#progress_filename").html('Uploading ' + filename + "...");
+                                    $("#progress_container").show();
+                                }
+                                else
+                                    $(this).st
                             },
                             uploadProgressPath: "/static/js/jquery.uploadProgress.js",
                             uploading: function(upload) {
