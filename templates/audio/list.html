@@ -138,7 +138,7 @@
             var audioPlaylist = new Playlist("2", [
                 {% for audio in audios %}
                     {
-                        name: " {{ audio.singer }} - {{ audio.name }}",
+                        name: " {{ audio.artist }} - {{ audio.name }}",
                         downloads: "576",
                         time: "2:33",
                         mp3: "{{ audio.audio.url }}"
@@ -170,11 +170,12 @@
     <div class="twocolumns news-wrap wrap ">
         <!-- column -->
         <div class="column">
-            <h2><span>{{ profile }}</span></h2>
+            <h2><span>{{ profile }} - Аудио записи </span></h2>
             {% include "snippets/account_menu.html" %}
             <!-- tab box -->
             <div class="tab-box" id="tab2" style='position: relative;'>
 
+            {{ editurl|safe }}
             
                 <div class="statistic-nav">
                     <ul>
@@ -219,10 +220,11 @@
                                     </ul>
                                 </div>
                             {% else %}
+                                </div>
+                                </div>
+                                <div>
+                                <div>
                                 Вы еще не загрузили ни одной аудио записи <br/>
-                                {% autoescape off %}
-                                    {{ editurl }}
-                                {% endautoescape %}
                             {% endif %}
                         </div>
                     </div>

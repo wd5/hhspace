@@ -7,6 +7,59 @@
     <script type='text/javascript' src='/static/js/jquery.dimensions.js'></script>
     <script type='text/javascript' src='/static/js/jquery.autocomplete.js'></script>
     <script type='text/javascript' src="/static/js/jquery.autocompletefb.js"></script>
+
+    <script type="text/javascript">
+    $(function() {
+
+    $(".validate").validate({
+		rules: {
+            username: {
+				required: true,
+				minlength: 2
+			},
+            first_name: {
+				required: true,
+				minlength: 2
+			},
+            country: {
+				required: true,
+				number: true
+			},
+            region: {
+                require: true,
+                number: true
+            },
+            city: {
+                require: true,
+                number: true
+            },
+            password1: {
+                require: true,
+                minLength: 5
+            },
+            password2: {
+                require: true,
+                minLength: 5,
+                equalTo: password1
+            },
+            year: {
+				required: true,
+                number: true
+			},
+            date_created_month: {
+                require: true
+            },
+            date_created_year: {
+                require: true
+            },
+            date_created_day: {
+                require: true
+            }
+		}
+	});
+})
+    </script>
+    
     
 <div class="twocolumns news-wrap wrap">
 				<!-- column -->

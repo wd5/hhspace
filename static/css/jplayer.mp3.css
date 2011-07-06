@@ -2,8 +2,33 @@
 	width:420px;
         margin: auto;
 }
+.jp-controls:after {
+	clear:both;
+	display:block;
+	content:"";
+}
+.jp-controls {
+	zoom:1;
+	padding:0 0 0 2px !important;
+	height:40px;
+}
 .mp3player ul.jp-controls li {
-    padding-left: 20px;
+	float:left;
+	padding:0 2px 0 0;
+}
+.jp-current-time {
+	left:4px !important;
+	top:72px !important;
+}
+.jp-duration {
+	left:474px !important;
+	top:72px !important;
+}
+.mp3player ul.jp-controls a {
+	float:left;
+	width:18px;
+	height:18px;
+	position:static !important;
 }
 .mp3player div.jp-interface {
 	position: relative;
@@ -79,11 +104,11 @@
 	left:200px;
 }
 .mp3player a.jp-play {
-	background: transparent url(jplayer/mp3player.jpg) no-repeat scroll 0px -33px;
+	background: transparent url(jplayer/mp3player.jpg) no-repeat scroll 0px -34px;
         padding-left: 0px;
 }
 .mp3player a.jp-play:hover {
-	background: transparent url(jplayer/mp3player.jpg) no-repeat scroll -17px -33px;
+	background: transparent url(jplayer/mp3player.jpg) no-repeat scroll -17px -34px;
 }
 .mp3player a.jp-pause {
 	background: transparent url(jplayer/mp3player.jpg) no-repeat scroll 0 2px;
@@ -138,12 +163,12 @@
 	left:172px;
 }
 .mp3player a.jp-previous {
-	background: transparent url(jplayer/mp3player.jpg) no-repeat scroll 0 -69px;
+	background: transparent url(jplayer/mp3player.jpg) no-repeat scroll 0 -70px;
 	width:18px;
 	height:18px;
 }
 .mp3player a.jp-previous:hover {
-	background: transparent url(jplayer/mp3player.jpg) no-repeat scroll -17px -69px;
+	background: transparent url(jplayer/mp3player.jpg) no-repeat scroll -17px -70px;
 }
 .mp3player div.jp-audio div.jp-type-playlist a.jp-next {
 	left:88px;
@@ -159,17 +184,21 @@ div.jp-video-360p div.jp-type-playlist a.jp-next {
 	left:240px;
 }
 .mp3player a.jp-next {
-	background: transparent url(jplayer/mp3player.jpg) no-repeat scroll 0 -50px;
+	background: transparent url(jplayer/mp3player.jpg) no-repeat scroll 0 -52px;
 	width:18px;
 	height:18px;
 }
 .mp3player a.jp-next:hover {
-	background: transparent url(jplayer/mp3player.jpg) no-repeat scroll -17px -50px;
+	background: transparent url(jplayer/mp3player.jpg) no-repeat scroll -17px -52px;
 }
 div.jp-progress {
-	position: absolute;
+	position:absolute;
 	overflow:hidden;
-	background-color: #ddd;
+	left:2px;
+	top:84px;
+	height:6px;
+	width:494px;
+	background-color:#ddd;
 }
 div.jp-audio div.jp-type-single div.jp-progress {
 	top:32px;
@@ -190,17 +219,19 @@ div.jp-video div.jp-progress {
 	height:10px;
 }
 div.jp-seek-bar {
-	background: url("jplayer/mp3player.jpg") 0 -202px repeat-x;
+/*	background: url("jplayer/mp3player.jpg") 0 -202px repeat-x;*/
+	background:#f00;
 	width:0px;
 	/* height:15px; */
-	height:100%;
+	height:6px;
 	cursor: pointer;
 }
 div.jp-play-bar {
-	background: url("jplayer/mp3player.jpg") 0 -218px repeat-x ;
+	/*background: url("jplayer/mp3player.jpg") 0 -218px repeat-x ;*/
 	width:0px;
 	/* height:15px; */
-	height:100%;
+	height:6px;
+	background:#0f0;
 }
 
 /* The seeking class is added/removed inside jPlayer */

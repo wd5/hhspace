@@ -62,7 +62,7 @@ def object_edit(request, group_id = None):
         c['url'] = reverse  ('group_new')
         group = Group()
         
-    c['user'] = request.user
+    c['profile'] = c['user'] = Singer.objects.get(pk=request.user.pk)
 
     if request.method == 'POST':
 

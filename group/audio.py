@@ -44,7 +44,7 @@ def edit(request, group_id):
             audio.timestamp = datetime.datetime.now()
             audio.group_id = group_id
             save_instance(form, audio)
-            return HttpResponseRedirect(reverse('group_audio_list', args=[singer_id]))
+            return HttpResponseRedirect(reverse('group_audio_list', args=[group_id]))
         else:
             c['form'] = form
 
