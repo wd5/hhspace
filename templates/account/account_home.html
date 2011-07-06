@@ -9,6 +9,7 @@
     <div class="twocolumns news-wrap wrap">
         <!-- column -->
         <div class="column">
+
             <h2><span>{{ profile.username }}</span></h2>
             {% include "snippets/account_menu.html" %}
 
@@ -25,14 +26,14 @@
                         <div class="hold">
                             {% if user.pk != profile.pk %}
                             <a href="{% url message_reply profile.pk %}" class="mail">mail</a>
-                            <a href="{% url user_bookmark_add profile.pk %}" class="ajax favourites" onclick="alert('Добавлено');">favourites</a>
+                            <a href="{% url customuser_bookmark_add profile.pk %}" class="ajax favourites" onclick="alert('Добавлено');">favourites</a>
                             {% endif %}
                             <dl>
                                 {% if user.pk == profile.pk %}
                                 <dt>Статус:</dt>
-                                <dd><a href="#" class="input">&nbsp;{{ profile.status }}</a> <input class="focus little" name="status" style="display: none" rel="{% url user_ajax_change user.pk %}" /></dd>
+                                <dd><a href="#" class="input">&nbsp;{{ profile.status }}</a> <input class="focus little" name="status" style="display: none" rel="{% url customuser_ajax_change user.pk %}" /></dd>
                                 <dt>Настроение:</dt>
-                                <dd><a href="#" class="input">&nbsp;{{ profile.mood }}</a><input class="focus little" name="mood" style="display: none" rel="{% url user_ajax_change user.pk %}"/></dd>
+                                <dd><a href="#" class="input">&nbsp;{{ profile.mood }}</a><input class="focus little" name="mood" style="display: none" rel="{% url customuser_ajax_change user.pk %}"/></dd>
                                 {% else %}
                                 <dt>Статус:</dt>
                                 <dd>&nbsp;{{ profile.status }}</dd>

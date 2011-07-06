@@ -83,10 +83,10 @@
                 {% load avatar_tags %}
                 <div class="widget box-kabinet">
 				<div class="avatar">
-					<a href='/account/{{ user.pk }}'><img src="{{ user.get_avatar_thumb }}" alt="{{ user.username }}" /></a>
+					<a href='{{ user.get_absolute_url }}'><img src="{{ user.get_avatar_thumb }}" alt="{{ user.get_username }}" /></a>
 				</div>
 				<div class="kabinet-content">
-					<p>Рад видеть тебя, <a href='/account/{{ user.pk }}'>{{ user.username }}</a></p>
+					<p>Рад видеть тебя, <a href='{{ user.get_absolute_url }}'>{{ user.get_username }}</a></p>
 					<ul>
 						<li class="it1"><a class="alt" href="{% url message_list %}">Личные сообщения</a><a href="{% url message_list %}">{{ user.messages_count }}</a><em>&nbsp;|&nbsp;</em><a href="{% url message_list_new %}">{{ user.messages_new_count }}</a></li>
                         {% if user.singer %}

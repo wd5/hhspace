@@ -3,7 +3,6 @@
 
 {% block content %}
 
-     <script src="/static/js/jquery.validate.js"></script>
     <script type="text/javascript">
     $(function() {
 
@@ -21,7 +20,7 @@
 			
 			year: {
 				required: true,
-				minlength: 2
+				number: true
 			}
 		}
 	});
@@ -36,6 +35,8 @@
             {% include "snippets/account_menu.html" %}
             <!-- tab box -->
             <div class="tab-box" id="tab2">
+
+            {{ form.message }}
                 {% if form.message.errors %}
                     <ul>
                         {% for error in form.message.errors %}
@@ -48,6 +49,7 @@
                     <fieldset class='form-register form-register2'>
                         {% csrf_token %}
                         {% include "snippets/forms.html" %}
+                        {% if form.file.errors %}<p>{{ form.notes.errors }}</p>{% endif %}
                         <div class="register-wrap">
                             <input class="button" type="submit" value="Добавить" id="submit"/>
                         </div>

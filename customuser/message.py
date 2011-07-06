@@ -7,8 +7,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context import RequestContext
 from django.views.generic.simple import direct_to_template
-from account.forms import MessageForm, MessageReplyForm
-from account.models import Singer, CustomUser, Message
+from customuser.forms import MessageForm, MessageReplyForm
+from customuser.models import  CustomUser, Message
+from account.models import Singer
 from utils.views import edit_url
 
 

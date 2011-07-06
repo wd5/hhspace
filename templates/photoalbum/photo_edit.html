@@ -2,6 +2,31 @@
 {% block title %} Редактирование альбома {% endblock %}
 
 {%  block content %}
+
+    <script type="text/javascript">
+    $(function() {
+
+    $(".validate").validate({
+		rules: {
+            name: {
+				required: true,
+				minlength: 2
+			},
+
+			city: {
+				required: true,
+				minlength: 2
+			},
+
+			year: {
+				required: true,
+				number: true
+			}
+		}
+	});
+})
+            </script>
+    
 <div class="twocolumns news-wrap wrap">
     <!-- column -->
     <div class="column">

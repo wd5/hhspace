@@ -2,7 +2,8 @@
 import datetime
 from django.db import models
 from django.db.models import permalink
-from account.models import Singer, City, Region, Country, Style, Direction, CustomUser
+from account.models import Singer,  Style, Direction, CustomUser
+from customuser.models import City, Region, Country
 from hhspace.discography.models import Album, Track
 from hhspace.photoalbum.models import Photoalbum, PhotoComment, Photo
 from hhspace.video.models import Video

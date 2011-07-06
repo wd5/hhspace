@@ -1,20 +1,16 @@
 # -*- coding: utf8 -*-
 import django
-from django.contrib.auth import logout, authenticate
 from django.core.context_processors import csrf
-from django.contrib.auth import login
 from django.core.urlresolvers import reverse
-from django.db.models.query_utils import Q
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response, redirect, get_object_or_404
+from django.template.context import RequestContext
 from django.views.generic.simple import direct_to_template
-from account.forms import BiographyForm
-from account.models import CustomUser, Direction, Style, BookmarkUser
-from content.models import News
-from group.models import BookmarkGroup
+from account.models import PhotoAlbum, Style
+from customuser.forms import BiographyForm
+from customuser.models import CustomUser
 from hhspace.account.models import Singer
 from registration.forms import UserLoginForm
-from hhspace.account.models import PhotoAlbum
 from utils.views import edit_url
 
 def account(request, id):
@@ -23,16 +19,12 @@ def account(request, id):
     c['home_tab'] = 'active'
     c['photo'] = {}
 
+    profile = Singer.objects.get(pk=id)
+    html = 'account/account_home.html'
     try:
-        profile = Singer.objects.get(pk=id)
-        html = 'account/account_home.html'
-        try:
-            c['albums'] = PhotoAlbum.objects.filter(singer=profile).order_by('-date_updated')[:2]
-        except PhotoAlbum.DoesNotExist:
-            c['photoadd'] = 'добавить фото'
-    except Singer.DoesNotExist:
-        profile = CustomUser.objects.get(pk=id)
-        html = 'user/user_home.html'
+        c['albums'] = PhotoAlbum.objects.filter(singer=profile).order_by('-date_updated')[:2]
+    except PhotoAlbum.DoesNotExist:
+        c['photoadd'] = 'добавить фото'
 
     c['profile'] = profile
     c['nnation_tab'] = 'active'
@@ -43,15 +35,12 @@ def account(request, id):
 
     return render_to_response(html, c )
 
+
 def object_edit(request):
 
-    try:
-        profile = Singer.objects.get(pk=request.user.id)
-        from account.forms import ProfileForm
-    except Singer.DoesNotExist:
-        profile = get_object_or_404(CustomUser, pk=request.user.id)
-        from account.forms import UserProfileForm as ProfileForm
-        
+    profile = Singer.objects.get(pk=request.user.id)
+    from account.forms import ProfileForm
+
     c = {}
     c.update(csrf(request))
     c['user'] = request.user
@@ -72,88 +61,40 @@ def object_edit(request):
             return render_to_response('account/profile_edit.html', c)
 
 
-
-def user_login_view(request):
-    form = UserLoginForm(request.POST or None)
-    context = { 'form': form, }
-    context['nnation_tab'] = 'active'
-    if request.method == 'POST' and form.is_valid():
-        username = form.cleaned_data.get('username', None)
-        password = form.cleaned_data.get('password', None)
-        user = authenticate(username=username, password=password)
-        if user and user.is_active:
-            login(request, user)
-            return redirect('/account/%d'% user.id)
-        else:
-            return redirect('/account/login/')
-    return direct_to_template(request, 'login/form.html', context)
-
-def logout_view(request):
-    logout(request)
-    return redirect('/account/login/')
-
 def biography_view(request, singer_id):
-    try:
-        profile = Singer.objects.get(pk=singer_id)
-    except Singer.DoesNotExist:
-        profile = get_object_or_404(CustomUser, pk=singer_id)
-        
+
+    profile = get_object_or_404(Singer, pk=singer_id)
     biography_tab = 'active'
     user = request.user
-    profile.__class__.__name__ = 'singer'
-    editurl = edit_url(user, profile, "biography_edit", [singer_id])
+    editurl = edit_url(user, profile, "biography_edit", [singer_id,])
     nnation_tab = 'active'
 
-    return direct_to_template(request,'account/biography.html', locals())
+    return direct_to_template(request,'customuser/biography.html', locals(), RequestContext(request))
 
 def biography_edit(request, singer_id):
 
-    c = {}
-    c.update(csrf(request))
-    c['user'] = request.user
+    update(csrf(request))
+    user = request.user
 
-    try:
-        c['profile'] = Singer.objects.get(pk=request.user.id)
-    except Singer.DoesNotExist:
-        c['profile'] = get_object_or_404(CustomUser, pk=request.user.id)
+    profile = get_object_or_404(Singer, pk=singer_id)
 
-    c['profile'].__class__.__name__ = 'singer'
-    c['biography_tab'] = 'active'
-    c['formurl'] = edit_url(c['user'], c['profile'], 'biography_edit', [c['profile'].pk], 0)
-    c['nnation_tab'] = 'active'
+    biography_tab = 'active'
+    formurl = edit_url(user, profile, 'biography_edit', [profile.pk, 0])
+    nnation_tab = 'active'
 
     if not request.POST:
-        c['profile'].biography = c['profile'].biography.replace('<br />','\n')
-        form = BiographyForm(instance=c['profile'])
-        c['form'] = form
-        return render_to_response('account/biography_edit.html', c)
+        profile.biography = profile.biography.replace('<br />','\n')
+        form = BiographyForm(instance=profile)
+        return render_to_response('customuser/biography_edit.html', locals(), RequestContext(request))
     else:
         form = BiographyForm(data=request.POST, instance=request.user)
         if form.is_valid():
-            form.save() 
+            form.save()
             return HttpResponseRedirect(reverse('singer_biography_view', args=[request.user.id]))
         else:
             form = BiographyForm(request.POST)
-            c['form'] = form
-            return render_to_response('account/biography_edit.html', c)
-
-
-def main(request):
-
-    directions = Direction.objects.all()
-
-    c = {}
-    c.update(csrf(request))
-    c['directions'] = directions
-    c['user'] = request.user
-    c['main_tab'] = 'active'
-    try:
-        c['news'] = News.objects.filter().order_by('-date_created')[:1][0]
-    except News.DoesNotExist:
-        c['news'] = ''
-
-    return render_to_response('index.html', c)
-
+            return render_to_response('customuser/biography_edit.html', locals(), RequestContext(request))
+        
 def account_list(request, param, value):
 
     user = request.user
@@ -177,7 +118,7 @@ def ajax_singer_list(request):
         results += "{ 'id' : '%s', 'name' : '%s', 'value' : '%s' } " %(item.pk, name, item.username)
         if idx + 1 != len(instances):
             results += ", \n"
-            
+
     results += " ]"
 
     return HttpResponse(results)
@@ -202,43 +143,3 @@ def ajax_style_list(request):
     results += " ]"
 
     return HttpResponse(results)
-
-
-def bookmark_add(request, id):
-
-    if request.user.is_anonymous():
-        return HttpResponse('Вам необходимо  <a href="/registration/">зарегистрироватся</a>')
-    else:
-        o = BookmarkUser.objects.filter(Q(user__id=request.user.id)&Q(mark__id=id)).count()
-        if o == 0:
-            b = BookmarkUser()
-            b.user_id = request.user.id
-            b.mark_id = id
-            b.save()
-        return HttpResponse('Добавленно')
-
-def bookmark_list(request, id):
-
-    users = BookmarkUser.objects.filter(user__id=request.user.id)
-    groups = BookmarkGroup.objects.filter(user__id=request.user.id)
-
-    try:
-        profile = Singer.objects.get(pk=request.user.id)
-    except Singer.DoesNotExist:
-        profile = get_object_or_404(CustomUser, pk=request.user.id)
-
-    user = profile
-
-    return render_to_response('bookmark/list.html', locals() )
-
-def bookmark_remove(request, id):
-
-    o = BookmarkUser.objects.filter(Q(user__id=request.user.id)&Q(mark__id=id))[0].delete()
-    return HttpResponse('Удалено')
-
-def ajax_change(request, user_id):
-
-    user = CustomUser.objects.get(pk=user_id)
-    user.__setattr__(request.GET['name'],request.GET['value']);
-    user.save()
-    return HttpResponse(request.GET['value'])

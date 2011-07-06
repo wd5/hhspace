@@ -86,7 +86,7 @@ AUTHENTICATION_BACKENDS = (
     'hhspace.account.auth_backend.CustomUserModelBackend',
 )
 
-CUSTOM_USER_MODEL = 'account.CustomUser'
+CUSTOM_USER_MODEL = 'customuser.CustomUser'
 
 
 ROOT_URLCONF = 'hhspace.urls'
@@ -110,13 +110,14 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     # 'south',
     'debug_toolbar',
+    'hhspace.customuser',
+    'hhspace.group',
     'hhspace.photoalbum',
     'hhspace.account',
     'hhspace.discography',
     'hhspace.avatar',
     'hhspace.audio',
     'hhspace.video',
-    # 'hhspace.group',
     'hhspace.utils',
     'hhspace.content',
 )

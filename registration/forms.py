@@ -6,7 +6,8 @@ from django.forms.extras.widgets import SelectDateWidget
 from django.forms.models import save_instance
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User, get_hexdigest
-from account.models import CustomUser, Singer, Style
+from account.models import Singer, Style
+from customuser.models import CustomUser
 from hhspace.group.models import Group, Membership
 
 import re

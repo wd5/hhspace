@@ -110,7 +110,7 @@ def biography_view(request, group_id):
     biography_tab = 'active'
     editurl = edit_url(user, profile, "biography_edit", [group_id])
 
-    return render_to_response('account/biography.html', locals())
+    return render_to_response('customuser/biography.html', locals())
 
 def biography_edit(request, group_id):
 

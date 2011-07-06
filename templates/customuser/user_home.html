@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %} h-hspace mainpage {% endblock %}
+{% load avatar_tags %}
+
+{% block content %}
+    <!-- twocolumns -->
+    <div class="twocolumns news-wrap wrap">
+        <!-- column -->
+        <div class="column">
+            <h2><span>{{ profile.username }}</span></h2>
+            {% include "snippets/account_menu.html" %}
+
+            <!-- tab box -->
+            <div class="tab-box" id="tab1">
+                <div class="about">
+                    <div class="pict-hold">
+                        <div class="frame">
+                            <img src='{{ profile.get_avatar }}' />
+                            {% if user.pk == profile.pk %}
+                                <a href="{% url avatar_change %}">Сменить аватар</a>
+                            {% endif %}
+                        </div>
+                        <div class="hold">
+                            {% if user.pk != profile.pk %}
+                            <a href="{% url message_reply profile.pk %}" class="mail">mail</a>
+                            <a href="{% url customuser_bookmark_add profile.pk %}" class="ajax favourites" onclick="alert('Добавлено');">favourites</a>
+                            {% endif %}
+                            <dl>
+                                {% if user.pk == profile.pk %}
+                                <dt>Статус:</dt>
+                                <dd><a href="#" class="input">&nbsp;{{ profile.status }}</a> <input class="focus little" name="status" style="display: none" rel="{% url customuser_ajax_change user.pk %}" /></dd>
+                                <dt>Настроение:</dt>
+                                <dd><a href="#" class="input">&nbsp;{{ profile.mood }}</a><input class="focus little" name="mood" style="display: none" rel="{% url customuser_ajax_change user.pk %}"/></dd>
+                                {% else %}
+                                <dt>Статус:</dt>
+                                <dd>&nbsp;{{ profile.status }}</dd>
+                                <dt>Настроение:</dt>
+                                <dd>&nbsp;{{ profile.mood }}</dd>
+                                {% endif %}
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="about-text">
+                        <dl>
+                            <dt>Псевдоним:</dt>
+                            <dd><span><strong>{{ profile.username }}&nbsp;</strong></span></dd>
+
+                            <dt>Ссылка на сайт:</dt>
+                            <dd><a href="http://{{ profile.url }}/"
+                                   title="{{ user }}">{{ profile.url }}</a><span>&nbsp;</span></dd>
+                            <dt>Страна, Регион:</dt>
+                            <dd><span>{{ profile.country }}</span>, <span>{{ profile.region }}</span><span>&nbsp;</span></dd>
+                            <dt>Город:</dt>
+                            <dd><span>{{ profile.city }}</span><span>&nbsp;</span></dd>
+                            <dt>На сайте:</dt>
+                            <dd>{{ profile.date_joined|date:"F j, Y" }}<span>&nbsp;</span></dd>
+                            <dt>Последний визит:</dt>
+                            <dd>{{ profile.last_login|date:"F j, Y" }}<span>&nbsp;</span></dd>
+                        </dl>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <!-- column -->
+        <div class="column column2">
+            <h2><span>Реклама</span></h2>
+
+            <div class="box-reklama">
+                <a href="user_home.html#"><img src="/static/images/img-banner3.jpg" alt="image description"/></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
