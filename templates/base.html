@@ -61,7 +61,7 @@
                 </div>
                 <!-- widget form login -->
                 <div class="widget form-login">
-                    <form action="/account/login/" method='post'>
+                    <form action="{% url login %}" method='post'>
                         <fieldset>
                             <div class="inp-bg"><input type="text" class="field" value="Логин..." name="username" id='userlogin' /></div>
                             <div class="inp-bg inp-pass"><input type="password" class="field" value="Логин..." name="password" id='userpassword'/></div>
@@ -93,8 +93,12 @@
                             <li class="it2"><a class="alt" href="{% url group_list user.pk %}">Группы</a></li>
                         {% endif %}
 						<li class="it2"><a class="alt" href="{% url bookmark_list user.pk %}">Закладки</a><a href="{% url bookmark_list user.pk %}">{{ cy }}</a></li>
-						<li class="it3"><a class="alt" href="{% url profile_edit %}">Настройки</a></li>
-						<li class="it4"><a href="/account/logout/">Выход</a></li>
+                        {% if user.issinger %}
+						    <li class="it3"><a class="alt" href="{% url singer_profile_edit %}">Настройки</a></li>
+                        {% else %}
+                            <li class="it3"><a class="alt" href="{% url profile_edit %}">Настройки</a></li>
+                        {% endif %}
+						<li class="it4"><a href="{% url logout %}">Выход</a></li>
 					</ul>
 				</div>
 			</div>

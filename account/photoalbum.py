@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-
+from django.contrib.auth.decorators import login_required
 
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
@@ -69,6 +69,7 @@ def album_view(request, album_id, singer_id, photo_id = None):
 
     return direct_to_template(request, 'photoalbum/album.html', c )
 
+@login_required(login_url='/user/login/')
 def album_edit(request, singer_id):
 
     c = {}
@@ -98,6 +99,7 @@ def album_edit(request, singer_id):
             c['form'] = form
             return render_to_response('photoalbum/album_edit.html', c)
 
+@login_required(login_url='/user/login/')
 def photo_edit(request, singer_id, album_id):
 
     c = {}

@@ -19,9 +19,15 @@ class ProfileForm(UserProfileForm):
 
     def save(self):
         obj = super(ProfileForm, self).save()
-        obj.styles = self.data['styles']
-        
-        return obj.save()
+
+        """
+        ToDo
+        разобратся со стилями
+        if self.data.get('styles', None):
+            obj.styles = self.data['styles']
+        """
+
+        return obj
 
 
 class SingerAlbumForm(forms.ModelForm):

@@ -29,16 +29,16 @@
 							<tbody>
                             {% for mark in users %}
                             <tr>
-								<td><a href="{{ mark.mark.get_absolute_url }}"><img src="{{ mark.mark.get_avatar_thumb }}" alt="{{ mark.mark.get_username }}" /></a></td>
+								<td><a href="{% url account mark.mark.pk %}"><img src="{{ mark.mark.get_avatar_thumb }}" alt="{{ mark.mark.get_username }}" /></a></td>
 								<td>{{ mark.mark.get_username }}</td>
-								<td><a href="{% url user_bookmark_remove mark.mark.pk %}" class="ajax" rel="this">Удалить</a></td>
+								<td><a href="{% url customuser_bookmark_remove mark.mark.pk %}" class="ajax" rel="this">Удалить</a></td>
 							</tr>
                             {% endfor %}
                             {% for mark in groups %}
                             <tr>
 								<td><a href="{{ mark.mark.get_absolute_url }}"><img src="{{ mark.mark.get_avatar_thumb }}" alt="{{ mark.mark.get_username }}" /></a></td>
 								<td>{{ mark.mark.get_username }}</td>
-								<td><a href="{% url user_bookmark_remove mark.mark.pk %}" class="ajax" rel="this">Удалить</a></td>
+								<td><a href="{% url customuser_bookmark_remove mark.mark.pk %}" class="ajax" rel="this">Удалить</a></td>
 							</tr>
                             {% endfor %}
 						</tbody>

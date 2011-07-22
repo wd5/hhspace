@@ -16,7 +16,7 @@ import settings
 from utils.views import edit_url
 
 
-@login_required(login_url='/account/login/')
+@login_required(login_url='/user/login/')
 def object_edit(request, singer_id):
 
     c = {}
@@ -70,7 +70,7 @@ def object_show(request, singer_id, video_id):
 
     return render_to_response('video/show.html', locals() )
 
-@login_required(login_url='/account/login/')
+@login_required(login_url='/user/login/')
 def video_upload(request, singer_id):
 
     if request.method == 'POST':

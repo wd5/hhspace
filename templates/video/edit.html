@@ -82,14 +82,14 @@
                             progressBar: '#progress_indicator',
                             progressUrl: '{% url video_upload_progress %}',
                             start: function() {
-                                if($('.validate').valid()) {
+                                //if($('.validate').valid()) {
                                     $("#upload_form").hide();
                                     filename = $("#id_video").val().split(/[\/\\]/).pop();
                                     $("#progress_filename").html('Uploading ' + filename + "...");
                                     $("#progress_container").show();
-                                }
-                                else
-                                    $(this).st
+                               // }
+                               // else
+                               //     $(this).st
                             },
                             uploadProgressPath: "/static/js/jquery.uploadProgress.js",
                             uploading: function(upload) {

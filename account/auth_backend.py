@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth.backends import ModelBackend
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import get_model
+from account.models import Singer
 
 class CustomUserModelBackend(ModelBackend):
     def authenticate(self, username=None, password=None):
@@ -25,3 +26,19 @@ class CustomUserModelBackend(ModelBackend):
             if not self._user_class:
                 raise ImproperlyConfigured('Could not get custom user model')
         return self._user_class
+
+
+class ReplaceSingerBackend(object):
+    def process_request(self, request):
+
+        if request.user.is_authenticated() is True:
+            try:
+                singer = Singer.objects.get(pk=request.user.pk)
+                request.user = singer
+            except Singer.DoesNotExist:
+                return None
+
+            return None
+
+        return None
+
