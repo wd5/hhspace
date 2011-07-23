@@ -3,9 +3,8 @@ import logging
 import os
 from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
-from django.views.generic.simple import direct_to_template
-from account.forms import VideoForm
-from account.models import Singer, Video
+from account.forms import VideoForm, VideoCommentForm
+from account.models import Singer, Video, VideoComment
 
 import datetime
 from django.forms import save_instance
@@ -13,11 +12,12 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpResponse
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
+from django.views.generic.simple import direct_to_template
 import settings
 from utils.views import edit_url
 
 
-@login_required(login_url='/account/login/')
+@login_required(login_url='/user/login/')
 def object_edit(request, singer_id):
 
     c = {}
@@ -69,11 +69,30 @@ def object_show(request, singer_id, video_id):
     editurl = edit_url(request.user, profile, "video_add", [request.user.id])
     nnation_tab = 'active'
     user = request.user
+
+    if request.POST:
+        form = VideoCommentForm(request.POST)
+        if form.is_valid():
+            comment = VideoComment()
+            comment.video_id = video.id
+            comment.user = request.user
+            save_instance(form, comment)
+            form = VideoCommentForm()
+        else:
+            pass
+    else:
+        form = VideoCommentForm()
+
+    comments = VideoComment.objects.filter(video=video)
+
+    comments = comments
+    commenturl = edit_url(request.user, profile, 'video_comment_add', [request.user.id, video.pk, ], 0)
     csrf(request)
+
 
     return direct_to_template(request, 'video/show.html', locals() )
 
-@login_required(login_url='/account/login/')
+@login_required(login_url='/user/login/')
 def video_upload(request, singer_id):
 
     if request.method == 'POST':

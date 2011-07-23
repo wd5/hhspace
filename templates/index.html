@@ -1,5 +1,6 @@
 			{% extends "base.html" %}
             {% block title %} h-hspace mainpage {% endblock %}
+            {% load thumbnail %}
 
             {%  block content %}
             <!-- twocolumns -->
@@ -41,15 +42,15 @@
                             {% if direction.get_video %}
 							<div class="video">
 								<div class="place">
-									<a href="{{ direction.get_video.get_absolute_url }}"><img src="{{ direction.get_video.photo }}" alt="direction.get_video" /></a>
+									<a href="{{ direction.get_video.get_absolute_url }}"><img src="{{ MEDIA_URL }}{{ direction.get_video.photo.name|thumbnail:"167w" }}" alt="direction.get_video" /></a>
 								</div>
-                                                                <p><a href="{{ direction.get_video.get_absolute_url }}">Видео - {{ direction.get_video.name }} </a></p>
+                                <p><a href="{{ direction.get_video.get_absolute_url }}">Видео - {{ direction.get_video.name }} </a></p>
 							</div>
                             {% endif %}
 							<div class="video photo">
                                 {% if direction.get_photo %}
 								<div class="place">
-									<a href="{{ direction.get_photo.get_absolute_url }}"><img src="{{ direction.get_photo.image.url }}" alt="{{ direction.get_photo.name }}" style="width: 167px; height: 127px;" /></a>
+									<a href="{{ direction.get_photo.get_absolute_url }}"><img src="{{ MEDIA_URL }}{{ direction.get_photo.image.name|thumbnail:"167w" }}" alt="{{ direction.get_photo.name }}"/></a>
 								</div>
 								<p><a href="{{ direction.get_photo.get_absolute_url }}">Фото - {{ direction.get_photo.name }}</a></p>
                                 {% endif %}

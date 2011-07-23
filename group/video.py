@@ -10,14 +10,13 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpResponse
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
-from django.views.generic.simple import direct_to_template
-from group.forms import VideoForm
-from group.models import Group, Video
+from group.forms import VideoForm, VideoCommentForm
+from group.models import Group, Video, VideoComment
 import settings
 from utils.views import edit_url
 
 
-@login_required(login_url='/account/login/')
+@login_required(login_url='/user/login/')
 def object_edit(request, group_id):
 
     c = {}
@@ -48,7 +47,6 @@ def object_list(request, group_id):
     profile = Group.objects.get(pk=group_id)
     user = request.user
     editurl = edit_url(request.user, profile, "video_add", [profile.pk])
-    csrf(request)
     
     try:
         videos = Video.objects.filter(group=profile)
@@ -56,7 +54,7 @@ def object_list(request, group_id):
         videos = {}
         
         
-    return direct_to_template(request, 'video/list.html', locals() )
+    return render_to_response('video/list.html', locals() )
 
 def object_show(request, group_id, video_id):
 
@@ -66,11 +64,29 @@ def object_show(request, group_id, video_id):
     profile = get_object_or_404(Group, pk=group_id)
     videos = Video.objects.filter(group=video.group)
     editurl = edit_url(request.user, profile, "video_add", [profile.pk])
+
+    if request.POST:
+        form = VideoCommentForm(request.POST)
+        if form.is_valid():
+            comment = VideoComment()
+            comment.video_id = video.id
+            comment.user = request.user
+            save_instance(form, comment)
+            form = VideoCommentForm()
+        else:
+            pass
+    else:
+        form = VideoCommentForm()
+
+    comments = VideoComment.objects.filter(video=video)
+
+    comments = comments
+    commenturl = edit_url(request.user, profile, 'video_comment_add', [request.user.id, video.pk, ], 0)
     csrf(request)
 
-    return direct_to_template(request, 'video/show.html', locals() )
+    return render_to_response('video/show.html', locals() )
 
-@login_required(login_url='/account/login/')
+@login_required(login_url='/user/login/')
 def video_upload(request, group_id):
 
     if request.method == 'POST':

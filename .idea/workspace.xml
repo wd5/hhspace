@@ -2,8 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="668a2750-84dd-4d78-8dfc-1c1397c0c40b" name="Default" comment="добавил флеш плеер">
-      <change type="DELETED" beforePath="Z:\home\hhspace.com\hhspace\&quot;temp\Òðàíñôîðìåðû3- Ò¸ìíàÿñòîðîíàËóíû- Transformers- Dark of the Moon (2011) CAMRip.torrent&quot;" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account/forms.py" afterPath="$PROJECT_DIR$/account/forms.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/account/video.py" afterPath="$PROJECT_DIR$/account/video.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/customuser/views.py" afterPath="$PROJECT_DIR$/customuser/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/group/forms.py" afterPath="$PROJECT_DIR$/group/forms.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/group/video.py" afterPath="$PROJECT_DIR$/group/video.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log/app.log" afterPath="$PROJECT_DIR$/log/app.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/account/account_home.html" afterPath="$PROJECT_DIR$/templates/account/account_home.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/group/show.html" afterPath="$PROJECT_DIR$/templates/group/show.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/index.html" afterPath="$PROJECT_DIR$/templates/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/registration/step3_singer.html" afterPath="$PROJECT_DIR$/templates/registration/step3_singer.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/templatetags/thumbnail.py" afterPath="$PROJECT_DIR$/utils/templatetags/thumbnail.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utils/views.py" afterPath="$PROJECT_DIR$/utils/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/video/models.py" afterPath="$PROJECT_DIR$/video/models.py" />
     </list>
     <ignored path="hhspace.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -34,82 +46,73 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="photoalbum.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/account/photoalbum.py">
+      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="0" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0">
+            <state line="2" column="12" selection-start="104" selection-end="124" vertical-scroll-proportion="-1.3076923">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="video.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/account/video.py">
+      <file leaf-file-name="list.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/group/list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="82" column="53" selection-start="2748" selection-end="2748" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="video.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/group/video.py">
+      <file leaf-file-name="singer_list.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/account/singer_list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="58" column="68" selection-start="1938" selection-end="1938" vertical-scroll-proportion="0.82505643">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="7.8461537">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/account/models.py">
+      <file leaf-file-name="account_home.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/account/account_home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="70" column="14" selection-start="2110" selection-end="2110" vertical-scroll-proportion="0.0">
+            <state line="3" column="20" selection-start="116" selection-end="116" vertical-scroll-proportion="-1.9615384">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="footer.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/footer.html">
+      <file leaf-file-name="show.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/group/show.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="140" column="24" selection-start="7501" selection-end="7501" vertical-scroll-proportion="0.7868339">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/base.html">
+      <file leaf-file-name="thumbnail.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils/templatetags/thumbnail.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="95" column="7" selection-start="4488" selection-end="4488" vertical-scroll-proportion="0.0">
+            <state line="47" column="40" selection-start="1163" selection-end="1163" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="show.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/video/show.html">
+      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/account/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="127" column="14" selection-start="5363" selection-end="5363" vertical-scroll-proportion="0.0">
+            <state line="95" column="23" selection-start="3357" selection-end="3357" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="step3_singer.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/registration/step3_singer.html">
+      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/customuser/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="14" selection-start="1084" selection-end="1084" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/video/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="119" column="45" selection-start="4952" selection-end="4952" vertical-scroll-proportion="0.0">
+            <state line="95" column="8" selection-start="3132" selection-end="3132" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -129,13 +132,7 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/../flowplayer-3.2.7/flowplayer/example/index.html" />
-        <option value="$PROJECT_DIR$/registration/views.py" />
-        <option value="$PROJECT_DIR$/group/forms.py" />
-        <option value="$PROJECT_DIR$/templates/group/edit.html" />
-        <option value="$PROJECT_DIR$/customuser/models.py" />
         <option value="$PROJECT_DIR$/account/models.py" />
-        <option value="$PROJECT_DIR$/templates/group/show.html" />
         <option value="$PROJECT_DIR$/group/views.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/account/photoalbum.py" />
@@ -145,6 +142,12 @@
         <option value="$PROJECT_DIR$/templates/video/show.html" />
         <option value="$PROJECT_DIR$/templates/registration/step3_singer.html" />
         <option value="$PROJECT_DIR$/video/models.py" />
+        <option value="$PROJECT_DIR$/templates/index.html" />
+        <option value="$PROJECT_DIR$/utils/views.py" />
+        <option value="$PROJECT_DIR$/customuser/views.py" />
+        <option value="$PROJECT_DIR$/templates/account/account_home.html" />
+        <option value="$PROJECT_DIR$/utils/templatetags/thumbnail.py" />
+        <option value="$PROJECT_DIR$/templates/group/show.html" />
       </list>
     </option>
   </component>
@@ -218,7 +221,57 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="video" />
+              <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hhspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hhspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templatetags" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hhspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hhspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hhspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="hhspace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="group" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -407,16 +460,16 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32991913" sideWeight="0.75865924" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15005477" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32887402" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.08280255" sideWeight="0.2406542" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18419647" sideWeight="0.67688936" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18419647" sideWeight="0.7568456" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39464882" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24315444" sideWeight="0.99610513" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24315444" sideWeight="0.99610513" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3231106" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -473,54 +526,11 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/group/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="166" column="103" selection-start="5797" selection-end="5797" vertical-scroll-proportion="0.65462756" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/group/show.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="4" selection-start="149" selection-end="149" vertical-scroll-proportion="0.11860465" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/autocomplete.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="23" selection-start="959" selection-end="959" vertical-scroll-proportion="0.67155755" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="52" selection-start="1595" selection-end="1595" vertical-scroll-proportion="0.9031877" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="0" selection-start="21" selection-end="21" vertical-scroll-proportion="0.11505922" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/log/app.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="31" selection-start="2826" selection-end="2826" vertical-scroll-proportion="0.33104238" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account/photoalbum.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/account/video.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="53" selection-start="2748" selection-end="2748" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/account/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="14" selection-start="2110" selection-end="2110" vertical-scroll-proportion="0.0" />
+        <state line="70" column="14" selection-start="2110" selection-end="2110" vertical-scroll-proportion="0.01918736">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/footer.html">
@@ -530,28 +540,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="7" selection-start="4488" selection-end="4488" vertical-scroll-proportion="0.0">
+        <state line="95" column="7" selection-start="4488" selection-end="4488" vertical-scroll-proportion="0.020070838">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/video/show.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="127" column="14" selection-start="5363" selection-end="5363" vertical-scroll-proportion="0.0">
+        <state line="127" column="14" selection-start="5363" selection-end="5363" vertical-scroll-proportion="0.86162794">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/registration/step3_singer.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="14" selection-start="1084" selection-end="1084" vertical-scroll-proportion="0.0">
+        <state line="39" column="14" selection-start="1084" selection-end="1084" vertical-scroll-proportion="0.019767443">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/video/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="119" column="45" selection-start="4952" selection-end="4952" vertical-scroll-proportion="0.0">
+        <state line="119" column="45" selection-start="4952" selection-end="4952" vertical-scroll-proportion="0.45475373">
           <folding />
         </state>
       </provider>
@@ -559,6 +569,69 @@
     <entry file="file://$PROJECT_DIR$/group/video.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="58" column="68" selection-start="1938" selection-end="1938" vertical-scroll-proportion="0.82505643">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="0" selection-start="1004" selection-end="1004" vertical-scroll-proportion="0.69074494">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/account/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="95" column="23" selection-start="3357" selection-end="3357" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/customuser/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="95" column="8" selection-start="3132" selection-end="3132" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="12" selection-start="104" selection-end="124" vertical-scroll-proportion="-1.3076923">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/group/list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/templatetags/thumbnail.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="40" selection-start="1163" selection-end="1163" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/account/singer_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="7.8461537">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/account/account_home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="20" selection-start="116" selection-end="116" vertical-scroll-proportion="-1.9615384">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/group/show.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="140" column="24" selection-start="7501" selection-end="7501" vertical-scroll-proportion="0.7868339">
           <folding />
         </state>
       </provider>

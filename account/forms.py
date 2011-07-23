@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 from django.utils.html import linebreaks
-from account.models import TrackSingerAblum, SingerAlbum, Photo, PhotoComment, PhotoAlbum, Video, Audio,Style, Singer
+from account.models import TrackSingerAblum, SingerAlbum, Photo, PhotoComment, PhotoAlbum, Video, Audio,Style, Singer, VideoComment
 from django import forms
 from customuser.forms import UserProfileForm
 import hhspace
@@ -164,6 +164,25 @@ class VideoForm(forms.ModelForm):
         obj = super(VideoForm, self).save(commit=False)
         return obj.save()
 
+class VideoCommentForm(forms.ModelForm):
+
+
+    class Meta:
+        model = VideoComment
+        fields = ('text', )
+
+    def clean_photo(self):
+
+        data = self.cleaned_data['video']
+        try:
+            photo = VideoComment.objects.get(pk=data)
+            return photo
+        except PhotoComment.DoesNotExist:
+            raise forms.ValidationError("Video doesn't exist")
+
+    def save(self):
+        obj = super(VideoCommentForm, self).save(commit=False)
+        return obj
 
 class AudioForm(forms.ModelForm):
 

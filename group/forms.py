@@ -3,7 +3,7 @@ from django import forms
 from django.core.urlresolvers import reverse
 from django.forms.extras.widgets import SelectDateWidget
 from account.models import Singer
-from group.models import Group,TrackGroupAblum, GroupAlbum, Photo, PhotoAlbum, PhotoComment, Video, Audio
+from group.models import Group,TrackGroupAblum, GroupAlbum, Photo, PhotoAlbum, PhotoComment, Video, Audio, VideoComment
 from hhspace.utils.autocomplete import ModelAutoCompleteField
 
 MUSIC_YEARS = map(lambda a: (a,a), range(2000, 2012))
@@ -13,13 +13,9 @@ class GroupForm(forms.ModelForm):
         attrs = { 'class' : 'field', }),
         label = u'Название'
     )
-    name = forms.CharField(required=True, widget=forms.TextInput(
-        attrs = { 'class' : 'field', }),
-        label = u'Название'
-    )
     # date_created = forms.DateField(widget=SelectDateWidget(attrs={'class' : 'sel-small'},), label=_(u'Дата начала деятельности'))
     invite = ModelAutoCompleteField(lookup_url = '/singer/ajax_list/',
-                                    model = Singer, required=False, label=u'Участники')
+                                    model = Singer, required=False)
 
     class Meta:
         model = Group
@@ -175,6 +171,26 @@ class VideoForm(forms.ModelForm):
     def save(self):
         obj = super(VideoForm, self).save(commit=False)
         return obj.save()
+
+class VideoCommentForm(forms.ModelForm):
+
+
+    class Meta:
+        model = VideoComment
+        fields = ('text', )
+
+    def clean_photo(self):
+
+        data = self.cleaned_data['video']
+        try:
+            photo = VideoComment.objects.get(pk=data)
+            return photo
+        except PhotoComment.DoesNotExist:
+            raise forms.ValidationError("Video doesn't exist")
+
+    def save(self):
+        obj = super(VideoCommentForm, self).save(commit=False)
+        return obj       
 
 class AudioForm(forms.ModelForm):
 

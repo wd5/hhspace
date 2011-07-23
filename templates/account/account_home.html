@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %} {{ profile }} {% endblock %}
 {% load avatar_tags %}
+{% load thumbnail %}
 
 {% block content %}
     <link rel='stylesheet' type='text/css' href='/static/css/jquery.jcarousel.css'/>
@@ -105,16 +106,17 @@
 
                 {% if albums %}
                 <h3>ПОСЛЕДНЕЕ ФОТО</h3>
+
                 <!-- last photo -->
                 <div class="last-photo">
                     <ul>
                         {% for album in albums %}
                             <li>
                                 <div class="frame">
-                                    <a href="{{ album.photo_set.all.0.get_absolute_url }}"><img src="{{ album.photo_set.all.0.image.url }}" width="221" height="145"
+                                    <a href="{{ album.photo_set.all.0.get_absolute_url }}"><img src="{{ MEDIA_URL }}{{ album.photo_set.all.0.image.name|thumbnail:"220w" }}"
                                                      alt="{{ album.photo_set.all.0.name }}"/></a>
                                 </div>
-                                <a href="">{{ album.name }}</a>
+                                <a href="{{ album.photo_set.all.0.get_absolute_url }}">{{ album.name }}</a>
                             </li>
                         {% empty %}
                             {% if photoaddurl %}
@@ -139,7 +141,7 @@
                         {% for video in videos %}
                             <li>
                                 <div class="frame">
-                                    <a href="#"><img src="/{{ video.photo }}" width="221" height="145"
+                                    <a href="#"><img src="{{ MEDIA_URL }}{{ video.photo|thumbnail:"220w" }}"
                                                      alt="{{ video.description }}"/></a>
                                 </div>
                                 <a href="">{{ video.name }}</a>

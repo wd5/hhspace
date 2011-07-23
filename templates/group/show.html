@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %} h-hspace mainpage {% endblock %}
 {% load avatar_tags %}
+{% load thumbnail %}
 
 {% block content %}
     <!-- twocolumns -->
@@ -23,7 +24,12 @@
                         <div class="hold">
                             <a href="{% url message_reply profile.leaders %}" class="mail">mail</a>
                             <a href="{% url group_bookmark_add profile.pk %}" class="ajax favourites"
-                               onclick="alert('Добавлено');">favourites</a>
+                               {% if user.user.is_authenticated %}
+                                    onclick="alert('Добавлено');"
+                               {% else %}
+                                    onclick="window.location = '/registration/'"
+                               {% endif %}
+                                    >favourites</a>
                             <dl>
                                 <dl>
                                     <dt>Статус:</dt>
@@ -104,6 +110,8 @@
                         <dd>21.02.2000</dd>
                     </dl>
                 </div>
+
+                {% if albums %}
                 <h3>ПОСЛЕДНЕЕ ФОТО</h3>
                 <!-- last photo -->
                 <div class="last-photo">
@@ -130,6 +138,7 @@
                     {% else %}
                     {% endif %}
                 </div>
+                {% endif %}
                 {% if videos %}
                 <h3>ПОСЛЕДНЕЕ ВИДЕО</h3>
                 <!-- last photo -->
@@ -138,7 +147,7 @@
                         {% for video in videos %}
                             <li>
                                 <div class="frame">
-                                    <a href="{{ video.get_absolute_url }}"><img src="/{{ video.photo }}" width="221" height="145"
+                                    <a href="{{ video.get_absolute_url }}"><img src="{{ MEDIA_URL }}{{ video.photo|thumbnail:"220w" }}" 
                                                      alt="{{ video.description }}"/></a>
                                 </div>
                                 <a href="{{ video.get_absolute_url }}">{{ video.name }}</a>
@@ -164,9 +173,9 @@
                             {% for group in groups %}
                                 <li>
                                     <div class="video">
-                                        <a href="{{ group.get_absolute_url }}"><img src="{{ MEDIA_URL }}{{ group.get_avatar_thumb }}" id="item{{ group.pk }}"
+                                        <a href="{{ group.get_absolute_url }}"><img src="{{ group.get_avatar_thumb.name|thumbnail:"135w" }}" id="item{{ group.pk }}"
                                                          class='showimg' alt="{{ group.username }}"
-                                                         style='width: 135px; height: 135px;'></a>
+                                                         ></a>
                                     </div>
                                     <p><a href="{{ group.get_absolute_url }}">{{ group.username }}</a></p>
                                 </li>

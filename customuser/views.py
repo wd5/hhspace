@@ -93,10 +93,7 @@ def user_login_view(request):
 
         else:
             return redirect('/user/login/')
-<<<<<<< HEAD
-=======
         
->>>>>>> cdb9af116de101b1e108300e7cecbdcda21d1a1e
     return direct_to_template(request, 'login/form.html', context)
 
 def logout_view(request):
