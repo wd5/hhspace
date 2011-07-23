@@ -7,10 +7,10 @@
 				<div class="column">
 					<h2><span>Типо вход</span></h2>
 					<div class="widget form-login">
-                    <form action="/account/login/" method='post'>
+                    <form action="{% url login %}" method='post'>
                         <fieldset>
-                            <div class="inp-bg"><input type="text" class="field" value="Логин..." name="username" /></div>
-                            <div class="inp-bg inp-pass"><input type="password" class="field" value="Логин..." name="password" /></div>
+                            <div class="inp-bg"><input type="text" class="field" value="Логин..." name="username"  id='userlogin'  /></div>
+                            <div class="inp-bg inp-pass"><input type="password" class="field" value="Логин..." name="password" id='userpassword' /></div>
                             <div class="remember">
                                 <label for="remember">Запомнить?</label>
                                 <input type="checkbox" class="cb" id="remember" name="remember" />

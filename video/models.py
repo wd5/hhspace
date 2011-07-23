@@ -43,7 +43,7 @@ class FileSystemStorage(storage.FileSystemStorage):
 class Video(models.Model):
     video = models.FileField(storage=FileSystemStorage(location=settings.MEDIA_ROOT), upload_to='video', verbose_name=u'Загрузить файл', default='')
     photo = models.CharField(max_length=250, default='', blank=True)
-    flvvideo = models.CharField(max_length=250, default='', blank=True)
+    mp4_video = models.CharField(max_length=250, default='', blank=True)
     artist = models.CharField(max_length=150, verbose_name='Исполнитель')
     name = models.CharField(max_length=150, blank=True, verbose_name=u'Название', default='')
     director = models.CharField(max_length=150, blank=True, verbose_name=u'Режисер', default='')
@@ -73,28 +73,23 @@ class Video(models.Model):
         self.converted = 1
         self.save()
         
-        self.flvvideo = 'media/' + self.video.name[:self.video.name.rfind('.')] + '.mp4'
+        tmp_video = 'media/' + self.video.name[:self.video.name.rfind('.')] + '_tmp.mp4'
+        qtvideo = 'media/' + self.video.name[:self.video.name.rfind('.')] + '.mp4'
         self.photo = 'media/' + self.video.name[:self.video.name.rfind('.')] + '.jpg'
         logging.info("Video is : %s" % self)
 
 
         os.system('%s -y -i "media/%s" -an -ss 21 -r 1 -vframes 1 -y -f mjpeg -s 150x130 "%s"' % (settings.patch.get('FFMPEG' or 'ffmpeg'), self.video.name, self.photo))
-        logging.info('FFMPEG CONVERT: %s -i media/%s -threads 8  -vcodec libx264 -ar 22050 -ab 56k -vpre slow -aspect 4:3 -b 350k -r 12 -f mp4 -s 350x250 -acodec libfaac -ac 2 %s' % (settings.patch.get('FFMPEG' or 'ffmpeg'), self.video.name, self.flvvideo))
-        os.system('%s -i media/%s -vcodec libx264 -ar 22050 -ab 56k -vpre slow -aspect 4:3 -b 350k -r 12 -f mp4 -s 480x230 -acodec libfaac -ac 2 %s' % (settings.patch.get('FFMPEG' or 'ffmpeg'), self.video.name, self.flvvideo))
-        os.system('%s %s %s' % (settings.patch.get('QT-FASTSTART' or 'qt-faststart'), self.flvvideo, self.flvvideo))
+        logging.info('FFMPEG CONVERT: %s -i media/%s -threads 8  -vcodec libx264 -ar 22050 -ab 56k -vpre slow -aspect 4:3 -b 350k -r 12 -f mp4 -s 350x250 -acodec libfaac -ac 2 %s' % (settings.patch.get('FFMPEG' or 'ffmpeg'), self.video.name, tmp_video))
+        os.system('%s -i media/%s -vcodec libx264 -ar 22050 -ab 56k -vpre slow -aspect 4:3 -b 350k -r 12 -f mp4 -s 480x230 -acodec libfaac -ac 2 %s' % (settings.patch.get('FFMPEG' or 'ffmpeg'), self.video.name, tmp_video))
+        os.system('%s %s %s' % (settings.patch.get('QT-FASTSTART' or 'qt-faststart'), tmp_video, qtvideo))
+        os.system('rm %s' % tmp_video)
+        self.mp4_video = qtvideo
         self.converted = 2
 
         self.save()
 
 
-class VideoComment(models.Model):
-    title = models.CharField(max_length=150, null=False, default='')
-    date_created = models.DateTimeField(auto_now=True, auto_now_add=True, null=False, default=str(datetime.now())[0:10])
-    text = models.TextField(default='')
-
-    class Meta:
-        abstract = True
-        ordering = ['-id']
 
 class UploadProgressCachedHandler(MemoryFileUploadHandler):
     """

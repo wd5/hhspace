@@ -72,7 +72,6 @@ class RegistrationForm(forms.ModelForm):
                              label=_(u'Фамилия'))
 
 
-    date_created = forms.DateField(widget=SelectDateWidget(attrs={'class' : 'sel-small'},), label=_(u'Дата начала деятельности'))
     birthday = forms.DateField(widget=SelectDateWidget(attrs={'class' : 'sel-small'},), label=_(u'Дата рождения'))
 
     password1 = forms.CharField(widget=forms.PasswordInput(attrs=attrs_dict, render_value=False),
@@ -142,7 +141,7 @@ class SingerRegistrationForm(RegistrationForm):
                                     model = Style, required=False)
 
     directions = forms.CharField(widget=forms.HiddenInput())
-
+    date_created = forms.DateField(widget=SelectDateWidget(attrs={'class' : 'sel-small'},), label=_(u'Дата начала деятельности'))
     reg_group = forms.ChoiceField(widget=forms.Select(), choices=((0, 'Исполнитель'), (1, 'Группа')), label = 'Регистрируюсь как ?')
 
     def clean_username(self):

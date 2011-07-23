@@ -22,8 +22,7 @@
                         </div>
                         <div class="hold">
                             {% if user.pk != profile.pk %}
-                            <a href="{% url message_reply profile.pk %}" class="mail">mail</a>
-                            <a href="{% url customuser_bookmark_add profile.pk %}" class="ajax favourites" onclick="alert('Добавлено');">favourites</a>
+                                <a href="{% url message_reply profile.pk %}" class="mail">mail</a>
                             {% endif %}
                             <dl>
                                 {% if user.pk == profile.pk %}

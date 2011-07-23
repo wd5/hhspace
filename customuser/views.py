@@ -1,6 +1,7 @@
 # -*- coding: utf8 -*-
 import django
 from django.contrib.auth import logout, authenticate
+from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
 from django.contrib.auth import login
 from django.core.urlresolvers import reverse
@@ -49,6 +50,7 @@ def user(request, id):
 
     return render_to_response(html, c )
 
+@login_required(login_url='/user/login/')
 def object_edit(request):
 
     profile = get_object_or_404(CustomUser, pk=request.user.id)
@@ -83,9 +85,18 @@ def user_login_view(request):
         user = authenticate(username=username, password=password)
         if user and user.is_active:
             login(request, user)
-            return redirect('/account/%d'% user.id)
+            try:
+                Singer.objects.get(pk=user.id)
+                return redirect('/account/%d'% user.id)
+            except Singer.DoesNotExist:
+                return redirect('/user/%d'% user.id)
+
         else:
             return redirect('/user/login/')
+<<<<<<< HEAD
+=======
+        
+>>>>>>> cdb9af116de101b1e108300e7cecbdcda21d1a1e
     return direct_to_template(request, 'login/form.html', context)
 
 def logout_view(request):
@@ -102,6 +113,7 @@ def biography_view(request, user_id):
 
     return direct_to_template(request,'customuser/biography.html', locals(), RequestContext(request))
 
+@login_required(login_url='/user/login/')
 def biography_edit(request, user_id):
 
     csrf(request)
@@ -154,6 +166,7 @@ def ajax_user_list(request):
 
     return HttpResponse(results)
 
+@login_required(login_url='/user/login/')
 def bookmark_add(request, id):
 
     if request.user.is_anonymous():
@@ -181,11 +194,13 @@ def bookmark_list(request, id):
 
     return render_to_response('bookmark/list.html', locals() )
 
+@login_required(login_url='/user/login/')
 def bookmark_remove(request, id):
 
     o = BookmarkUser.objects.filter(Q(user__id=request.user.id)&Q(mark__id=id))[0].delete()
     return HttpResponse('Удалено')
 
+@login_required(login_url='/user/login/')
 def ajax_change(request, user_id):
 
     user = CustomUser.objects.get(pk=user_id)

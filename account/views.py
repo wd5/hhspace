@@ -1,5 +1,6 @@
 # -*- coding: utf8 -*-
 import django
+from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
@@ -37,6 +38,7 @@ def account(request, id):
     return render_to_response(html, c )
 
 
+@login_required(login_url='/user/login/')
 def object_edit(request):
 
     profile = Singer.objects.get(pk=request.user.id)
@@ -72,15 +74,16 @@ def biography_view(request, singer_id):
 
     return direct_to_template(request,'customuser/biography.html', locals(), RequestContext(request))
 
+@login_required(login_url='/user/login/')
 def biography_edit(request, singer_id):
 
-    update(csrf(request))
+    csrf(request)
     user = request.user
 
     profile = get_object_or_404(Singer, pk=singer_id)
 
     biography_tab = 'active'
-    formurl = edit_url(user, profile, 'biography_edit', [profile.pk, 0])
+    formurl = edit_url(user, profile, 'biography_edit', [profile.pk], 0)
     nnation_tab = 'active'
 
     if not request.POST:

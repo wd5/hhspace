@@ -29,7 +29,7 @@ class UserProfileForm(forms.ModelForm):
 
 class BiographyForm(forms.ModelForm):
 
-    biography = forms.CharField(max_length=150, widget=forms.Textarea(attrs={'class':'field'}), label = 'Биография  ')
+    biography = forms.CharField(max_length=2048, widget=forms.Textarea(attrs={'class':'field'}), label = 'Биография  ')
 
     class Meta:
         model = CustomUser

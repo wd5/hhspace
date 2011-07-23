@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
 from django.http import HttpResponseBadRequest, HttpResponse
 
-@login_required(login_url='/account/login/')
+@login_required(login_url='/user/login/')
 def audio_upload_progress(request):
     """
     Return JSON object with information about the progress of an upload.

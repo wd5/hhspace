@@ -4,7 +4,7 @@ urlpatterns = patterns('hhspace.account.views',
                        url('^(?P<id>[\d]+)$', 'account', name='account'),
                        url('^(?P<singer_id>\d+)/biography/$', 'biography_view', name='singer_biography_view'),
                        url('^(?P<singer_id>\d+)/biography/edit/$', 'biography_edit', name='singer_biography_edit'),
-                       url('^edit/$', 'object_edit', name='profile_edit'),
+                       url('^edit/$', 'object_edit', name='singer_profile_edit'),
                        url('^(?P<param>\w+)/(?P<value>[\d]+)/$', 'account_list', name='account_list'),
 )
 

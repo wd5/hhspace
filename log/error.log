@@ -16,3 +16,64 @@
 2011/07/06 13:11:21 [error] 7322#0: *1281 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
 2011/07/06 13:21:20 [error] 7322#0: *1289 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
 2011/07/06 13:31:20 [error] 7325#0: *1297 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/06 13:41:20 [error] 7325#0: *1305 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/06 13:51:20 [error] 7323#0: *1313 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 00:06:39 [error] 7325#0: *1318 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 00:16:41 [error] 7322#0: *1330 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 00:26:43 [error] 7322#0: *1338 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 00:36:45 [error] 7322#0: *1346 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 00:46:47 [error] 7322#0: *1354 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 00:56:49 [error] 7322#0: *1362 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 01:06:51 [error] 7322#0: *1370 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 01:16:53 [error] 7322#0: *1378 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 01:26:55 [error] 7324#0: *1386 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 01:36:57 [error] 7324#0: *1394 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 06:24:33 [error] 7323#0: *1397 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 06:34:35 [error] 7325#0: *1408 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 06:44:37 [error] 7322#0: *1416 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 06:54:39 [error] 7322#0: *1424 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 07:04:42 [error] 7322#0: *1433 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 07:14:45 [error] 7322#0: *1441 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 07:24:47 [error] 7325#0: *1449 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 07:34:49 [error] 7325#0: *1457 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 07:44:51 [error] 7323#0: *1465 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 07:54:53 [error] 7323#0: *1473 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 07:57:41 [error] 7323#0: *1475 connect() failed (111: Connection refused) while connecting to upstream, client: 10.0.0.2, server: hhspace.loc, request: "GET / HTTP/1.1", upstream: "fastcgi://127.0.0.1:8000", host: "hhspace.loc"
+2011/07/07 07:57:41 [error] 7323#0: *1475 connect() failed (111: Connection refused) while connecting to upstream, client: 10.0.0.2, server: hhspace.loc, request: "GET /favicon.ico HTTP/1.1", upstream: "fastcgi://127.0.0.1:8000", host: "hhspace.loc"
+2011/07/07 08:04:56 [error] 7323#0: *1483 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 08:14:57 [error] 7323#0: *1485 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 08:24:58 [error] 7323#0: *1487 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 08:35:00 [error] 7323#0: *1489 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 08:45:02 [error] 7323#0: *1491 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 08:55:04 [error] 7323#0: *1493 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 09:05:06 [error] 7323#0: *1495 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 09:15:08 [error] 7323#0: *1497 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 09:25:10 [error] 7323#0: *1499 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 09:35:12 [error] 7323#0: *1501 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 09:45:13 [error] 7323#0: *1503 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 09:55:15 [error] 7323#0: *1505 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 10:05:17 [error] 7323#0: *1507 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 10:15:19 [error] 7323#0: *1509 connect() failed (111: Connection refused) while connecting to upstream, client: 127.0.0.1, server: hhspace.loc, request: "GET / HTTP/1.0", upstream: "fastcgi://127.0.0.1:8000", host: "localhost"
+2011/07/07 10:23:45 [error] 7323#0: *1512 FastCGI sent in stderr: "Traceback (most recent call last):
+  File "/usr/local/lib/python2.6/dist-packages/flup-1.0.2-py2.6.egg/flup/server/fcgi_base.py", line 558, in run
+    protocolStatus, appStatus = self.server.handler(self)
+  File "/usr/local/lib/python2.6/dist-packages/flup-1.0.2-py2.6.egg/flup/server/fcgi_base.py", line 1118, in handler
+    result = self.application(environ, start_response)
+  File "/usr/lib/pymodules/python2.6/django/core/handlers/wsgi.py", line 273, in __call__
+    response = self.get_response(request)
+  File "/usr/lib/pymodules/python2.6/django/core/handlers/base.py", line 168, in get_response
+    receivers = signals.got_request_exception.send(sender=self.__class__, request=request)
+  File "/usr/lib/pymodules/python2.6/django/dispatch/dispatcher.py", line 172, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "/usr/lib/pymodules/python2.6/django/db/__init__.py", line 101, in _rollback_on_exception
+    transaction.rollback_unless_managed(using=conn)
+  File "/usr/lib/pymodules/python2.6/django/db/transaction.py", line 133, in rollback_unless_managed
+    connection.rollback_unless_managed()
+  File "/usr/lib/pymodules/python2.6/django/db/backends/__init__.py", line 193, in rollback_unless_managed
+    self._rollback()
+  File "/usr/lib/pymodules/python2.6/django/db/backends/mysql/base.py", line 331, in _rollback
+    BaseDatabaseWrapper._rollback(self)
+  File "/usr/lib/pymodules/python2.6/django/db/backends/__init__.py", line 50, in _rollback
+    return self.connection.rollback()
+OperationalError: (2006, 'MySQL server has gone away')" while reading response header from upstream, client: 10.0.0.2, server: hhspace.loc, request: "GET / HTTP/1.1", upstream: "fastcgi://127.0.0.1:8000", host: "hhspace.loc"
+2011/07/07 10:23:56 [error] 7323#0: *1515 open() "/home/vladka/hhspace/media/video/Speculum_Camera_Inside_Vagina_-xxx_sexe_bizarre_1.jpg" failed (2: No such file or directory), client: 10.0.0.2, server: hhspace.loc, request: "GET /media/video/Speculum_Camera_Inside_Vagina_-xxx_sexe_bizarre_1.jpg HTTP/1.1", host: "hhspace.loc", referrer: "http://hhspace.loc/"

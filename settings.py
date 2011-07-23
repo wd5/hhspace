@@ -80,6 +80,7 @@ MIDDLEWARE_CLASSES = (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'hhspace.account.auth_backend.ReplaceSingerBackend',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -108,7 +109,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    # 'south',
+    'south',
     'debug_toolbar',
     'hhspace.customuser',
     'hhspace.group',

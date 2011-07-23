@@ -43,7 +43,7 @@
 								<div class="place">
 									<a href="{{ direction.get_video.get_absolute_url }}"><img src="{{ direction.get_video.photo }}" alt="direction.get_video" /></a>
 								</div>
-								<p><a href="{{ direction.get_video.get_absolute_url }}">Видео - </a></p>
+                                                                <p><a href="{{ direction.get_video.get_absolute_url }}">Видео - {{ direction.get_video.name }} </a></p>
 							</div>
                             {% endif %}
 							<div class="video photo">
@@ -58,7 +58,7 @@
 								<div class="box-info-hold">
 									<div class="place">
                                         {% if direction.get_singer.pk %}
-										    <a href="{{ direction.get_singer.get_absolute_url }}"><img src="{{ direction.get_singer.get_avatar_mainthumb }}" alt="{% autoescape off %}{{ direction.get_singer.biography|truncatewords:"30" }}{% endautoescape %}" /></a>
+										    <a href="{{ direction.get_singer.get_absolute_url }}"><img src="{{ direction.get_singer.get_avatar_mainthumb }}" alt="{% autoescape off %}{{ direction.get_singer.biography|truncatewords:"60" }}{% endautoescape %}" /></a>
                                         {% endif %}
 									</div>
 									<div class="text">
@@ -66,7 +66,7 @@
 											<li><span>Название: </span>{{ direction.get_singer.username }}</li>
 											<li><span>Стиль: </span>{{ direction.get_singer.styles.all|join:", " }}</li>
 											<li><span>Сайт: </span><a href="{{ direction.get_singer.url }}" target="_blank">{{ direction.get_singer.url }}</a></li>
-											<li><span>Кратко: </span>{% autoescape off %} {{ direction.get_singer.biography|truncatewords:"130" }} {%  endautoescape %}</li>
+											<li><span>Кратко: </span>{% autoescape off %} {{ direction.get_singer.biography|truncatewords:"20" }} {%  endautoescape %}</li>
 										</ul>
 									</div>
 								</div>

@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
@@ -37,6 +38,7 @@ def discography_view(request, singer_id, album_id):
 
     return direct_to_template(request, 'discography/album.html', locals() )
 
+@login_required(login_url='/user/login/')
 def album_edit(request, singer_id):
 
     c = {}
@@ -61,6 +63,7 @@ def album_edit(request, singer_id):
             c['form'] = form
             return render_to_response('discography/album_edit.html', c)
 
+@login_required(login_url='/user/login/')
 def track_edit(request, album_id, singer_id):
 
     c = {}

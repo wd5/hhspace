@@ -25,7 +25,7 @@ def initial(request):
 	return render_to_response('audio/edit.html', data, RequestContext(request))
  
 
-@login_required(login_url='/account/login/')
+@login_required(login_url='/user/login/')
 def edit(request, singer_id):
 
     c = {}
@@ -65,7 +65,7 @@ def list(request, singer_id):
         
     return direct_to_template(request, 'audio/list.html', locals() )
 
-@login_required(login_url='/account/login/')
+@login_required(login_url='/user/login/')
 def upload(request, singer_id):
 
     if request.method == 'POST':
