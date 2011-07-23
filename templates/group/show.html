@@ -138,10 +138,10 @@
                         {% for video in videos %}
                             <li>
                                 <div class="frame">
-                                    <a href="#"><img src="/{{ video.photo }}" width="221" height="145"
+                                    <a href="{{ video.get_absolute_url }}"><img src="/{{ video.photo }}" width="221" height="145"
                                                      alt="{{ video.description }}"/></a>
                                 </div>
-                                <a href="">{{ video.name }}</a>
+                                <a href="{{ video.get_absolute_url }}">{{ video.name }}</a>
                             </li>
                         {% empty %}
                             <li>
@@ -164,7 +164,7 @@
                             {% for group in groups %}
                                 <li>
                                     <div class="video">
-                                        <a href="{{ group.get_absolute_url }}"><img src="{{ group.get_avatar_thumb }}" id="item{{ group.pk }}"
+                                        <a href="{{ group.get_absolute_url }}"><img src="{{ MEDIA_URL }}{{ group.get_avatar_thumb }}" id="item{{ group.pk }}"
                                                          class='showimg' alt="{{ group.username }}"
                                                          style='width: 135px; height: 135px;'></a>
                                     </div>

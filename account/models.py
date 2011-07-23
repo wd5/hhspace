@@ -10,7 +10,7 @@ from hhspace.avatar.settings import AVATAR_DEFAULT_URL
 from hhspace.settings import MEDIA_URL
 from hhspace.discography.models import Album, Track
 from hhspace.photoalbum.models import Photo, Photoalbum, PhotoComment
-from hhspace.video.models import Video
+from hhspace.video.models import Video, VideoComment
 from hhspace.audio.models import Audio
 
 class Direction(models.Model):
@@ -72,6 +72,9 @@ class Singer(CustomUser):
     def get_absolute_url(self):
         return ('hhspace.account.views.account', None, {'id' : self.id})
 
+    def get_edit_path(self):
+        return '/account/edit/'
+
 class SingerAlbum(Album):
     singer = models.ForeignKey('Singer')
 
@@ -106,6 +109,10 @@ class Video(Video):
     @permalink
     def get_absolute_url(self):
         return ('singer_video_view', None, { 'singer_id' : self.singer_id, 'video_id' : self.id})
+
+class VideoComment(VideoComment):
+    user = models.ForeignKey(CustomUser, null=False, default=1, related_name='singer_videocomment_set')
+    photo = models.ForeignKey(Video, null=False, default=1)
 
 class Audio(Audio):
     singer = models.ForeignKey(Singer, default=1)

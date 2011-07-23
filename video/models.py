@@ -87,6 +87,14 @@ class Video(models.Model):
         self.save()
 
 
+class VideoComment(models.Model):
+    title = models.CharField(max_length=150, null=False, default='')
+    date_created = models.DateTimeField(auto_now=True, auto_now_add=True, null=False, default=str(datetime.now())[0:10])
+    text = models.TextField(default='')
+
+    class Meta:
+        abstract = True
+        ordering = ['-id']
 
 class UploadProgressCachedHandler(MemoryFileUploadHandler):
     """

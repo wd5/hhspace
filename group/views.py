@@ -8,6 +8,7 @@ from django.db.models.query_utils import Q
 from django.forms.models import save_instance
 from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
+from django.template.context import RequestContext
 from account.models import Singer, CustomUser
 from group.forms import GroupBiographyForm
 from group.models import Membership, Group, BookmarkGroup, PhotoAlbum
@@ -44,7 +45,7 @@ def object_view(request, group_id):
     videoaddurl = edit_url(request.user, profile, 'video_add', [profile.pk] )
     groups = Group.objects.filter(directions__pk=profile.directions.all()[0].pk).exclude(pk=profile.pk)[:10]
 
-    return render_to_response('group/show.html', locals() )
+    return render_to_response('group/show.html', locals(),  context_instance=RequestContext(request))
 
 
 @login_required(login_url='/account/login/')
@@ -95,13 +96,12 @@ def object_edit(request, group_id = None):
                 member.invite_reason = 'Auto'
                 member.date_joined = datetime.now().__str__()[:10]
                 member.save()
-                logging.info("singer id is : %s, numeric : %s" % (singer_pk, singers[idx]))
     
             return HttpResponseRedirect(reverse('group_list'))
         else:
             c['form'] = form
 
-    return render_to_response('group/edit.html', c)
+    return render_to_response('group/edit.html', c, context_instance=RequestContext(request))
 
 def biography_view(request, group_id):
 
@@ -137,7 +137,7 @@ def biography_edit(request, group_id):
         else:
             form = GroupBiographyForm(request.POST)
             c['form'] = form
-            return render_to_response('account/biography_edit.html', c)
+            return render_to_response('account/biography_edit.html', c, context_instance=RequestContext(request))
 
 def bookmark_add(request, id):
 
@@ -164,7 +164,7 @@ def bookmark_list(request, id):
 
     user = profile
 
-    return render_to_response('bookmark/list.html', locals() )
+    return render_to_response('bookmark/list.html', locals(), context_instance=RequestContext(request))
 
 def bookmark_remove(request, id):
 

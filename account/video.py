@@ -3,6 +3,7 @@ import logging
 import os
 from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
+from django.views.generic.simple import direct_to_template
 from account.forms import VideoForm
 from account.models import Singer, Video
 
@@ -49,13 +50,14 @@ def object_list(request, singer_id):
     user = request.user
     editurl = edit_url(request.user, profile, "video_add", [request.user.id])
     nnation_tab = 'active'
+    csrf(request)
     
     try:
         videos = Video.objects.filter(singer=profile)
     except Video.DoesNotExist:
         videos = {}
         
-    return render_to_response('video/list.html', locals() )
+    return direct_to_template(request, 'video/list.html', locals() )
 
 def object_show(request, singer_id, video_id):
 
@@ -67,8 +69,9 @@ def object_show(request, singer_id, video_id):
     editurl = edit_url(request.user, profile, "video_add", [request.user.id])
     nnation_tab = 'active'
     user = request.user
+    csrf(request)
 
-    return render_to_response('video/show.html', locals() )
+    return direct_to_template(request, 'video/show.html', locals() )
 
 @login_required(login_url='/account/login/')
 def video_upload(request, singer_id):

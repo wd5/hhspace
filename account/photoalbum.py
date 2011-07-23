@@ -1,6 +1,5 @@
 # -*- coding: utf8 -*-
 
-
 from django.core.context_processors import csrf
 from django.core.urlresolvers import reverse
 from django.forms.models import save_instance

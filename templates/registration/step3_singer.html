@@ -41,7 +41,7 @@
             password2: {
                 require: true,
                 minLength: 5,
-                equalTo: password1
+                equalTo: 'password1'
             },
             year: {
 				required: true,
@@ -83,8 +83,6 @@
                             <input type='submit' class='button' name='save' value='Готово' />
 					    </div>
                     </form>
-                    <script src="/static/js/jquery.validate.js"></script>
-                    <script src="/static/js/validate.js"></script>
                     </fieldset>
                     </div>
 				</div>
@@ -92,7 +90,7 @@
 				<div class="column column2">
 					<h2><span>Реклама</span></h2>
 					<div class="box-reklama">
-						<a href="#"><img alt="image description" src="images/img-banner4.gif"></a>
+						<a href="#"><img alt="image description" src="/images/img-banner4.gif"></a>
 					</div>
 				</div>
 			</div>

@@ -6,7 +6,7 @@ from account.models import Singer,  Style, Direction, CustomUser
 from customuser.models import City, Region, Country
 from hhspace.discography.models import Album, Track
 from hhspace.photoalbum.models import Photoalbum, PhotoComment, Photo
-from hhspace.video.models import Video
+from hhspace.video.models import Video, VideoComment
 from hhspace.audio.models import Audio
 
 class Group(models.Model):
@@ -104,6 +104,11 @@ class Video(Video):
     @permalink
     def get_absolute_url(self):
         return ('group_video_add', None, { 'group_id' : self.group_id, 'video_id' : self.id})
+
+
+class VideoComment(VideoComment):
+    user = models.ForeignKey(CustomUser, null=False, default=1, related_name='group_videocomment_set')
+    photo = models.ForeignKey(Video, null=False, default=1)
 
 class Audio(Audio):
     group = models.ForeignKey(Group, default=1)

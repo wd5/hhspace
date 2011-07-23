@@ -85,12 +85,12 @@ def user_login_view(request):
             login(request, user)
             return redirect('/account/%d'% user.id)
         else:
-            return redirect('/account/login/')
+            return redirect('/user/login/')
     return direct_to_template(request, 'login/form.html', context)
 
 def logout_view(request):
     logout(request)
-    return redirect('/account/login/')
+    return redirect('/user/login/')
 
 def biography_view(request, user_id):
 

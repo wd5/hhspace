@@ -13,9 +13,13 @@ class GroupForm(forms.ModelForm):
         attrs = { 'class' : 'field', }),
         label = u'Название'
     )
+    name = forms.CharField(required=True, widget=forms.TextInput(
+        attrs = { 'class' : 'field', }),
+        label = u'Название'
+    )
     # date_created = forms.DateField(widget=SelectDateWidget(attrs={'class' : 'sel-small'},), label=_(u'Дата начала деятельности'))
     invite = ModelAutoCompleteField(lookup_url = '/singer/ajax_list/',
-                                    model = Singer, required=False)
+                                    model = Singer, required=False, label=u'Участники')
 
     class Meta:
         model = Group

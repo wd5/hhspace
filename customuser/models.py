@@ -97,6 +97,9 @@ class CustomUser(User):
     def messages_count(self):
         return Message.objects.filter(to__id=self.pk).count()
 
+    def get_edit_path(self):
+        return '/user/edit/'
+
 
 class Message(models.Model):
     ffrom = models.ForeignKey(CustomUser, default=1, null=False, related_name='from_messages')

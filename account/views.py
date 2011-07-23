@@ -32,6 +32,7 @@ def account(request, id):
     c['photoaddurl'] = edit_url(request.user, c['profile'], 'photoalbum_add', [c['profile'].pk] )
     c['videoaddurl'] = edit_url(request.user, c['profile'], 'video_add', [c['profile'].pk] )
     c['singers'] = Singer.objects.filter(directions__pk=c['profile'].directions.all()[0].pk).exclude(pk=profile.pk)[:10]
+    c.update(csrf(request))
 
     return render_to_response(html, c )
 

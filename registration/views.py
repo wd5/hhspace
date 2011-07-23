@@ -56,7 +56,7 @@ def register(request):
 
                     gr = request.POST.get('reg_group', 0)
                     if gr != '0':
-                        return HttpResponseRedirect(reverse('group_edit'))
+                        return HttpResponseRedirect(reverse('group_new'))
                     else:
                         return HttpResponseRedirect(reverse('account', args=[user.pk]))
                 else:
